@@ -12,8 +12,8 @@
 		<div class="card">
 			<div class="card-header">
 				<h4 class="card-title">기술</h4>
-<!-- 		<input type="button" value="게시글 수정" -->
-<!-- onclick="location.href='/Project/view/board/register.jsp'"> -->
+		<input type="button"class="btn btn-primary" value="글쓰기"
+onclick="location.href='/view/board/skil_write.jsp'">
 			</div>
 			<div class="card-body">
 				<!-- table start -->

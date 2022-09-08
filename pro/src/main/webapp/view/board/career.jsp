@@ -11,7 +11,9 @@
 		<!-- card start -->
 		<div class="card">
 			<div class="card-header">
-				<h4 class="card-title">기술</h4>
+				<h4 class="card-title">커리어</h4>
+				<input type="button" class="btn btn-primary" value="글쓰기"
+					onclick="location.href='/view/board/career_write.jsp'">
 			</div>
 			<div class="card-body">
 				<!-- table start -->
