@@ -10,7 +10,7 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-single-04"></i><span class="nav-text">Q&A</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="../../view/board/skil.jsp">기술</a></li>
+                            <li><a href="../../view/board/skill.jsp">기술</a></li>
                             <li><a href="../../view/board/career.jsp">커리어</a></li>
                         </ul>
                     </li>
