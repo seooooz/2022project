@@ -13,6 +13,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
         ***********************************-->
 <div class="content-body" align="center">
 	<%@ include file="test.jsp"%>
+	<br><br>
 	<!-- row -->
 	<div class="container-fluid">
 		<div class="row">
