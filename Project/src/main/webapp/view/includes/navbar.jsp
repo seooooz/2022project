@@ -8,10 +8,10 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">Q&A</span></a>
+                                class="icon icon-single-04"></i><span class="nav-text">QnA</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="../../resources/index.html">기술</a></li>
-                            <li><a href="../../resources/index2.html">커리어</a></li>
+                            <li><a href="../../view/board/skill.jsp">기술</a></li>
+                            <li><a href="../../view/board/career.jsp">커리어</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">Main Menu</li>
@@ -44,8 +44,8 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-world-2"></i><span class="nav-text">NOTICE</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="../../resources/ui-accordion.html">셋팅 방법</a></li>
-                            <li><a href="../../resources/ui-alert.html">이용 방법</a></li>
+                            <li><a href="../board/setNotice.jsp">셋팅 방법</a></li>
+                            <li><a href="../board/useNotice.jsp">이용 방법</a></li>
 
                         </ul>
                     </li>
@@ -62,7 +62,7 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-layout-25"></i><span class="nav-text">LOGIN</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="table-bootstrap-basic.html">SIGN IN</a></li>
+                            <li><a href="table-bootstrap-basic.html">SIGN UP</a></li>
                             <li><a href="table-datatable-basic.html">SIGN OUT</a></li>
                         </ul>
                     </li>

@@ -45,7 +45,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="../../view/board/index.jsp" class="brand-logo">
                 <img class="logo-abbr" src="../../resources/images/logo.png" alt="">
                 <img class="logo-compact" src="../../resources/images/logo-text.png" alt="">
                 <img class="brand-title" src="../../resources/images/logo-text.png" alt="">
@@ -82,6 +82,7 @@
                         </div>
 
                         <ul class="navbar-nav header-right">
+                        	<!-- 우측 상단 아이콘 -->
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-bell"></i>
@@ -142,6 +143,7 @@
                                             class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
+                            <!-- 우측 상단 아이콘 끝 -->
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-account"></i>
