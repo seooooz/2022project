@@ -1,4 +1,4 @@
-package userMember;
+package usermember;
 
 import common.DBConnPool;
 
