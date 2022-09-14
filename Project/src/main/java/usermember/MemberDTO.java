@@ -1,4 +1,4 @@
-package userMember;
+package usermember;
 
 public class MemberDTO {
 	private String name;
