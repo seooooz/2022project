@@ -12910,7 +12910,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
         font-size: 1.20px; }
 
 .profile-tab .nav-item .nav-link {
-  font-size: 18px;
+  font-size: 15px;
   padding: 10px 0 .50px;
   margin-right: 30px;
   transition: all 0.5s ease-in-out;
