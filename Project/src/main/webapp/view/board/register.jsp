@@ -14,20 +14,20 @@
 </head>
 <body class="h-100">
 <span>
-	<%= request.getAttribute("SignUpErrMsg") == null ? "" : request.getAttribute("SignUpErrMsg") %>
+	<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg") %>
 </span>
 
 	<script>
 		function validateForm(form) {
-			if(form.sign_name.value == ""){
-				alert("이름을 입력하세요.");
+			if(!form.user_name.value){
+				alert("이름을 입력하세요.")
 				return false;
 			}
-			if(form.sign_id.value == ""){
+			if(!form.user_id.value){
 				alert("아이디를 입력하세요.");
 				return false;
 			}
-			if(form.sign_pw.value == ""){
+			if(form.user_pw.value == ""){
 				alert("패스워드를 입력하세요.");
 				return false;
 			}
@@ -42,21 +42,21 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Sign up your account</h4>
-                                    <form action="../../Process/LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this)" class="authincation h-100">
+                                    <form method="post" action="../../Process/RegisterProcess.jsp">
                                         <div class="form-group">
                                             <label><strong>Name</strong></label>
-   <!-- name입력  -->	                        <input type="text" name="sign_name" class="form-control" placeholder="username">
+   <!-- name입력  -->	                        <input type="text" name="user_name" class="form-control" placeholder="username">
                                         </div>
                                         <div class="form-group">
    <!-- id입력  -->                           <label><strong>ID</strong></label>
-                                            <input type="text" name="sign_id" class="form-control" placeholder="abc123">
+                                            <input type="text" name="user_id" class="form-control" placeholder="abc123">
                                         </div>
                                         <div class="form-group">
    <!-- pw입력  -->                          <label><strong>Password</strong></label>
-                                            <input type="password" name="sign_pw" class="form-control"  placeholder="********">
+                                            <input type="password" name="user_pw" class="form-control" value="" placeholder="*******">
                                         </div>
                                         <div class="text-center mt-4">
-                                            <button type="submit" onclick="location.herf=''" class="btn btn-primary btn-block">Sign me up</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Sign me up</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
