@@ -9,23 +9,24 @@ public class MemberDAO extends DBConnPool{
 	}
 	
 	// 회원가입 
-	public MemberDTO insertMemberDTO(String uname, String uid, String upass) {
-		MemberDTO dto = new MemberDTO();
-		String query = "INSERT INTO usermember values(?, ?, ?)";
-		
+	public int insertMemberDTO(MemberDTO dto) {
+		int result = 0;
 		try {
+			String query = "INSERT INTO usermember(name, id, pass) values(?, ?, ?)";
 			psmt = con.prepareStatement(query);
 			
 			psmt.setString(1, dto.getName());
 			psmt.setString(2, dto.getId());
 			psmt.setString(3, dto.getPass());
 			
-			psmt.executeUpdate();
+			result = psmt.executeUpdate();
+			
 		}
 		catch(Exception e) {
+			System.out.println("회원가입 중 오류 발생");
 			e.printStackTrace();
 		}
-		return dto;
+		return result;
 	}
 	
 	// 입력받은 id/pw 일치하는 회원정보 
@@ -47,6 +48,7 @@ public class MemberDAO extends DBConnPool{
 			
 		}
 		catch(Exception e) {
+			System.out.println("로그인 중 오류 발생");
 			e.printStackTrace();
 		}
 		return dto;
