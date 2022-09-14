@@ -1,4 +1,4 @@
-package userMember;
+package usermember;
 
 import common.DBConnPool;
 
@@ -9,23 +9,24 @@ public class MemberDAO extends DBConnPool{
 	}
 	
 	// 회원가입 
-	public MemberDTO insertMemberDTO(String uname, String uid, String upass) {
-		MemberDTO dto = new MemberDTO();
-		String query = "INSERT INTO usermember values(?, ?, ?)";
+	public int insertMemberDTO(MemberDTO dto) {
 		
+		int result = 0;
 		try {
+			String query = "INSERT INTO usermember values(?, ?, ?)";
 			psmt = con.prepareStatement(query);
 			
 			psmt.setString(1, dto.getName());
 			psmt.setString(2, dto.getId());
 			psmt.setString(3, dto.getPass());
 			
-			psmt.executeUpdate();
+			result = psmt.executeUpdate();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		return dto;
+		return result;
+		
 	}
 	
 	// 입력받은 id/pw 일치하는 회원정보 

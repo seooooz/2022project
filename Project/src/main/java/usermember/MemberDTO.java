@@ -1,9 +1,20 @@
-package userMember;
+package usermember;
 
 public class MemberDTO {
 	private String name;
 	private String id;
 	private String pass;
+	
+	public MemberDTO() {
+		
+	}
+	
+	public MemberDTO(String name, String id, String pass) {
+		this.name= name;
+		this.id=id;
+		this.pass=pass;
+	}
+	
 	public String getName() {
 		return name;
 	}
