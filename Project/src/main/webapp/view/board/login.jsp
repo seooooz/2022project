@@ -16,6 +16,22 @@
 </head>
 
 <body class="h-100">
+<%
+	if(session.getAttribute("UserId")==null){
+%>
+	<script>
+		function validateForm(form) {
+			if(!form.user_id.value){
+				alert("아이디를 입력하세요.");
+				return false;
+			}
+			if(form.user_pw.value == ""){
+				alert("패스워드를 입력하세요.");
+				return false;
+			}
+		}
+	</script>
+<form action="../../Process/LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this)" class="authincation h-100">
     <div class="authincation h-100">
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -27,12 +43,14 @@
                                     <h4 class="text-center mb-4">Sign in your account</h4>
                                     <form action="index.html">
                                         <div class="form-group">
-                                            <label><strong>Email</strong></label>
-                                            <input type="email" class="form-control" value="" placeholder="abc@example.com">
+                   <!-- id입력  -->
+                                            <label><strong>Id</strong></label>
+                                            <input type="text" name="user_id" class="form-control" value="" placeholder="abc123">
                                         </div>
                                         <div class="form-group">
+                    <!-- pw입력  -->
                                             <label><strong>Password</strong></label>
-                                            <input type="password" class="form-control" value="" placeholder="********">
+                                            <input type="password" name="user_pw"  class="form-control" value="" placeholder="********">
                                         </div>
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
@@ -60,7 +78,16 @@
             </div>
         </div>
     </div>
-
+</form>
+<%
+	}
+	/* else { // 로그인된 상태 */
+%>
+<%-- 	<%=session.getAttribute("UserName") %> 회원님, 로그인 하셨습니다.<br>
+	<a href="register.jsp">[로그아웃]</a>
+<%
+	}
+%> --%>
 
     <!--**********************************
         Scripts
