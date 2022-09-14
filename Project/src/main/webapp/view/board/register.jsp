@@ -13,6 +13,7 @@
 
 </head>
 <body class="h-100">
+
     <div class="authincation h-100">
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -24,16 +25,16 @@
                                     <h4 class="text-center mb-4">Sign up your account</h4>
                                     <form action="index.html">
                                         <div class="form-group">
-                                            <label><strong>Username</strong></label>
-                                            <input type="text" class="form-control" placeholder="username">
+                                            <label><strong>Name</strong></label>
+   <!-- name입력  -->	                        <input type="text" name="user_name" class="form-control" placeholder="username">
                                         </div>
                                         <div class="form-group">
-                                            <label><strong>Email</strong></label>
-                                            <input type="email" class="form-control" placeholder="hello@example.com">
+   <!-- id입력  -->                           <label><strong>ID</strong></label>
+                                            <input type="text" name="user_id" class="form-control" placeholder="abc123">
                                         </div>
                                         <div class="form-group">
-                                            <label><strong>Password</strong></label>
-                                            <input type="password" class="form-control" value="Password">
+   <!-- pw입력  -->                          <label><strong>Password</strong></label>
+                                            <input type="password" name="user_pw" class="form-control" value="Password">
                                         </div>
                                         <div class="text-center mt-4">
                                             <button type="submit" class="btn btn-primary btn-block">Sign me up</button>

@@ -16,8 +16,11 @@
 </head>
 
 <body class="h-100">
+<span>
+	<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg") %>
+</span>
 <%
-	if(session.getAttribute("UserId")==null){
+	if(session.getAttribute("UserId") == null){
 %>
 	<script>
 		function validateForm(form) {
@@ -31,7 +34,7 @@
 			}
 		}
 	</script>
-<form action="../../Process/LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this)" class="authincation h-100">
+
     <div class="authincation h-100">
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -41,7 +44,7 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <form action="index.html">
+										<form action="../../Process/LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this)" class="authincation h-100">
                                         <div class="form-group">
                    <!-- id입력  -->
                                             <label><strong>Id</strong></label>
@@ -50,7 +53,7 @@
                                         <div class="form-group">
                     <!-- pw입력  -->
                                             <label><strong>Password</strong></label>
-                                            <input type="password" name="user_pw"  class="form-control" value="" placeholder="********">
+                                            <input type="password" name="user_pw" class="form-control" value="" placeholder="********">
                                         </div>
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
@@ -78,7 +81,7 @@
             </div>
         </div>
     </div>
-</form>
+
 <%
 	}
 	/* else { // 로그인된 상태 */
