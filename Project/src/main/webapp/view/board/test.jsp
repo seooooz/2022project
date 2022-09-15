@@ -23,12 +23,12 @@
 		<!-- 슬라이드 쇼 -->
 		<div class="carousel-item active">
 			<!--가로-->
-			<img id="simg" class="d-block w-100" src="/view/img/setting.png"
-				alt="First slide">
+			<img id="simg" onclick="location='setNotice.jsp'" class="d-block w-100" src="/view/img/setting.png"
+				alt="First slide" >
 			<div class="carousel-caption d-none d-md-block"></div>
 		</div>
 		<div class="carousel-item">
-			<img id="simg" class="d-block w-100" src="/view/img/career.jpg"
+			<img id="simg" onclick="location='career.jsp'" class="d-block w-100" src="/view/img/career.jpg"
 				alt="Second slide">
 		</div>
 		<div class="carousel-item">
