@@ -1,15 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="board.BoardDAO"%>
+<%@ page import="board.BoardVO"%>
+<%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-
+<script>
+	function validateForm(form) {
+		alert("로그인 후 이용할 수 있습니다.");
+	}
+</script>
 <style>
 #teqh {
 	font-size: 22px;
 }
 </style>
+<%
+// 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
+String UserId2 = null;
+if (session.getAttribute("UserId") != null) {
+	UserId = (String) session.getAttribute("UserId");
+}
+%>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -17,8 +31,19 @@
 		<div class="card">
 			<div class="card-header">
 				<h4 id="teqh" class="card-title">커리어</h4>
+				<%
+				if (UserId == null) {
+				%>
+				<input type="button" class="btn btn-primary" value="글쓰기"
+					onclick="return validateForm(this);">
+				<%
+				} else {
+				%>
 				<input type="button" class="btn btn-primary" value="글쓰기"
 					onclick="location.href='/view/board/career_write.jsp'">
+				<%
+				}
+				%>
 			</div>
 			<div class="card-body">
 				<!-- 테이블 버튼 시작 (전체, 코드, 기타) -->
@@ -51,7 +76,23 @@
 													<th>조회수</th>
 												</tr>
 											</thead>
-
+											<tbody>
+												<%
+												BoardDAO bDao = new BoardDAO();
+												ArrayList<BoardVO> list = bDao.selectAllBoards();
+												for (int i = 0; i < list.size(); i++) {
+												%>
+												<tr>
+													<td><%=list.get(i).getNum()%></td>
+													<td><%=list.get(i).getTitle()%></td>
+													<td><%=list.get(i).getName()%></td>
+													<td><%=list.get(i).getWritedate()%></td>
+													<td><%=list.get(i).getReadcount()%></td>
+												</tr>
+												<%
+												}
+												%>
+											</tbody>
 										</table>
 									</div>
 

@@ -23,7 +23,7 @@
 						<tr>
 							<th>작성자</th>
 							<td><input type="text" class="form-control input-default"
-								name="name"></td>
+								name="name" value=<%=session.getAttribute("UserId")%> disabled ></td>
 						</tr>
 
 						<tr>
