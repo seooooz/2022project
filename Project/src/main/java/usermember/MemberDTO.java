@@ -10,11 +10,13 @@ public class MemberDTO {
 	}
 	
 	public MemberDTO(String name, String id, String pass) {
+
 		this.name= name;
 		this.id=id;
 		this.pass=pass;
 	}
-	
+
+
 	public String getName() {
 		return name;
 	}

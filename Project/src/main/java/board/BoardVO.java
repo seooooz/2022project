@@ -75,4 +75,8 @@ public class BoardVO {
 	public void setWritedate(Timestamp writedate) {
 		this.writedate = writedate;
 	}
+
+
+
 }
+
