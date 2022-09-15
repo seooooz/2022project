@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-
+<%@ page import="board.BoardDAO"%>
+<%@ page import="board.BoardVO"%>
+<%@ page import="java.util.*"%>
 
 <!-- <style> -->
 /* #fbox{ */ /* display:flex; */ /* flex-flow:row; */ /*
@@ -13,7 +15,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
         ***********************************-->
 <div class="content-body" align="center">
 	<%@ include file="test.jsp"%>
-	<br><br>
+	<br> <br>
 	<!-- row -->
 	<div class="container-fluid">
 		<div class="row">
@@ -22,7 +24,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6" s>
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">기술</h4>
+								<h4 class="card-title"><a href="../../view/board/skill.jsp">기술</a></h4>
 							</div>
 							<div class="card-body">
 								<!-- QnA table start -->
@@ -33,10 +35,27 @@ justify-content:center; */ /* align-items: center; */ /* } */
 												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
-												<th>작성일</th>
-												<th>조회수</th>
+										<!--	<th>작성일</th>
+												<th>조회수</th>	-->
 											</tr>
 										</thead>
+										<tbody>
+											<%
+											BoardDAO bDao = new BoardDAO();
+											ArrayList<BoardVO> list = bDao.selectBoards();
+											for (int i = 0; i < list.size(); i++) {
+											%>
+											<tr>
+												<td><%=list.get(i).getNum()%></td>
+												<td><%=list.get(i).getTitle()%></td>
+												<td><%=list.get(i).getName()%></td>
+										<!--	<td><%=list.get(i).getWritedate() %></td>
+												<td><%=list.get(i).getReadcount() %></td>	-->
+											</tr>
+											<%
+											}
+											%>
+										</tbody>
 
 									</table>
 								</div>
@@ -47,7 +66,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6" s>
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">커리어</h4>
+								<h4 class="card-title"><a href="../../view/board/career.jsp">커리어</a></h4>
 							</div>
 							<div class="card-body">
 								<!-- QnA table start -->
@@ -58,10 +77,25 @@ justify-content:center; */ /* align-items: center; */ /* } */
 												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
-												<th>작성일</th>
-												<th>조회수</th>
+										<!--	<th>작성일</th>
+												<th>조회수</th>	-->
 											</tr>
 										</thead>
+										<tbody>
+											<%
+											for (int i = 0; i < list.size(); i++) {
+											%>
+											<tr>
+												<td><%=list.get(i).getNum()%></td>
+												<td><%=list.get(i).getTitle()%></td>
+												<td><%=list.get(i).getName()%></td>
+										<!--	<td><%=list.get(i).getWritedate() %></td>
+												<td><%=list.get(i).getReadcount() %></td>	-->
+											</tr>
+											<%
+											}
+											%>
+										</tbody>
 
 									</table>
 								</div>
@@ -83,10 +117,26 @@ justify-content:center; */ /* align-items: center; */ /* } */
 												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
-												<th>작성일</th>
-												<th>조회수</th>
+										<!--	<th>작성일</th>
+												<th>조회수</th>	-->
 											</tr>
 										</thead>
+										<tbody>
+											<%
+											for (int i = 0; i < list.size(); i++) {
+											%>
+											<tr>
+												<td><%=list.get(i).getNum()%></td>
+												<td><%=list.get(i).getTitle()%></td>
+												<td><%=list.get(i).getName()%></td>
+										<!--	<td><%=list.get(i).getWritedate() %></td>
+												<td><%=list.get(i).getReadcount() %></td>	-->
+											</tr>
+											<%
+											}
+											%>
+										</tbody>
+										
 
 									</table>
 								</div>
@@ -108,10 +158,26 @@ justify-content:center; */ /* align-items: center; */ /* } */
 												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
-												<th>작성일</th>
-												<th>조회수</th>
+										<!--	<th>작성일</th>
+												<th>조회수</th>	-->
 											</tr>
 										</thead>
+										<tbody>
+											<%
+											for (int i = 0; i < list.size(); i++) {
+											%>
+											<tr>
+												<td><%=list.get(i).getNum()%></td>
+												<td><%=list.get(i).getTitle()%></td>
+												<td><%=list.get(i).getName()%></td>
+										<!--	<td><%=list.get(i).getWritedate() %></td>
+												<td><%=list.get(i).getReadcount() %></td>	-->
+											</tr>
+											<%
+											}
+											%>
+										</tbody>
+										
 
 									</table>
 								</div>

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="board.BoardDAO"%>
+<%@ page import="board.BoardVO"%>
+<%@ page import="java.util.*"%>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
@@ -41,15 +44,31 @@ font-size:22px;
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr>
-													<th>NO</th>
-													<th>제목</th>
-													<th>작성자</th>
-													<th>작성일</th>
-													<th>조회수</th>
-												</tr>
-											</thead>
-
+							<tr>
+								<th>NO</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							BoardDAO bDao = new BoardDAO();
+							ArrayList<BoardVO> list = bDao.selectAllBoards();
+							for (int i = 0; i < list.size(); i++) {
+							%>
+							<tr>
+								<td><%=list.get(i).getNum()%></td>
+								<td><%=list.get(i).getTitle()%></td>
+								<td><%=list.get(i).getName()%></td>
+								<td><%=list.get(i).getWritedate()%></td>
+								<td><%=list.get(i).getReadcount()%></td>
+							</tr>
+							<%
+							}
+							%>
+						</tbody>
 										</table>
 									</div>
 

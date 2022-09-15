@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -20,6 +21,13 @@
 </head>
 
 <body>
+<%
+// 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
+String UserId = null;
+if(session.getAttribute("UserId") != null){
+	UserId = (String)session.getAttribute("UserId");
+}
+%>
 
     <!--*******************
         Preloader start
@@ -82,7 +90,7 @@
                         </div>
 
                         <ul class="navbar-nav header-right">
-                        	<!-- 우측 상단 아이콘 -->
+                        	<!-- 우측 상단 아이콘(알림) -->
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-bell"></i>
@@ -143,13 +151,37 @@
                                             class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
-                            <!-- 우측 상단 아이콘 끝 -->
-                            <li class="nav-item dropdown header-profile">
+                            <!-- 우측 상단 아이콘(알림) 끝 -->
+                            <!-- 우측 상단 아이콘(프로필) 시작 -->
+                            <li class="active nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-account"></i>
                                 </a>
+                                
+                                
+                            <%
+                            	// 로그인 하지 않았을 때 보여지는 화면
+                            	if(UserId == null){
+                            %>
+                            
+                            
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="../../resources/app-profile.html" class="dropdown-item">
+  <!-- 드롭다운메뉴바)프로필 -->              <a href="/view/board/register.jsp" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">Sign Up </span>
+                                    </a>
+                                    <a href="/view/board/login.jsp" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Login </span>
+                                    </a>
+                                </div>
+                                <%
+                            	}
+                            	else { // 로그인이 되어 있는 상태에서 보여주는 화면
+                                %>
+                                
+                                <div class="dropdown-menu dropdown-menu-right">
+  <!-- 드롭다운메뉴바)프로필 -->              <a href="/view/board/loginProfile.jsp" class="dropdown-item">
                                         <i class="icon-user"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
@@ -157,12 +189,17 @@
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="../../resources/page-login.html" class="dropdown-item">
+                                    <a href="/Process/LogoutProcess.jsp" class="dropdown-item">
                                         <i class="icon-key"></i>
-                                        <span class="ml-2">Logout </span>
+                                        <span class="ml-2">Logout</span>
+
                                     </a>
                                 </div>
                             </li>
+                           <!-- 우측 상단 아이콘(프로필) 끝 -->
+                        <%
+                            	}
+                        %>
                         </ul>
                     </div>
                 </nav>
