@@ -86,11 +86,6 @@
 	}
 	/* else { // 로그인된 상태 */
 %>
-<%-- 	<%=session.getAttribute("UserName") %> 회원님, 로그인 하셨습니다.<br>
-	<a href="register.jsp">[로그아웃]</a>
-<%
-	}
-%> --%>
 
     <!--**********************************
         Scripts
