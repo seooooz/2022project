@@ -1,11 +1,11 @@
 <style>
 ]
-.carousel-inner>.item {
-	top: 0;
-	left: 0;
-	min-width: 80px;
-	min-height: 20px;
-}
+/* .carousel-inner>.item { */
+/* 	top: 0; */
+/* 	left: 0; */
+/* 	min-width: 80px; */
+/* 	min-height: 20px; */
+/* } */
 #simg {
 	width: 400px;
 	height: 600px;
@@ -16,19 +16,21 @@
 		interval : 100
 	})
 </script>
+
 <div class="container"></div>
+
 <div id="demo" class="carousel slide" data-ride="carousel">
 
 	<div class="carousel-inner">
 		<!-- 슬라이드 쇼 -->
 		<div class="carousel-item active">
 			<!--가로-->
-			<img id="simg" class="d-block w-100" src="/view/img/setting.png"
-				alt="First slide">
+			<img id="simg" onclick="location='setNotice.jsp'" class="d-block w-100" src="/view/img/setting.png"
+				alt="First slide" >
 			<div class="carousel-caption d-none d-md-block"></div>
 		</div>
 		<div class="carousel-item">
-			<img id="simg" class="d-block w-100" src="/view/img/career.jpg"
+			<img id="simg" onclick="location='career.jsp'" class="d-block w-100" src="/view/img/career.jpg"
 				alt="Second slide">
 		</div>
 		<div class="carousel-item">

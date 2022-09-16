@@ -1,0 +1,192 @@
+package board1;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import board.BoardVO;
+import common.DBConnPool;
+
+public class skillBoardDAO extends DBConnPool{
+	
+	// skillboard 게시물 보이기
+	public ArrayList<skillBoardVO> selectAllBoard() {
+		String sql = "select num, title, id, postdate, visitcount  from skillboard order by num desc";
+		
+		ArrayList<skillBoardVO> list = new ArrayList<skillBoardVO>();
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				skillBoardVO fdo = new skillBoardVO();
+				fdo.setNum(rs.getString("num"));
+				fdo.setTitle(rs.getString("title"));
+				fdo.setId(rs.getString("id"));
+				fdo.setPostdate(rs.getDate("postdate"));
+				fdo.setVisitcount(rs.getString("visitcount"));
+				
+				list.add(fdo);
+			}
+			rs.close();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+		return list;
+	}
+	
+	//  게시물 작성(insert)
+	public int insertWrite(skillBoardVO dto) {
+		int applyResult= 0;
+		try {
+			String query="INSERT INTO skillboard ("
+					+ "num, id, title, content, cate, ofile, sfile,visitcount )"
+					+ "VALUES ("
+					+ "seq_skillboard_num.nextval,?,?,?,?,?,?,0)";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getId());
+			psmt.setString(2, dto.getTitle());
+			psmt.setString(3, dto.getContent());
+			psmt.setString(4, dto.getCate());
+			psmt.setString(5, dto.getOfile());
+			psmt.setString(6, dto.getSfile());
+
+			applyResult =psmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("INSERT 중 예외 발생");
+			e.printStackTrace();
+		}
+		return applyResult;
+		
+	}
+	
+	// 최근 게시글 상위 5개 
+		public ArrayList<skillBoardVO> selectBoards() {
+			String sql = "select * from "
+					+ " ( "
+					+ "	SELECT * FROM skillboard "
+					+ "	ORDER  BY num DESC ) "
+					+ " where rownum <= 5";
+
+			ArrayList<skillBoardVO> list = new ArrayList<skillBoardVO>();
+			
+
+			try {
+			
+				stmt = con.createStatement();
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					skillBoardVO vo = new skillBoardVO();
+					vo.setNum(rs.getString("num"));
+					vo.setId(rs.getString("id"));
+					vo.setTitle(rs.getString("title"));
+					vo.setPostdate(rs.getDate("postdate"));
+					vo.setVisitcount(rs.getString("visitcount"));
+					list.add(vo);
+				}
+				rs.close();
+				stmt.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			
+			}
+
+			return list;
+		}
+		
+		// 작성 하려는 게시물 번호 확인
+		public int getNext() {
+			String sql = "SELECT NUM FROM skillboard ORDER BY NUM DESC";
+			try {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					return rs.getInt(1) + 1; // 마지막 게시물에 1을 더 해 작성하려는 게시물 번호
+				}
+				
+				return 1; // 첫 번째 게시물인 경우
+				
+				
+			}catch(SQLException e) {
+				
+			}
+			return -1;	// 데이터 베이스 오류
+		}
+		
+		// 페이징 처리 하기 위한 게시물 목록 10개 씩 
+		public ArrayList<skillBoardVO> getList(int pageNum){
+			String sql = "SELECT * FROM ( "
+					+ "	SELECT * FROM skillboard "
+					+ "	WHERE  num < ? "
+					+ "	ORDER BY num DESC "
+					+ " ) "
+					+ " WHERE rownum <=10";
+
+			ArrayList<skillBoardVO> list = new ArrayList<skillBoardVO>();
+			
+			try {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, getNext() - (pageNum -1) *10);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					skillBoardVO vo = new skillBoardVO();
+					vo.setNum(rs.getString(1));
+					vo.setId(rs.getString(2));
+					vo.setTitle(rs.getString(3));
+					vo.setPostdate(rs.getDate(8));
+					vo.setVisitcount(rs.getString(9));
+
+					list.add(vo);
+				}
+				rs.close();
+				pstmt.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			
+			}
+
+			return list;
+		}
+		// 게시글을 10개씩 자를 떄 1개라도 있다면 페이징 활성화
+		public boolean nextPage(int pageNum) {
+			String sql = "SELECT * FROM skillboard WHERE NUM < ? ";
+			
+			try {
+			
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, getNext() - (pageNum -1) *10);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					return true;
+				}
+		
+				rs.close();
+				pstmt.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			
+			}
+
+			return false;
+		}
+	
+}

@@ -18,25 +18,33 @@
 			<div class="card-body">
 				<!-- table start -->
 				<div class="table-responsive">
-
-					<table>
-						<tr>
-							<th>작성자</th>
-							<td><input type="text" class="form-control input-default"
-								name="name" value=<%=session.getAttribute("UserId")%> disabled ></td>
-						</tr>
+					<form name="writeFrm" method="post" action="../../Process/writeProcess.jsp"
+						enctype="multipart/form-data" onsubmit="return validateForm(this)">
+						<table>
+							<tr>
+								<th>작성자</th>
+								<td><input type="text" class="form-control input-default"
+									name="name" value=<%=session.getAttribute("UserId")%> disabled></td>
+							</tr>
 
 						<tr>
 							<th>제목</th>
 							<td><input type="text" class="form-control input-default"
 								size="70" name="title"></td>
 						</tr>
+							<tr>
+								<th>카데고리</th>
 
+								<td>&nbsp; <input type="checkbox" name="cate" value="코드"
+									checked /> 코드 <input type="checkbox" name="cate" value="기타" />
+									기타
+								</td>
+							</tr>
 						<tr>
 							<th>첨부파일</th>
 							<td>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input"> <label
+										<input type="file" name="attachedFile" class="custom-file-input"> <label
 										class="custom-file-label"></label>
 								</div>
 								</td>
@@ -49,6 +57,12 @@
 									cols="70" name="content"></textarea></td>
 						</tr>
 					</table>
+<br>
+						<button type="reset" class="btn btn-primary">다시 입력</button>
+						<button type="button" class="btn btn-primary"
+							onclick="location.href='skill.jsp'">목록 보기</button>
+						<button type="submit" class="btn btn-primary">작성 완료</button>
+					</form>
 				</div>
 				<!-- table end -->
 
