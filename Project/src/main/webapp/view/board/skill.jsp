@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="board.BoardDAO"%>
-<%@ page import="board.BoardVO"%>
+<%-- <%@ page import="board.BoardDAO"%> --%>
+<%-- <%@ page import="board.BoardVO"%> --%>
+<%@ page import="board1.QDAO"%>
+<%@ page import="board1.QDTO"%>
+<%-- <%@ page import="board.BoardVO"%> --%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
+
 
 <script>
 	function validateForm(form) {
@@ -17,15 +21,24 @@
 #teqh {
 	font-size: 22px;
 }
+
+.search_flex {
+	display: flex;
+	padding: 1.25rem 1.25rem 5px;
+}
+
+.search_item {
+	flex: 1;
+}
 </style>
 <body>
 	<%
-// 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
-String UserId2 = null;
-if(session.getAttribute("UserId") != null){
-	UserId = (String)session.getAttribute("UserId");
-}
-%>
+	// 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
+			String UserId2 = null;
+			if (session.getAttribute("UserId") != null) {
+		UserId = (String) session.getAttribute("UserId");
+			}
+	%>
 	<!-- content body start -->
 	<div class="content-body" align="center">
 		<div class="col-lg-8">
@@ -33,16 +46,30 @@ if(session.getAttribute("UserId") != null){
 			<div class="card">
 				<div class="card-header">
 					<h4 id="teqh" class="card-title">기술</h4>
-					<%if(UserId == null){%>
+					<%
+					if (UserId == null) {
+					%>
 					<input type="button" class="btn btn-primary" value="글쓰기"
-						onclick="return validateForm(this);"> 
-						<%}else{ %>
-						<input type="button" class="btn btn-primary" value="글쓰기"
+						onclick="return validateForm(this);">
+					<%
+					} else {
+					%>
+					<input type="button" class="btn btn-primary" value="글쓰기"
 						onclick="location.href='/view/board/skill_write.jsp'">
-						<%
-                            	}
-                        %>
+					<%
+					}
+					%>
 				</div>
+						<!-- 검색창 시작 -->
+					<div class="search_flex search_bar search_icon  navbar-collapse">
+						<form class="search_item">
+							<input class="form-control" type="search" placeholder="Search"
+								aria-label="Search">
+						</form>
+						&nbsp;
+						<button class="mdi mdi-magnify btn btn-primary" onclick="#"></button>
+					</div>
+					<!-- 검색창 끝 -->
 				<div class="card-body">
 					<!-- 테이블 버튼 시작 (전체, 코드, 기타) -->
 					<div class="profile-tab">
@@ -74,20 +101,20 @@ if(session.getAttribute("UserId") != null){
 												</thead>
 												<tbody>
 													<%
-							BoardDAO bDao = new BoardDAO();
-							ArrayList<BoardVO> list = bDao.selectAllBoards();
-							for (int i = 0; i < list.size(); i++) {
-							%>
+													QDAO fDao = new QDAO();
+																																			ArrayList<QDTO> list = fDao.selectAllBoard();
+																																			for (int i = 0; i < list.size(); i++) {
+													%>
 													<tr>
 														<td><%=list.get(i).getNum()%></td>
 														<td><%=list.get(i).getTitle()%></td>
-														<td><%=list.get(i).getName()%></td>
-														<td><%=list.get(i).getWritedate()%></td>
-														<td><%=list.get(i).getReadcount()%></td>
+														<td><%=list.get(i).getId()%></td>
+														<td><%=list.get(i).getPostdate()%></td>
+														<td><%=list.get(i).getVisitcount()%></td>
 													</tr>
 													<%
-							}
-							%>
+													}
+													%>
 												</tbody>
 											</table>
 										</div>

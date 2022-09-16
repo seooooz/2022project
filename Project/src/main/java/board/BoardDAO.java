@@ -49,6 +49,7 @@ public class BoardDAO extends DBConnPool{
 		return list;
 	}
 
+
 	public ArrayList<BoardVO> selectBoards() {
 		String sql = "select * from "
 				+ " ( "

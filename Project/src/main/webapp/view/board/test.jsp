@@ -1,11 +1,11 @@
 <style>
 ]
-.carousel-inner>.item {
-	top: 0;
-	left: 0;
-	min-width: 80px;
-	min-height: 20px;
-}
+/* .carousel-inner>.item { */
+/* 	top: 0; */
+/* 	left: 0; */
+/* 	min-width: 80px; */
+/* 	min-height: 20px; */
+/* } */
 #simg {
 	width: 400px;
 	height: 600px;
