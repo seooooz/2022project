@@ -44,8 +44,8 @@
 							<th>첨부파일</th>
 							<td>
 								<div class="custom-file">
-										<input type="file" name="attachedFile" class="custom-file-input"> <label
-										class="custom-file-label"></label>
+										<input type="file" name="attachedFile">
+<!-- 										<label class="custom-file-label"></label> -->
 								</div>
 								</td>
 						</tr>

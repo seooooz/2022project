@@ -49,9 +49,10 @@ public class skillBoardDAO extends DBConnPool{
 	//  게시물 작성(insert)
 	public int insertWrite(skillBoardVO dto) {
 		int applyResult= 0;
+		
 		try {
 			String query="INSERT INTO skillboard ("
-					+ "num, id, title, content, cate, ofile, sfile,visitcount )"
+					+ "num, id, title, content, cate, filename, filesize, visitcount)"
 					+ "VALUES ("
 					+ "seq_skillboard_num.nextval,?,?,?,?,?,?,0)";
 			
@@ -60,8 +61,8 @@ public class skillBoardDAO extends DBConnPool{
 			psmt.setString(2, dto.getTitle());
 			psmt.setString(3, dto.getContent());
 			psmt.setString(4, dto.getCate());
-			psmt.setString(5, dto.getOfile());
-			psmt.setString(6, dto.getSfile());
+			psmt.setString(5, dto.getFilename());
+			psmt.setLong(6, dto.getFilesize());
 
 			applyResult =psmt.executeUpdate();
 		}catch(Exception e) {
@@ -149,6 +150,10 @@ public class skillBoardDAO extends DBConnPool{
 					vo.setNum(rs.getString(1));
 					vo.setId(rs.getString(2));
 					vo.setTitle(rs.getString(3));
+					vo.setContent(rs.getString(4));
+					vo.setCate(rs.getString(5));
+					vo.setFilename(rs.getString(6));
+					vo.setFilesize(rs.getLong(7));
 					vo.setPostdate(rs.getDate(8));
 					vo.setVisitcount(rs.getString(9));
 

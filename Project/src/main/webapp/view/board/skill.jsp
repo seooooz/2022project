@@ -28,9 +28,6 @@ padding: 1.25rem 1.25rem 5px;
 flex: 1;
 }
 
-.col-lg-8 {
-    top: 100px;
-}
 </style>
 <%
 // 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
@@ -111,18 +108,18 @@ if(session.getAttribute("UserId") != null){
 						<tbody>
 							<!-- 기술 게시판 목록 start  -->
 							<%
-							skillBoardDAO bDao = new skillBoardDAO();
-									ArrayList<skillBoardVO> list = bDao.getList(pageNum);
-									for (int i = 0; i < list.size(); i++) {
+							skillBoardDAO dao = new skillBoardDAO();
+							ArrayList<skillBoardVO> getList = dao.getList(pageNum);
+								for (int i = 0; i < getList.size(); i++) {
 							%>
 							<tr>
-								<td><%=list.get(i).getNum()%></td>
+								<td><%=getList.get(i).getNum()%></td>
 								<td>
-								<a href="view.jsp?num=<%=list.get(i).getNum()%>"><%=list.get(i).getTitle()%></a>
+<!-- 게시물 클릭시 이동할 페이지 -->		<a href="view.jsp?num=<%=getList.get(i).getNum()%>"><%=getList.get(i).getTitle()%></a>
 								</td>
-														<td><%=list.get(i).getId()%></td>
-														<td><%=list.get(i).getPostdate()%></td>
-														<td><%=list.get(i).getVisitcount()%></td>
+														<td><%=getList.get(i).getId()%></td>
+														<td><%=getList.get(i).getPostdate()%></td>
+														<td><%=getList.get(i).getVisitcount()%></td>
 							</tr>
 							<%
 							}
@@ -130,21 +127,22 @@ if(session.getAttribute("UserId") != null){
 							<!-- 기술 게시판 목록 end  -->
 						</tbody>
 						</table>
+									</div>
 							<!-- 기술 게시판 페이징 기능 start  -->
+							<div>
 										<%
 											if(pageNum != 1){	
 										%>
 										<a href="skill.jsp?pageNum=<%=pageNum -1%>" class="btn btn-outline-dark">다음</a>
 										<%	
-											} if(bDao.nextPage(pageNum + 1)){
+											} if(dao.nextPage(pageNum + 1)){
 										%>
 										<a href="skill.jsp?pageNum=<%=pageNum +1%>" class="btn btn-outline-dark">이전</a>
 										<% 		
 											}
 										%>
 							<!-- 기술 게시판 페이징 기능 end  -->
-									</div>
-
+							</div>
 								</div>
 							</div>
 							<!-- 전체 -->

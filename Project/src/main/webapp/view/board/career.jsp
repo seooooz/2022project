@@ -112,7 +112,7 @@ if (session.getAttribute("UserId") != null) {
 												<tr>
 													<td><%=list.get(i).getNum()%></td>
 													<td>
-														<a href="view.jsp?num=<%=list.get(i).getNum()%>"><%=list.get(i).getTitle()%></a>
+<!-- 게시물 클릭시 이동할 페이지 -->						<a href="view.jsp?num=<%=list.get(i).getNum()%>"><%=list.get(i).getTitle()%></a>
 													</td>
 													<td><%=list.get(i).getName()%></td>
 													<td><%=list.get(i).getWritedate()%></td>
