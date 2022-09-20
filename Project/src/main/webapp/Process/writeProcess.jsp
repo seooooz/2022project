@@ -60,9 +60,3 @@ try {
 	request.getRequestDispatcher("/view/board/skill.jsp").forward(request,response);
 }
 %>
-<title>ExWriteProcess</title>
-</head>
-<body>
-
-</body>
-</html>

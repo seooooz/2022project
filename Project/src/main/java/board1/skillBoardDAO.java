@@ -5,11 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
-import board.BoardVO;
 import common.DBConnPool;
 
 public class skillBoardDAO extends DBConnPool{
+	
+	public skillBoardDAO() {
+		super();
+	}
 	
 	// skillboard 게시물 보이기
 	public ArrayList<skillBoardVO> selectAllBoard() {
@@ -73,7 +79,76 @@ public class skillBoardDAO extends DBConnPool{
 		
 	}
 	
-	// 최근 게시글 상위 5개 
+	//  검색 조건에 맞는 게시물 개수 반환
+	public int selectCount(Map<String, Object>map) {
+		int totalCount = 0; // 결과(게시물 수) 담을 변수
+		
+		// 게시물 수 얻어온느 쿼리
+		String query = "select count(*) from skillboard";
+		
+		if(map.get("searchWord") != null) {
+			query += " where " + map.get("searchField") + " "
+					+ " like '%" + map.get("searchWord") + "%'";
+		}
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(query);
+			rs.next();
+			totalCount = rs.getInt(1); 	// 첫번째 컬럼 값 가져옴
+		}
+		catch (Exception e) {
+			System.out.println("게시물 수를 구하는 중 예외 발생");
+			e.printStackTrace();
+		}
+		return totalCount;
+	}
+	
+	
+	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
+	public List<skillBoardVO> selectListPage(Map<String, Object> map){
+		List<skillBoardVO> bbs = new Vector<skillBoardVO>(); // 결과(게시물 목록)를 담을 변수
+		
+		String sql = " select * from ( select Tb.*, rownum rNum from ( select * from skillboard ";
+		
+		// 검색 조건 추가
+		if(map.get("searchWord") != null) {
+			sql += " where " + map.get("searchField")
+					+ " like '%" + map.get("searchWord") + "%' ";
+		}
+		
+		sql += " order by num desc ) Tb ) where rNum between ? and ?";
+		
+		try { 
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				skillBoardVO vo = new skillBoardVO();
+				vo.setNum(rs.getString("num"));
+				vo.setId(rs.getString("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setCate(rs.getString("cate"));
+				vo.setPostdate(rs.getDate("postdate"));
+				vo.setVisitcount(rs.getString("visitcount"));
+				
+				// 반환할 경과 목록에 게시물 추가
+				bbs.add(vo);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return bbs;
+		
+	}
+	
+	// index.jsp ) 최근 게시글 상위 5개 
 		public ArrayList<skillBoardVO> selectBoards() {
 			String sql = "select * from "
 					+ " ( "

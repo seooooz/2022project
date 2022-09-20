@@ -14,6 +14,7 @@ public class MemberDTO {
 		this.id = id;
 		this.pass = pass;
 	}
+	
 	public String getName() {
 		return name;
 	}

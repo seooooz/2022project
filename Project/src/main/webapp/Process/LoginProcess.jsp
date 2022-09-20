@@ -1,4 +1,4 @@
-<%@page import="java.io.PrintWriter"%>
+<%-- <%@page import="java.io.PrintWriter"%> --%>
 <%@ page import="usermember.MemberDTO" %>
 <%@ page import="usermember.MemberDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,10 +14,11 @@ MemberDTO dto = dao.selectMemberDTO(userId, userPwd);
 dao.close();
 
 // 현재 세션 상태 체크
-String UserId = null;
-if(session.getAttribute("UserId") != null){
-	UserId = (String)session.getAttribute("UserId");
-}
+// String UserId = null;
+
+// if(session.getAttribute("UserId") != null){
+// 	UserId = (String)session.getAttribute("UserId");
+// }
 // // 이미 로그인했으면 회원가입 불가
 // if(UserId != null) {
 // 	PrintWriter script = response.getWriter();

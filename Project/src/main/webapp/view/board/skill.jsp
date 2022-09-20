@@ -3,11 +3,14 @@
 
 <%@ page import="board1.skillBoardDAO"%>
 <%@ page import="board1.skillBoardVO"%>
-<%@ page import="java.util.*"%>	
+<%@ page import="java.util.*"%>
+<%@ page import="utils.Paging"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
+<%-- <%@include file="../../Process/PageProcess.jsp"%> --%>
 <script>
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
@@ -15,36 +18,60 @@
 </script>
 
 <style>
-#teqh{
-font-size:22px;
+#teqh {
+	font-size: 22px;
 }
 
-.search_flex{
-display: flex;
-padding: 1.25rem 1.25rem 5px;
+.search_flex {
+	display: flex;
+	padding: 1.25rem 1.25rem 5px;
 }
 
-.search_item{
-flex: 1;
+.search_item {
+	flex: 1;
 }
-
 </style>
+
 <%
-// 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
-String UserId2 = null;
-if(session.getAttribute("UserId") != null){
-	UserId = (String)session.getAttribute("UserId");
+//DAO를 생성해 DB에 연결
+skillBoardDAO dao1 = new skillBoardDAO();
+
+//사용자가 입력한 검색 조건 Map에 저장
+Map<String, Object> param = new HashMap<String, Object>();
+
+String searchField = request.getParameter("searchField");
+String searchWord = request.getParameter("searchWord");
+
+if (searchWord != null) {
+	param.put("searchField", searchField);
+	param.put("searchWord", searchWord);
 }
-%>
+// 게시물 수 확인
+int totalCount = dao1.selectCount(param);
 
-<%
-// 페이징 처리
-	int pageNum = 1;
-	if(request.getParameter("pageNum") != null){
-		pageNum = Integer.parseInt(request.getParameter("pageNum"));
-	}
-%>
+/*** 페이지 처리 START ***/
+//전체 페이지 수 계산
+int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
+int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
+int totalPage = (int)Math.ceil((double)totalCount / pageSize); 
 
+//현재 페이지 확인
+int pageNum = 1;
+String pageTemp = request.getParameter("pageNum");
+if(pageTemp != null && !pageTemp.equals(""))
+	pageNum = Integer.parseInt(pageTemp); // 요청받은 페이지로 수정
+	
+//목록에 출력할 게시물 범위 계산
+int start = (pageNum -1) * pageSize + 1;
+int end = pageNum * pageSize;
+param.put("start", start);
+param.put("end", end);
+/*** 페이지 처리 END ***/
+
+// 게시물 목록 받기
+List<skillBoardVO> boardLists = dao1.selectListPage(param);
+dao1.close();
+%>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -62,20 +89,27 @@ if(session.getAttribute("UserId") != null){
 				} else {
 				%>
 				<input type="button" class="btn btn-primary" value="글쓰기"
-						onclick="location.href='/view/board/skill_write.jsp'">
+					onclick="location.href='/view/board/skill_write.jsp'">
 				<%
 				}
 				%>
 			</div>
-				<!-- 검색창 시작 -->
-				<div class="search_flex search_bar search_icon  navbar-collapse">
-                     <form class="search_item">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                     </form>
-                     &nbsp;
-                <button class="mdi mdi-magnify btn btn-primary" onclick="#"></button>     
+
+			<!-- 검색창 시작 -->
+			<form method="get">
+				<div class="search_flex search_bar search_icon  navbar-collapse ">
+					<select name="searchField">
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+					</select>
+					<input class="search_item form-control" name="searchWord" type="text"
+							placeholder="Search">
+					&nbsp;
+					<button type="submit" class="mdi mdi-magnify btn btn-primary"></button>
 				</div>
-				<!-- 검색창 끝 -->
+			</form>
+			<!-- 검색창 끝 -->
+
 			<div class="card-body">
 				<!-- 테이블 버튼 시작 (전체, 코드, 기타) -->
 				<div class="profile-tab">
@@ -97,52 +131,60 @@ if(session.getAttribute("UserId") != null){
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-							<tr>
-								<th>NO</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>작성일</th>
-								<th>조회수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<!-- 기술 게시판 목록 start  -->
-							<%
-							skillBoardDAO dao = new skillBoardDAO();
-							ArrayList<skillBoardVO> getList = dao.getList(pageNum);
-								for (int i = 0; i < getList.size(); i++) {
-							%>
-							<tr>
-								<td><%=getList.get(i).getNum()%></td>
-								<td>
-<!-- 게시물 클릭시 이동할 페이지 -->		<a href="view.jsp?num=<%=getList.get(i).getNum()%>"><%=getList.get(i).getTitle()%></a>
-								</td>
-														<td><%=getList.get(i).getId()%></td>
-														<td><%=getList.get(i).getPostdate()%></td>
-														<td><%=getList.get(i).getVisitcount()%></td>
-							</tr>
-							<%
-							}
-							%>
-							<!-- 기술 게시판 목록 end  -->
-						</tbody>
-						</table>
+												<tr>
+													<th>NO</th>
+													<th>제목</th>
+													<th>작성자</th>
+													<th>작성일</th>
+													<th>조회수</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- 기술 게시판 목록 start  -->
+											
+												<%
+												if (boardLists.isEmpty()) {
+													// 게시물이 하나도 없을때 -->
+												%>
+												<tr>
+													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+												</tr>
+
+												<%
+												} else {
+												// 게시물이 있을 때 -->
+												int virtualNum = 0; // 화면상에서의 게시물 번호 
+												int countNum = 0;
+
+												for (skillBoardVO vo : boardLists) {
+													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+													
+												%>
+												<tr>
+													<td><%=virtualNum%></td>
+													<td>
+														<!-- 게시물 클릭시 이동할 페이지 --> 
+														<a href="view.jsp?num=<%=vo.getNum()%>"><%=vo.getTitle()%></a>
+													</td>
+													<td><%=vo.getId()%></td>
+													<td><%=vo.getPostdate()%></td>
+													<td><%=vo.getVisitcount()%></td>
+												</tr>
+												<%
+												}
+												}
+												%>
+												<!-- 기술 게시판 목록 end  -->
+											</tbody>
+										</table>
+										<BR>
+										<BR>
 									</div>
-							<!-- 기술 게시판 페이징 기능 start  -->
-							<div>
-										<%
-											if(pageNum != 1){	
-										%>
-										<a href="skill.jsp?pageNum=<%=pageNum -1%>" class="btn btn-outline-dark">다음</a>
-										<%	
-											} if(dao.nextPage(pageNum + 1)){
-										%>
-										<a href="skill.jsp?pageNum=<%=pageNum +1%>" class="btn btn-outline-dark">이전</a>
-										<% 		
-											}
-										%>
-							<!-- 기술 게시판 페이징 기능 end  -->
-							</div>
+									 <div>
+										<%= Paging.pagingStr(totalCount, pageSize, blockPage, pageNum, request.getRequestURI()) %>
+									</div>
+									<!--                      기술 게시판 페이징 기능 start  -->
+										<!--                      기술 게시판 페이징 기능 end  -->
 								</div>
 							</div>
 							<!-- 전체 -->
