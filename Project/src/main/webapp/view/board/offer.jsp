@@ -32,46 +32,6 @@
 }
 </style>
 
-<%
-//DAO를 생성해 DB에 연결
-skillBoardDAO dao1 = new skillBoardDAO();
-
-//사용자가 입력한 검색 조건 Map에 저장
-Map<String, Object> param = new HashMap<String, Object>();
-
-String searchField = request.getParameter("searchField");
-String searchWord = request.getParameter("searchWord");
-
-if (searchWord != null) {
-	param.put("searchField", searchField);
-	param.put("searchWord", searchWord);
-}
-// 게시물 수 확인
-int totalCount = dao1.selectCount(param);
-
-/*** 페이지 처리 START ***/
-//전체 페이지 수 계산
-int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
-int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
-int totalPage = (int)Math.ceil((double)totalCount / pageSize); 
-
-//현재 페이지 확인
-int pageNum = 1;
-String pageTemp = request.getParameter("pageNum");
-if(pageTemp != null && !pageTemp.equals(""))
-	pageNum = Integer.parseInt(pageTemp); // 요청받은 페이지로 수정
-	
-//목록에 출력할 게시물 범위 계산
-int start = (pageNum -1) * pageSize + 1;
-int end = pageNum * pageSize;
-param.put("start", start);
-param.put("end", end);
-/*** 페이지 처리 END ***/
-
-// 게시물 목록 받기
-List<skillBoardVO> boardLists = dao1.selectListPage(param);
-dao1.close();
-%>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -89,7 +49,7 @@ dao1.close();
 				} else {
 				%>
 				<input type="button" class="btn btn-primary" value="글쓰기"
-					onclick="location.href='/view/board/skill_write.jsp'">
+					onclick="location.href='/view/board/offer_write.jsp'">
 				<%
 				}
 				%>
@@ -120,8 +80,6 @@ dao1.close();
 								class="nav-link active show">전체</a></li>
 							<li class="nav-item"><a href="#about-me" data-toggle="tab"
 								class="nav-link">코드</a></li>
-							<li class="nav-item"><a href="#profile-settings"
-								data-toggle="tab" class="nav-link">기타</a></li>
 						</ul>
 						<!-- 카테고리 안에 내용물 수정-->
 						<div class="tab-content">
@@ -141,54 +99,41 @@ dao1.close();
 											</thead>
 											<tbody>
 												<!-- 기술 게시판 목록 start  -->
-											
-												<%
-												if (boardLists.isEmpty()) {
-													// 게시물이 하나도 없을때 -->
-												%>
-												<tr>
-													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
-												</tr>
-
-												<%
-												} else {
-												// 게시물이 있을 때 -->
-												int virtualNum = 0; // 화면상에서의 게시물 번호 
-												int countNum = 0;
-
-												for (skillBoardVO vo : boardLists) {
-													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
-													
-												%>
-												<tr>
-													<td><%=virtualNum%></td>
-													<td>
-														<!-- 게시물 클릭시 이동할 페이지 --> 
-														<a href="view.jsp?num=<%=vo.getNum()%>"><%=vo.getTitle()%></a>
-													</td>
-													<td><%=vo.getId()%></td>
-													<td><%=vo.getPostdate()%></td>
-													<td><%=vo.getVisitcount()%></td>
-													<td>
-<%-- 			<c:if test="${ not empty row.ofile }"> --%>
-<%-- 				<a href="../mvcboard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a> --%>
-<%-- 			</c:if> --%>
-			</td>
-												</tr>
-												<%
-												}
-												}
-												%>
+						<c:choose>
+							<c:when test="${ empty boardLists }"> <!-- 게시물이 없을 때 -->
+								<tr>
+									<td colspan="6" align="center">
+										등록된 게시물이 없습니다^^*
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise> <!-- 게시물이 있을 때 -->
+							<c:forEach items = "${ boardLists }" var="row" varStatus="loop">
+							<tr align = "center">
+								<td> <!-- 번호 -->
+									${ map.totalCount - (((map.pageNum-1) * map.pageSize) + loop.index) }
+								</td>
+								<td align="left"> <!-- 제목(링크) -->
+									<a href = "../mvcboard/view.do?idx=${ row.idx }">${ row.title }</a>
+								</td>
+								<td>${ row.id }</td>
+								<td>${ row.visitcount }</td>
+								<td>${ row.postdate }</td>
+			
+							</tr>
+							</c:forEach>
+							</c:otherwise>
+						</c:choose>		
 												<!-- 기술 게시판 목록 end  -->
 											</tbody>
 										</table>
 										<BR>
 										<BR>
 									</div>
-									 <div>
-										<%= Paging.pagingStr(totalCount, pageSize, blockPage, pageNum, request.getRequestURI()) %>
-									</div>
 									<!--                      기술 게시판 페이징 기능 start  -->
+									<div>
+										${ map.pagingImg }
+									</div>
 										<!--                      기술 게시판 페이징 기능 end  -->
 								</div>
 							</div>
@@ -210,24 +155,6 @@ dao1.close();
 
 											</table>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div id="profile-settings" class="tab-pane fade">
-								<div class="my-post-content pt-3">
-									<div class="table-responsive">
-										<table class="table mb-0">
-											<thead>
-												<tr>
-													<th>NO</th>
-													<th>제목</th>
-													<th>작성자</th>
-													<th>작성일</th>
-													<th>조회수</th>
-												</tr>
-											</thead>
-
-										</table>
 									</div>
 								</div>
 							</div>

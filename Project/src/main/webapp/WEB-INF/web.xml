@@ -79,6 +79,33 @@ id="WebApp_ID" version="4.0">
 	</context-param>
  <!-- 페이지 설정값 -->
  
+ <!-- 서블릿 등록 -->
+ <servlet>
+ 	<servlet-name>OfferServlet</servlet-name>
+ 	<servlet-class>servlet.OfferServlet</servlet-class>
+ </servlet>
+  <!-- 서블릿 등록 -->
+  
+ <!-- 서블릿과 요청명(요청 URL) 매핑 -->
+ <servlet-mapping>
+ 	<servlet-name>OfferServlet</servlet-name>
+ 	<url-pattern>/view/board/OfferServlet.do</url-pattern>
+ </servlet-mapping>
+  <!-- 서블릿과 요청명(요청 URL) 매핑 -->
+  
+   <!-- 서블릿 등록 -->
+ <servlet>
+ 	<servlet-name>WriteServlet</servlet-name>
+ 	<servlet-class>board3.WriteController</servlet-class>
+ </servlet>
+  <!-- 서블릿 등록 -->
+  
+ <!-- 서블릿과 요청명(요청 URL) 매핑 -->
+ <servlet-mapping>
+ 	<servlet-name>WriteServlet</servlet-name>
+ 	<url-pattern>/view/board/write.do</url-pattern>
+ </servlet-mapping>
+  <!-- 서블릿과 요청명(요청 URL) 매핑 -->
  
  <!-- 웹 소켓 -->
  <context-param>
