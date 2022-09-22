@@ -48,7 +48,8 @@ public class offerBoardDAO extends DBConnPool{
 						+ " like '%" + map.get("searchWord") + "%' ";
 			}
 			
-			sql += " order by num desc ) Tb ) where rNum between ? and ?";
+			sql += " order by onum desc ) Tb ) where rNum between ? and ?";
+			
 			
 			try { 
 				psmt = con.prepareStatement(sql);
@@ -93,7 +94,7 @@ public class offerBoardDAO extends DBConnPool{
 				psmt.setString(3, dto.getContent());
 				psmt.setString(4, dto.getCate());
 				psmt.setString(5, dto.getMemNum());
-				psmt.setString(6, dto.getId());
+				psmt.setString(6, dto.getDday());
 				
 				result = psmt.executeUpdate();
 			}

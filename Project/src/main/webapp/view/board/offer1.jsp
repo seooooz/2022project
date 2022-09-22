@@ -18,15 +18,6 @@
 </script>
 
 <style>
-.eye {
-	
-}
-
-.title_a {
-	color: black;
-    font-size: 17px;
-}
-
 #teqh {
 	font-size: 22px;
 }
@@ -38,36 +29,6 @@
 
 .search_item {
 	flex: 1;
-}
-
-.my-2 {
-	margin-bottom: 2rem !important;
-	margin-top: 2rem !important;
-}
-
-.items-center {
-	align-items: center;
-}
-
-.flex-col { 
-	flex-direction: column; 
- } 
-
-.flex {  
-      display: flex; 
- }  
- 
-.flex-1 {
-     flex: 1 1 0%; 
-/* justify-content: space-around; */
-} 
-
-.gap-x-3 {
-    -moz-column-gap: .75rem;
-    column-gap: 0.75rem;
-}
-.gap-x-4 {
-    column-gap: 0.5rem;
 }
 </style>
 
@@ -126,50 +87,48 @@
 
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
-										<ul class="table mb-0">
-<!-- 											<li> -->
+										<table class="table mb-0">
+											<thead>
+												<tr>
+													<th>NO</th>
+													<th>제목</th>
+													<th>작성자</th>
+													<th>마감일</th>
+													<th>인원수</th>
+													<th>조회수</th>
+												</tr>
+											</thead>
+											<tbody>
 												<!-- 기술 게시판 목록 start  -->
 						<c:choose>
 							<c:when test="${ empty boardLists }"> <!-- 게시물이 없을 때 -->
-								<li>
-									<div align="center">
+								<tr>
+									<td colspan="6" align="center">
 										등록된 게시물이 없습니다^^*
-									</div>
-								</li>
+									</td>
+								</tr>
 							</c:when>
 							<c:otherwise> <!-- 게시물이 있을 때 -->
 							<c:forEach items = "${ boardLists }" var="row" varStatus="loop">
-							<li class="nav-tabs py-4">
-							<div class="flex flex-col ">
-								<div class="flex items-center gap-x-3">
-									<div class="flex flex-1 items-center gap-x-3"> <!-- id -->
-										${ row.id }
-									</div>
-									<div class="flex items-center gap-x-4">
-										<div><img class="eye" src="../../resources/images/icon/eye1.png"></div>
-										<div>${ row.visitcount }</div>
-									</div>
-								</div>	
-								<div class="my-2" align="left"> <!-- 제목(링크) -->
-									<a class="title_a" href = "../mvcboard/view.do?id=${ row.id }">${ row.title }</a>
-								</div>
-								<div class="flex flex-1">
-									<div class="flex flex-1 items-center gap-x-3">
-										<div class="flex items-center gap-x-3">${ row.cate }</div>
-										<div class="flex items-center gap-x-3">총 ${ row.memNum }명</div>
-									</div>	
-									<div class="flex items-center gap-x-3">
-										<div>마감일 : ${ row.dday }</div>
-									</div>
-								</div>
-							</div>
-							</li>
+							<tr align = "left">
+								<td> <!-- 번호 -->
+									${ map.totalCount - (((map.pageNum-1) * map.pageSize) + loop.index) }
+								</td>
+								<td align="left"> <!-- 제목(링크) -->
+									<a href = "../mvcboard/view.do?id=${ row.id }">${ row.title }</a>
+								</td>
+								<td>${ row.id }</td>
+								<td>${ row.dday }</td>
+								<td>${ row.memNum }</td>
+								<td>${ row.visitcount }</td>
+			
+							</tr>
 							</c:forEach>
 							</c:otherwise>
 						</c:choose>		
 												<!-- 기술 게시판 목록 end  -->
-<!-- 											</li> -->
-										</ul>
+											</tbody>
+										</table>
 										<BR>
 										<BR>
 									</div>

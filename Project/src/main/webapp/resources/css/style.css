@@ -243,7 +243,9 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 *,
 *::before,
 *::after {
-  box-sizing: border-box; }
+  box-sizing: border-box; 
+ 
+  }
 
 html {
   font-family: sans-serif;

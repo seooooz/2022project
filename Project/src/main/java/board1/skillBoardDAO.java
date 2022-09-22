@@ -119,6 +119,7 @@ public class skillBoardDAO extends DBConnPool{
 		
 		sql += " order by num desc ) Tb ) where rNum between ? and ?";
 		
+		System.out.println(sql);
 		try { 
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, map.get("start").toString());

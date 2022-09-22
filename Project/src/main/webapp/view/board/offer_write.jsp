@@ -5,6 +5,30 @@
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
 
+<script type="text/javascript">
+function validateForm(form){				//폼 내용 검증
+	if(form.title.value == ""){
+		alert("제목을 입력하세요.");
+		form.title.focus();
+		return false;
+	}
+	if(form.memNum.value == ""){
+		alert("인원수를 입력하세요.");
+		form.memNum.focus();
+		return false;
+	}
+	if(form.datepicker.value == ""){
+		alert("마감일을 입력하세요.");
+		form.datepicker.focus();
+		return false;
+	}
+	if(form.content.value == ""){
+		alert("내용을 입력하세요.");
+		form.content.focus();
+		return false;
+	}
+}
+</script>
 
 
 <div class="content-body" align="center">
@@ -19,13 +43,13 @@
 			<div class="card-body">
 				<!-- table start -->
 				<div class="table-responsive">
-					<form name="writeFrm" method="post" action="../../Process/writeProcess.jsp"
-						enctype="multipart/form-data" onsubmit="return validateForm(this)">
+					<form name="offerwriteFrm" method="post" action="/board/write.do"			
+						 onsubmit="return validateForm(this)">			<!-- 서블릿  -->
 						<table>
 							<tr>
 								<th>작성자</th>
 								<td><input type="text" class="form-control input-default"
-									name="name" value=<%=session.getAttribute("UserId")%> disabled></td>
+									name="id" value=<%=session.getAttribute("UserId")%> disabled></td>
 							</tr>
 
 							<tr>
@@ -37,9 +61,9 @@
 							<tr>
 								<th>카데고리</th>
 					
-<!-- 1-개인, 2-공모전  -->				<td>&nbsp; <input type="checkbox" name="cate" value="1"
+<!-- 1-개인, 2-공모전  -->				<td>&nbsp; <input type="checkbox" name="cate" value="개인"
 									checked /> 개인 
-									<input type="checkbox" name="cate" value="2" /> 공모전
+									<input type="checkbox" name="cate" value="공모전" /> 공모전
 								</td>
 							</tr>
 							<tr>
@@ -51,7 +75,7 @@
 							<tr>
 								<th>마감일</th>
 								<td>
-									<input name="datepicker" class="datepicker-default form-control" id="datepicker" name="dday">
+									<input name="datepicker" class="datepicker-default form-control" id="datepicker" >
 								</td>
 							</tr>
 							<tr>

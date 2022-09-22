@@ -58,7 +58,7 @@ public class ListController extends HttpServlet {
 	dao.close();
 	
 	// 뷰에 전달할 매개변수 추가
-	String pagingImg = Paging.pagingStr(totalCount, pageSize, blockPage, pageNum, "../mvcboard/List.do");
+	String pagingImg = Paging.pagingStr(totalCount, pageSize, blockPage, pageNum, "../view/board/List.do");
 	
 	// 바로가기 영역 HTML 문자열
 	map.put("pagingImg", pagingImg);
@@ -69,7 +69,7 @@ public class ListController extends HttpServlet {
 	// 전달한 데이터를 request 영역에 저장 후 List.jsp로 포워드
 	req.setAttribute("boardLists", boardLists);
 	req.setAttribute("map", map);
-	req.getRequestDispatcher("/14MVCBoard/List.jsp").forward(req, resp);
+	req.getRequestDispatcher("../view/board/offer.jsp").forward(req, resp);
 	}
 
 }

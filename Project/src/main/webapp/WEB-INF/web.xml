@@ -93,19 +93,34 @@ id="WebApp_ID" version="4.0">
  </servlet-mapping>
   <!-- 서블릿과 요청명(요청 URL) 매핑 -->
   
-   <!-- 서블릿 등록 -->
+   <!-- offer서블릿 등록 -->
+   <!-- list -->
+    <servlet>
+ 	<servlet-name>ListServlet</servlet-name>
+ 	<servlet-class>board3.ListController</servlet-class>
+ </servlet>
+  
+ <!-- 서블릿과 요청명(요청 URL) 매핑 -->
+ <servlet-mapping>
+ 	<servlet-name>ListServlet</servlet-name>
+ 	<url-pattern>/board/list.do</url-pattern>
+ </servlet-mapping>
+  <!-- 서블릿과 요청명(요청 URL) 매핑 -->
+  
+   <!-- write -->
  <servlet>
  	<servlet-name>WriteServlet</servlet-name>
  	<servlet-class>board3.WriteController</servlet-class>
  </servlet>
-  <!-- 서블릿 등록 -->
   
  <!-- 서블릿과 요청명(요청 URL) 매핑 -->
  <servlet-mapping>
  	<servlet-name>WriteServlet</servlet-name>
- 	<url-pattern>/view/board/write.do</url-pattern>
+ 	<url-pattern>/board/write.do</url-pattern>
  </servlet-mapping>
   <!-- 서블릿과 요청명(요청 URL) 매핑 -->
+  
+  <!-- offer서블릿 끝  -->
  
  <!-- 웹 소켓 -->
  <context-param>
