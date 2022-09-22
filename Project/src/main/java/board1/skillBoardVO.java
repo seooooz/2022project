@@ -1,13 +1,13 @@
 package board1;
 
-public class QDTO {
+public class skillBoardVO {
 	private String num;
 	private String id;
 	private String title;
 	private String content;
 	private String cate;
-	private String ofile;
-	private String sfile;
+	private String filename;
+	private long filesize;
 	private java.sql.Date postdate;
 	private String visitcount;
 	
@@ -42,20 +42,21 @@ public class QDTO {
 	public void setCate(String cate) {
 		this.cate = cate;
 	}
-	public String getOfile() {
-		return ofile;
-	}
-	public void setOfile(String ofile) {
-		this.ofile = ofile;
-	}
-	public String getSfile() {
-		return sfile;
-	}
-	public void setSfile(String sfile) {
-		this.sfile = sfile;
-	}
+	
 	public java.sql.Date getPostdate() {
 		return postdate;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public long getFilesize() {
+		return filesize;
+	}
+	public void setFilesize(long filesize) {
+		this.filesize = filesize;
 	}
 	public void setPostdate(java.sql.Date postdate) {
 		this.postdate = postdate;

@@ -51,7 +51,11 @@
 					</table>
 				</div>
 				<!-- table end -->
-
+				<br>
+				
+				<div>
+					<button type="submit" class="btn btn-primary">작성 완료</button>
+				</div>
 			</div>
 		</div>
 		<!-- card end -->

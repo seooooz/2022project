@@ -1,5 +1,5 @@
-<%@ page import="board1.QDAO"%>
-<%@ page import="board1.QDTO"%>
+<%@ page import="board1.skillBoardDAO"%>
+<%@ page import="board1.skillBoardVO"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.io.File"%>
@@ -17,36 +17,42 @@ String encoding = "UTF-8";
 
 try {
 	MultipartRequest mr = new MultipartRequest(request, saveDirectory, maxPostSize, encoding);
-	String fileName = mr.getFilesystemName("attachedFile");
-	String ext = fileName.substring(fileName.lastIndexOf("."));
-	String now = new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
-	String newFileName = now + ext;
-
-	File oldFile = new File(saveDirectory + File.separator + fileName);
-	File newFile = new File(saveDirectory + File.separator + newFileName);
-	oldFile.renameTo(newFile);
-
-	String id = mr.getParameter("UserId");
+	
+	String id = mr.getParameter("UserId"); // 업로드시에만 사용
 	String title = mr.getParameter("title");
 	String content = mr.getParameter("content");
 	String[] cateArray = mr.getParameterValues("cate");
 	StringBuffer cateBuf = new StringBuffer();
 	for(String s :cateArray){
-		cateBuf.append(s+",");
+		cateBuf.append(s);
 	}
+	
+	// dto에 폼값 받아오기
+	skillBoardVO vo = new skillBoardVO();
+	vo.setId(session.getAttribute("UserId").toString());
+	vo.setTitle(title);
+	vo.setContent(content);
+	vo.setCate(cateBuf.toString());
+	
+	// filename, filesize => 없는 경우 (파일을 올리지 않을 경우, 파일 올릴경우)
+	String filename = mr.getFilesystemName("attachedFile");
+	// 사용자가 보낸 파일명을 읽어 온다
 
-	QDTO dto = new QDTO();
-	dto.setId(session.getAttribute("UserId").toString());
-	dto.setTitle(title);
-	dto.setContent(content);
-	dto.setCate(cateBuf.toString());
-	dto.setOfile(fileName);
-	dto.setSfile(newFileName);
-	
-	QDAO dao = new QDAO();
-	dao.insertWrite(dto);
+	if(filename == null) // 파일을 올리지 않을 경우
+	{
+		vo.setFilename("첨부파일 없음");
+		vo.setFilesize(0);
+	}
+	else {	// 파일 올릴 경우
+		File file = new File(saveDirectory + File.separator + filename);
+		vo.setFilename(filename);
+		vo.setFilesize((int)file.length());
+	}
+	// db에 삽입
+	skillBoardDAO dao = new skillBoardDAO();
+	dao.insertWrite(vo);
 	dao.close();
-	
+	// skill.jsp에 저장
 	response.sendRedirect("/view/board/skill.jsp");
 } catch (Exception e) {
 	e.printStackTrace();

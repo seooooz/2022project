@@ -6,10 +6,7 @@
 <%@ page import="board.BoardVO"%>
 <%@ page import="java.util.*"%>
 
-<!-- <style> -->
-/* #fbox{ */ /* display:flex; */ /* flex-flow:row; */ /*
-justify-content:center; */ /* align-items: center; */ /* } */
-<!-- </style> -->
+
 <!--**********************************
             Content body start
         ***********************************-->
@@ -66,7 +63,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6" s>
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title"><a href="../../view/board/career.jsp">커리어</a></h4>
+								<h4 class="card-title"><a id="t" href="../../view/board/career.jsp">CAREER</a></h4>
 							</div>
 							<div class="card-body">
 								<!-- QnA table start -->

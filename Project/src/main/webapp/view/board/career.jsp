@@ -16,6 +16,15 @@
 #teqh {
 	font-size: 22px;
 }
+
+.search_flex{
+display: flex;
+padding: 1.25rem 1.25rem 5px;
+}
+
+.search_item{
+flex: 1;
+}
 </style>
 <%
 // 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
@@ -24,6 +33,13 @@ if (session.getAttribute("UserId") != null) {
 	UserId = (String) session.getAttribute("UserId");
 }
 %>
+<%
+	// 페이징 처리
+	int pageNum = 1;
+	if(request.getParameter("pageNum") != null){
+		pageNum = Integer.parseInt(request.getParameter("pageNum"));
+	}
+%>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -31,6 +47,7 @@ if (session.getAttribute("UserId") != null) {
 		<div class="card">
 			<div class="card-header">
 				<h4 id="teqh" class="card-title">커리어</h4>
+				<!-- 로그인 x => 글쓰기 안됨 -->
 				<%
 				if (UserId == null) {
 				%>
@@ -45,6 +62,15 @@ if (session.getAttribute("UserId") != null) {
 				}
 				%>
 			</div>
+				<!-- 검색창 시작 -->
+				<div class="search_flex search_bar search_icon  navbar-collapse">
+                     <form class="search_item">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                     </form>
+                     &nbsp;
+                <button class="mdi mdi-magnify btn btn-primary" onclick="#"></button>     
+				</div>
+				<!-- 검색창 끝 -->
 			<div class="card-body">
 				<!-- 테이블 버튼 시작 (전체, 코드, 기타) -->
 				<div class="profile-tab">
@@ -77,14 +103,17 @@ if (session.getAttribute("UserId") != null) {
 												</tr>
 											</thead>
 											<tbody>
+												<!-- 커리어 게시판 목록 start  -->
 												<%
 												BoardDAO bDao = new BoardDAO();
-												ArrayList<BoardVO> list = bDao.selectAllBoards();
+												ArrayList<BoardVO> list = bDao.getList(pageNum);
 												for (int i = 0; i < list.size(); i++) {
 												%>
 												<tr>
 													<td><%=list.get(i).getNum()%></td>
-													<td><%=list.get(i).getTitle()%></td>
+													<td>
+<!-- 게시물 클릭시 이동할 페이지 -->						<a href="view.jsp?num=<%=list.get(i).getNum()%>"><%=list.get(i).getTitle()%></a>
+													</td>
 													<td><%=list.get(i).getName()%></td>
 													<td><%=list.get(i).getWritedate()%></td>
 													<td><%=list.get(i).getReadcount()%></td>
@@ -92,8 +121,22 @@ if (session.getAttribute("UserId") != null) {
 												<%
 												}
 												%>
+												<!-- 커리어 게시판 목록 end  -->
 											</tbody>
 										</table>
+										<!-- 기술 게시판 페이징 기능 start  -->
+										<%
+											if(pageNum != 1){	
+										%>
+										<a href="career.jsp?pageNum=<%=pageNum -1%>" class="btn btn-outline-dark">다음</a>
+										<%	
+											} if(bDao.nextPage(pageNum + 1)){
+										%>
+										<a href="career.jsp?pageNum=<%=pageNum +1%>" class="btn btn-outline-dark">이전</a>
+										<% 		
+											}
+										%>
+										<!-- 기술 게시판 페이징 기능 end  -->
 									</div>
 
 								</div>

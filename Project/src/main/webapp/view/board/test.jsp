@@ -16,7 +16,9 @@
 		interval : 100
 	})
 </script>
+
 <div class="container"></div>
+
 <div id="demo" class="carousel slide" data-ride="carousel">
 
 	<div class="carousel-inner">

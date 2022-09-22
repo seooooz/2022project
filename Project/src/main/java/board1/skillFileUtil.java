@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
-public class QfileUtil {
+public class skillFileUtil {
 	public static MultipartRequest uploadFile(HttpServletRequest req, String saveDirectory, int maxPostSize) {
 		try {
 			return new MultipartRequest(req, saveDirectory, maxPostSize, "UTF-8");
