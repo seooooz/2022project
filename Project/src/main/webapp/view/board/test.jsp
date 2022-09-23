@@ -1,11 +1,5 @@
 <style>
 ]
-/* .carousel-inner>.item { */
-/* 	top: 0; */
-/* 	left: 0; */
-/* 	min-width: 80px; */
-/* 	min-height: 20px; */
-/* } */
 #simg {
 	width: 400px;
 	height: 600px;
@@ -34,7 +28,7 @@
 				alt="Second slide">
 		</div>
 		<div class="carousel-item">
-			<img id="simg" class="d-block w-100" src="/view/img/contest.jpg"
+			<img id="simg" onclick="location='contest.jsp'" class="d-block w-100" src="/view/img/contest.jpg"
 				alt="Third slide">
 		</div>
 		<div class="carousel-item">

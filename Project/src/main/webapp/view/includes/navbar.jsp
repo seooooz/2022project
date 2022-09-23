@@ -21,8 +21,8 @@
                             <li><a href="../../resources/app-profile.html">학원</a></li>
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">시험</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="../../resources/email-compose.html">필기</a></li>
-                                    <li><a href="../../resources/email-inbox.html">실기</a></li>
+                                    <li><a href="../../view/board/writingtest.jsp">필기</a></li>
+                                    <li><a href="../../view/board/practicaltest.jsp">실기</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -41,7 +41,7 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-form"></i><span class="nav-text">PROJECT</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="../../resources/form-element.html">공모전</a></li>
+                            <li><a href="../board/contest.jsp">공모전</a></li>
                             <li><a href="../../resources/form-wizard.html">OFFER</a></li>
                         </ul>
                     </li>
