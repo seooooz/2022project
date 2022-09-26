@@ -260,7 +260,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #BDBDC7;
+  color:black;
   text-align: left;
   background-color: rgba(88, 115, 254, 0.04); }
 
@@ -386,7 +386,8 @@ caption {
   caption-side: bottom; }
 
 th {
-  text-align: inherit; }
+  text-align: inherit;
+  }
 
 label {
   display: inline-block;
@@ -16686,6 +16687,7 @@ button {
     border-color: #424D63; }
 
 .table thead th {
+
   border-bottom-width: 1px;
   text-transform: uppercase;
   font-size: 12px;

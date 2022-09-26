@@ -61,6 +61,7 @@ if (session.getAttribute("UserId") != null) {
 				<%
 				}
 				%>
+				
 			</div>
 				<!-- 검색창 시작 -->
 				<div class="search_flex search_bar search_icon  navbar-collapse">
