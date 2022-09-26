@@ -18,9 +18,6 @@
 </script>
 
 <style>
-.eye {
-	
-}
 
 .title_a {
 	color: black;
@@ -59,7 +56,6 @@
  
 .flex-1 {
      flex: 1 1 0%; 
-/* justify-content: space-around; */
 } 
 
 .gap-x-3 {
@@ -68,6 +64,10 @@
 }
 .gap-x-4 {
     column-gap: 0.5rem;
+}
+
+.paper_list li{
+    border-bottom: 1px solid #dee2e6;
 }
 </style>
 
@@ -127,8 +127,7 @@
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<ul class="table mb-0">
-<!-- 											<li> -->
-												<!-- 기술 게시판 목록 start  -->
+					<!-- OFFER 게시판 목록 start  -->
 						<c:choose>
 							<c:when test="${ empty boardLists }"> <!-- 게시물이 없을 때 -->
 								<li>
@@ -139,19 +138,20 @@
 							</c:when>
 							<c:otherwise> <!-- 게시물이 있을 때 -->
 							<c:forEach items = "${ boardLists }" var="row" varStatus="loop">
-							<li class="nav-tabs py-4">
+						<ul class="paper_list">
+							<li class="py-4">
 							<div class="flex flex-col ">
 								<div class="flex items-center gap-x-3">
 									<div class="flex flex-1 items-center gap-x-3"> <!-- id -->
 										${ row.id }
 									</div>
 									<div class="flex items-center gap-x-4">
-										<div><img class="eye" src="../../resources/images/icon/eye1.png"></div>
+										<div><i class="bi bi-eye pull-right"></i></div>
 										<div>${ row.visitcount }</div>
 									</div>
 								</div>	
 								<div class="my-2" align="left"> <!-- 제목(링크) -->
-									<a class="title_a" href = "../mvcboard/view.do?id=${ row.id }">${ row.title }</a>
+									<a class="title_a" href = "../board/view.do?onum=${ row.num }">${ row.title }</a>
 								</div>
 								<div class="flex flex-1">
 									<div class="flex flex-1 items-center gap-x-3">
@@ -164,11 +164,11 @@
 								</div>
 							</div>
 							</li>
+						</ul>
 							</c:forEach>
 							</c:otherwise>
 						</c:choose>		
-												<!-- 기술 게시판 목록 end  -->
-<!-- 											</li> -->
+					<!-- OFFER 게시판 목록 end  -->
 										</ul>
 										<BR>
 										<BR>

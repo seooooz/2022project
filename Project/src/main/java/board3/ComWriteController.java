@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,14 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
-
-public class WriteController extends HttpServlet {
+@WebServlet("/board/comwrite.do")
+public class ComWriteController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
     
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.getRequestDispatcher("/view/board/offer_write.jsp").forward(req, res);
+		req.getRequestDispatcher("/view/board/offer_view.jsp").forward(req, res);
 	}
 
 
@@ -29,26 +30,23 @@ public class WriteController extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		// 폼값을 DTO에 저장
-		offerBoardDTO dto = new offerBoardDTO();
+		CommentDTO dto = new CommentDTO();
 		
 		dto.setId((String)session.getAttribute("UserId"));
-		dto.setTitle(req.getParameter("title"));
-		dto.setContent(req.getParameter("content"));
-		dto.setCate(req.getParameter("cate"));
-		dto.setMemNum(req.getParameter("memNum"));
-		dto.setDday(req.getParameter("datepicker"));
+		dto.setComment(req.getParameter("comment"));
+		dto.setPostNum(req.getParameter("pnum"));
 		
 		offerBoardDAO dao = new offerBoardDAO();
-		int result = dao.insertWrite(dto);
+		int result = dao.offerinsertCom(dto);
 		dao.close();
 		
 		if(result == 1) {
-			System.out.println("offer 글작성 성공");
-			resp.sendRedirect("../board/list.do");
+			System.out.println("offer 댓글 성공");
+			resp.sendRedirect("../board/view.do?onum=" + req.getParameter("pnum"));
 		}
 		else {
-			System.out.println("offer 글작성 실패");
-			resp.sendRedirect("../board/write.do");
+			System.out.println("offer 댓글 실패");
+			resp.sendRedirect("../board/list.do");
 		}
 }
 }

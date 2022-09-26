@@ -32,6 +32,7 @@
  
  
  <!-- Required vendors -->
+ 	
     <script src="../../resources/vendor/global/global.min.js"></script>
     <script src="../../resources/js/quixnav-init.js"></script>
     <script src="../../resources/js/custom.min.js"></script>

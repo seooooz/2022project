@@ -12,7 +12,7 @@
     
     <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.date.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicon.png">
     <link rel="stylesheet" href="../../resources/vendor/owl-carousel/css/owl.carousel.min.css">
@@ -60,8 +60,9 @@ if(session.getAttribute("UserId") != null){
         <div class="nav-header">
             <a href="../../view/board/index.jsp" class="brand-logo">
                 <img class="logo-abbr" src="../../resources/images/logo.png" alt="">
-                <img class="logo-compact" src="../../resources/images/logo-text.png" alt="">
-                <img class="brand-title" src="../../resources/images/logo-text.png" alt="">
+<!--                 <img class="logo-compact" src="../../resources/images/logo-text.png" alt=""> -->
+<!--                 <img class="brand-title" src="../../resources/images/logo-text.png" alt=""> -->
+                <img class="brand-title" src="../../resources/images/4Dlogo.png" alt="">
             </a>
 
             <div class="nav-control">

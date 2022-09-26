@@ -53,8 +53,14 @@ public class ListController extends HttpServlet {
 	map.put("end", end);
 	/* 페이지 처리 end*/
 	
-	List<offerBoardDTO> boardLists = dao.selectListPage(map);
 	// 게시물 목록 받기
+	List<offerBoardDTO> boardLists = dao.selectListPage(map);
+	
+	
+	// 댓글 목록 받기
+//	String onum = req.getParameter("pnum");
+//	List<CommentDTO> comLists = dao.comselectView(onum);
+	
 	dao.close();
 	
 	// 뷰에 전달할 매개변수 추가
@@ -68,6 +74,7 @@ public class ListController extends HttpServlet {
 	
 	// 전달한 데이터를 request 영역에 저장 후 List.jsp로 포워드
 	req.setAttribute("boardLists", boardLists);
+//	req.setAttribute("comLists", comLists);
 	req.setAttribute("map", map);
 	req.getRequestDispatcher("../view/board/offer.jsp").forward(req, resp);
 	}

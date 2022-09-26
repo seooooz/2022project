@@ -1,7 +1,8 @@
 package board3;
 
 public class offerBoardDTO {
-
+	
+	private String num;
 	private String id;
 	private String title;
 	private String content;
@@ -10,6 +11,17 @@ public class offerBoardDTO {
 	private String dday;
 	private java.sql.Date postdate;
 	private int visitcount;
+	
+	
+	
+	
+	
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
 	public String getId() {
 		return id;
 	}
