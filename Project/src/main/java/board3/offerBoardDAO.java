@@ -293,17 +293,13 @@ public class offerBoardDAO extends DBConnPool{
 					}
 					
 					// 부모 댓글 groupnum 업데이트
-					public int comgroupUpdate(String idx) {
+					public int comgroupUpdate() {
 						int result = 0;
-						CommentDTO dto = new CommentDTO();
 						
 						try {
-							String sql = "UPDATE BCOMMENT SET GROUPNUM = (SELECT COM_INDEX FROM BCOMMENT WHERE com_index = ?) where com_index = ?";
+							String sql = "UPDATE BCOMMENT SET GROUPNUM = (SELECT COM_INDEX FROM BCOMMENT)";
 							
 							psmt = con.prepareStatement(sql);
-							psmt.setString(1, dto.getIdx());
-							psmt.setString(2, dto.getIdx());
-							
 							result = psmt.executeUpdate();
 						}
 						catch (Exception e) {
@@ -328,7 +324,7 @@ public class offerBoardDAO extends DBConnPool{
 							
 							rs = psmt.executeQuery();
 							
-							if(rs.next()) {
+							while(rs.next()) {
 								dto.setIdx(rs.getString(1));
 								dto.setId(rs.getString(2));
 								dto.setCode(rs.getInt(3));
@@ -350,17 +346,27 @@ public class offerBoardDAO extends DBConnPool{
 						return dto;
 					}
 					
+					
+//										
 					// 자식 댓글 데이터를 받아 DB에 추가 (대댓글)
-					public int offerinsertreply(CommentDTO dto) {
+					public int offerinsertreply(String id, String pnum, String reply, String comidx) {
 						int result = 0;
+//						CommentDTO dto = new CommentDTO();
 						try {
-							String sql = "insert into BCOMMENT (com_index, user_com_id, board_code, postnum, com, class, com_order, groupnum) values (seq_com_num.nextval, ?,3,?,?,0,0,?)";
+//							String sql = "insert into BCOMMENT (com_index, user_com_id, board_code, postnum, com, class, com_order, groupnum) values (seq_com_num.nextval, ?,3,?,?,1,?,?)";
+							String sql = "insert into BCOMMENT (com_index, user_com_id, board_code, postnum, com, class, com_order,GROUPNUM) values (seq_com_num.nextval, ?,3,?,?,1,(SELECT nvl(max(COM_ORDER),0) +1 FROM BCOMMENT where groupnum = ?),?)";
 							
 							psmt = con.prepareStatement(sql);
-							psmt.setString(1, dto.getId());
-							psmt.setString(2, dto.getPostNum());
-							psmt.setString(3, dto.getComment());
-							psmt.setString(4, dto.getGroupNum());
+//							psmt.setString(1, dto.getId());
+//							psmt.setString(2, dto.getPostNum());
+//							psmt.setString(3, dto.getComment());
+//							psmt.setInt(4, dto.getOrder()+1);
+//							psmt.setString(5, dto.getGroupNum());
+							psmt.setString(1, id);
+							psmt.setString(2, pnum);
+							psmt.setString(3, reply);
+							psmt.setString(4, comidx);
+							psmt.setString(5, comidx);
 							result = psmt.executeUpdate();
 						}
 						catch (Exception e) {

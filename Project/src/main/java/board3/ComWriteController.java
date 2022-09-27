@@ -38,6 +38,7 @@ public class ComWriteController extends HttpServlet {
 		
 		offerBoardDAO dao = new offerBoardDAO();
 		int result = dao.offerinsertCom(dto);
+//		dao.comgroupUpdate();
 		dao.close();
 		
 		if(result == 1) {

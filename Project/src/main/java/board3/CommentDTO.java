@@ -58,6 +58,7 @@ public class CommentDTO {
 	public void setComClass(int comClass) {
 		this.comClass = comClass;
 	}
+	
 	public int getOrder() {
 		return order;
 	}

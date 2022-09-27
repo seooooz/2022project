@@ -26,10 +26,7 @@ public class ViewController extends HttpServlet {
 		offerBoardDTO dto = dao.selectView(onum);
 		List<CommentDTO> comLists = dao.comselectView(onum);
 		
-		// 자식댓글 groupnum 설정할때
-		String idx = req.getParameter("idx");
-		System.out.println(idx);
-		dao.comgroupUpdate(idx);
+	
 		
 //		// 뷰에 전달할 매개변수 저장용 맵 생성
 //		Map<String, Object> map = new HashMap<String, Object>();
@@ -64,7 +61,7 @@ public class ViewController extends HttpServlet {
 		// 뷰에 전달할 매개변수 추가
 //		String pagingImg = Paging.pagingStr(totalCount, pageSize, blockPage, pageNum, "../view/board/List.do");
 //		
-//		// 바로가기 영역 HTML 문자열
+		// 바로가기 영역 HTML 문자열
 //		map.put("pagingImg", pagingImg);
 //		map.put("totalCount", totalCount);
 //		map.put("pageSize", pageSize);

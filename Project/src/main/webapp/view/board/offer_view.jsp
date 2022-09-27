@@ -6,22 +6,22 @@
 <%@include file="../includes/navbar.jsp"%>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-	  textchange = false;
-	  $('#Tbutton').click(function(){
-	    if(textchange){
-	      textchange = false;
-	      $('#Tbutton').text('댓글 쓰기');
-	    }else{
-	      textchange = true;
-	      $('#Tbutton').text('댓글 취소');
-	    }
-	    $('#divToggle').toggle('500',function(){
-	      $(this).css('color','white');
-	    });
-	  })
-	})
-</script>
+// $(document).ready(function(){
+// 	  textchange = false;
+// 	  $('#Tbutton').click(function(){
+// 	    if(textchange){
+// 	      textchange = false;
+// 	      $('#Tbutton').text('댓글 쓰기');
+// 	    }else{
+// 	      textchange = true;
+// 	      $('#Tbutton').text('댓글 취소');
+// 	    }
+// 	    $('#divToggle').toggle('500',function(){
+// 	      $(this).css('color','white');
+// 	    });
+// 	  })
+// 	})
+</script> 
 <style>
 .mt-5 {
 margin-top: 1.5rem !important;
@@ -128,43 +128,51 @@ margin-buttom: 5rem
                                                 </div>
                                                 </div>
                                                 </form>	
-                       <!-- OFFER 댓글 목록 start  -->
-												<c:choose>
-													<c:when test="${ empty comLists }"> <!-- 댓글이 없을 때 -->
-														<li>
-															<div align="center">
-																등록된 댓글이 없습니다^^*
-															</div>
-														</li>
-													</c:when>
-													<c:otherwise> <!-- 댓글이 있을 때 -->
-													<c:forEach items = "${ comLists }" var="com" varStatus="loop">
-														<ul class="paper_list">
-															<li class="py-4">
-															<div class="flex flex-col ">
-																<div class="flex items-center gap-x-3">
-																	<div class="flex flex-1 items-center gap-x-3"> <!-- id -->
-																		<input name = "comidx" value=${ com.idx }>
-																		<div>${ com.id }</div>
-																		<div>${ com.comment }</div>
-																		<div>${ com.date }</div>
-																	</div>
-																</div>	
-															</div>
-															</li>
-															<li>
-																<button id="Tbutton" class="bi bi-arrow-return-right">댓글 쓰기</button>
-																<div id="divToggle" style="display:none">
-																<textarea name="reply" rows="5" cols="50"></textarea>
-																<button type="button" onclick="location.href='../board/reply.do?mode=off&com_index=${ com.idx }';">댓글 쓰기</button>
-																</div>
-															</li>
-														</ul>
-													</c:forEach>
-													</c:otherwise>
-												</c:choose>	
-												</div>
+<%@include file="reply.jsp" %>             								
+
+<!-- OFFER 댓글 목록 start  -->
+<%-- 												<c:choose> --%>
+<%-- 													<c:when test="${ empty comLists }"> <!-- 댓글이 없을 때 --> --%>
+<!-- 														<li> -->
+<!-- 															<div align="center"> -->
+<!-- 																등록된 댓글이 없습니다^^* -->
+<!-- 															</div> -->
+<!-- 														</li> -->
+<%-- 													</c:when> --%>
+<%-- 													<c:otherwise> <!-- 댓글이 있을 때 --> --%>
+<%-- 													<c:forEach items = "${ comLists }" var="com" varStatus="loop"> --%>
+<!-- 														<ul class="paper_list"> -->
+<!-- 															<li class="py-4"> -->
+<!-- 															<div class="flex flex-col "> -->
+<!-- 																<div class="flex items-center gap-x-3"> -->
+<!-- 																	<div class="flex flex-1 items-center gap-x-3"> id -->
+<%-- 																		<div>${ com.id }</div> --%>
+<%-- 																		<div>${ com.comment }</div> --%>
+<%-- 																		<div>${ com.date }</div> --%>
+<!-- 																	</div> -->
+<!-- 																</div>	 -->
+<!-- 															</div> -->
+<!-- 															</li> -->
+<!-- 															<li> -->
+<!-- 																<button id="Tbutton" class="bi bi-arrow-return-right">댓글 쓰기</button> -->
+<!-- 																<div id="divToggle" style="display:none"> -->
+<!-- 																<form name="replyFrm" method="post" action="/board/reply.do"> -->
+																
+<%-- 																<input name = "comidx" value=${ com.idx }> --%>
+<%-- 																<input name = "pnum" value=${ com.postNum }> --%>
+																
+<!-- 																<textarea name="reply" rows="5" cols="50"></textarea> -->
+<!-- 																<button type="submit">댓글 쓰기</button> -->
+<!-- 																</form> -->
+<!-- 																</div> -->
+<!-- 															</li> -->
+<!-- 														</ul> -->
+<%-- 													</c:forEach> --%>
+<%-- 													</c:otherwise> --%>
+<%-- 												</c:choose>	 --%>
+												
 					<!-- OFFER 댓글 목록 end  -->
+												</div>
                                             </div>
                                         </div>
                                     </div>
