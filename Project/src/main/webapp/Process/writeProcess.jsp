@@ -1,15 +1,11 @@
 <%@ page import="board1.skillBoardDAO"%>
-<%@ page import="board1.skillBoardVO"%>
+<%@ page import="board1.skillBoardDTO"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.io.File"%>
 <%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <%
 String saveDirectory = application.getRealPath("Uploads");
 int maxPostSize = 1024 * 1000;
@@ -28,7 +24,7 @@ try {
 	}
 	
 	// dto에 폼값 받아오기
-	skillBoardVO vo = new skillBoardVO();
+	skillBoardDTO vo = new skillBoardDTO();
 	vo.setId(session.getAttribute("UserId").toString());
 	vo.setTitle(title);
 	vo.setContent(content);

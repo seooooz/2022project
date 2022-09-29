@@ -5,7 +5,12 @@
 <%@ page import="board.BoardDAO"%>
 <%@ page import="board.BoardVO"%>
 <%@ page import="java.util.*"%>
-
+<% 
+// if( session.getAttribute("UserId")==null){
+// 	session.setAttribute("UserId", "g");
+// 	System.out.println("엄준식화이팅");
+// }
+%>
 <!-- <style> -->
 /* #fbox{ */ /* display:flex; */ /* flex-flow:row; */ /*
 justify-content:center; */ /* align-items: center; */ /* } */

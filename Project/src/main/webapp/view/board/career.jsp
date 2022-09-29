@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ page import="board1.skillBoardDAO"%>
-<%@ page import="board1.skillBoardVO"%>
+<%@ page import="board1.skillBoardDTO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
 
@@ -69,7 +69,7 @@ param.put("end", end);
 /*** 페이지 처리 END ***/
 
 // 게시물 목록 받기
-List<skillBoardVO> boardLists = dao1.selectListPage(param);
+List<skillBoardDTO> boardLists = dao1.selectListPage(param);
 dao1.close();
 %>
 <!-- content body start -->
@@ -145,22 +145,21 @@ dao1.close();
 												<!-- 기술 게시판 목록 start  -->
 											
 												<%
-												if (boardLists.isEmpty()) {
-													// 게시물이 하나도 없을때 -->
-												%>
+																							if (boardLists.isEmpty()) {
+																																		// 게시물이 하나도 없을때 -->
+																							%>
 												<tr>
 													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
 												</tr>
 
 												<%
 												} else {
-												// 게시물이 있을 때 -->
-												int virtualNum = 0; // 화면상에서의 게시물 번호 
-												int countNum = 0;
+																						// 게시물이 있을 때 -->
+																						int virtualNum = 0; // 화면상에서의 게시물 번호 
+																						int countNum = 0;
 
-												for (skillBoardVO vo : boardLists) {
-													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
-													
+																						for (skillBoardDTO vo : boardLists) {
+																							virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
 												<tr>
 													<td><%=virtualNum%></td>

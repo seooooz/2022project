@@ -1,4 +1,4 @@
-<%@page import="board1.skillBoardVO"%>
+<%@page import="board1.skillBoardDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>

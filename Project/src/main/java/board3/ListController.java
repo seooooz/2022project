@@ -56,11 +56,6 @@ public class ListController extends HttpServlet {
 	// 게시물 목록 받기
 	List<offerBoardDTO> boardLists = dao.selectListPage(map);
 	
-	
-	// 댓글 목록 받기
-//	String onum = req.getParameter("pnum");
-//	List<CommentDTO> comLists = dao.comselectView(onum);
-	
 	dao.close();
 	
 	// 뷰에 전달할 매개변수 추가

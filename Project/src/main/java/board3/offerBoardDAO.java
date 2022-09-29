@@ -3,6 +3,7 @@ package board3;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
 import common.DBConnPool;
 
 public class offerBoardDAO extends DBConnPool{
@@ -10,7 +11,6 @@ public class offerBoardDAO extends DBConnPool{
 	public offerBoardDAO() {
 
 	}
-	
 	// 검색 조건에 맞는 게시물의 개수를 반환합니다.
 		public int selectCount(Map<String, Object> map) {
 			int totalCount = 0;
@@ -107,7 +107,7 @@ public class offerBoardDAO extends DBConnPool{
 		}
 		
 		
-	// 주어진 일련번호에 해당하는 게시물 반환
+		// 주어진 일련번호에 해당하는 게시물 반환
 		public offerBoardDTO selectView(String onum) {
 			
 			offerBoardDTO dto = new offerBoardDTO();
@@ -117,7 +117,6 @@ public class offerBoardDAO extends DBConnPool{
 			try {
 				psmt = con.prepareStatement(sql);
 				psmt.setString(1, onum);
-//				System.out.println(onum);
 				rs = psmt.executeQuery();
 				
 				while(rs.next()) {
@@ -208,7 +207,7 @@ public class offerBoardDAO extends DBConnPool{
 //					}
 		
 		
-		// 댓글의 개수를 반환합니다.
+				// 댓글의 개수를 반환합니다.
 				public int comselectCount(Map<String, Object> map) {
 					int totalCount = 0;
 					
@@ -234,11 +233,11 @@ public class offerBoardDAO extends DBConnPool{
 				}
 
 		
-//		// 주어진 일련번호에 해당하는 댓글 반환
+				// 주어진 일련번호에 해당하는 댓글 반환
 				public List<CommentDTO> comselectView(String onum) {
 					List<CommentDTO> oboard = new Vector<CommentDTO>();
 					
-					String sql = "select * from BCOMMENT where postnum = ?";
+					String sql = "select * from BCOMMENT where POSTNUM  = ? ORDER BY GROUPNUM  DESC, COM_ORDER";
 					
 					try {
 						psmt = con.prepareStatement(sql);
@@ -297,7 +296,7 @@ public class offerBoardDAO extends DBConnPool{
 						int result = 0;
 						
 						try {
-							String sql = "UPDATE BCOMMENT SET GROUPNUM = (SELECT COM_INDEX FROM BCOMMENT)";
+							String sql = "UPDATE BCOMMENT SET GROUPNUM = (SELECT nvl(max(com_index),0) FROM BCOMMENT) WHERE COM_INDEX = (SELECT nvl(max(com_index),0) FROM BCOMMENT)";
 							
 							psmt = con.prepareStatement(sql);
 							result = psmt.executeUpdate();
@@ -314,7 +313,7 @@ public class offerBoardDAO extends DBConnPool{
 						
 						CommentDTO dto = new CommentDTO();
 						
-						String sql = "select * from BCOMMENT where postnum = ?";
+						String sql = "select * from BCOMMENT where POSTNUM  = ? ORDER BY GROUPNUM  DESC, COM_ORDER";
 						
 						try {
 							psmt = con.prepareStatement(sql);
@@ -351,17 +350,10 @@ public class offerBoardDAO extends DBConnPool{
 					// 자식 댓글 데이터를 받아 DB에 추가 (대댓글)
 					public int offerinsertreply(String id, String pnum, String reply, String comidx) {
 						int result = 0;
-//						CommentDTO dto = new CommentDTO();
 						try {
-//							String sql = "insert into BCOMMENT (com_index, user_com_id, board_code, postnum, com, class, com_order, groupnum) values (seq_com_num.nextval, ?,3,?,?,1,?,?)";
 							String sql = "insert into BCOMMENT (com_index, user_com_id, board_code, postnum, com, class, com_order,GROUPNUM) values (seq_com_num.nextval, ?,3,?,?,1,(SELECT nvl(max(COM_ORDER),0) +1 FROM BCOMMENT where groupnum = ?),?)";
 							
 							psmt = con.prepareStatement(sql);
-//							psmt.setString(1, dto.getId());
-//							psmt.setString(2, dto.getPostNum());
-//							psmt.setString(3, dto.getComment());
-//							psmt.setInt(4, dto.getOrder()+1);
-//							psmt.setString(5, dto.getGroupNum());
 							psmt.setString(1, id);
 							psmt.setString(2, pnum);
 							psmt.setString(3, reply);
@@ -374,5 +366,56 @@ public class offerBoardDAO extends DBConnPool{
 							e.printStackTrace();
 						}
 						return result;
+					}
+					
+					// 댓글 삭제
+					public int deleteCom(String idx) {
+						int result = 0;
+						
+						try {
+							
+							String sql = "delete from BCOMMENT where com_index = ?";
+							
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, idx);
+							
+							result = psmt.executeUpdate();
+						}
+						catch(Exception e) {
+							System.out.println("댓글 삭제 중 예외 발생");
+							e.printStackTrace();
+						}
+						
+						return result;
+					}
+					
+					public CommentDTO comselectidx(String idx) {
+						
+						CommentDTO dto = new CommentDTO();
+						try {
+							
+							String sql = "select * from BCOMMENT where = ?";
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, idx);
+							rs = psmt.executeQuery();
+							
+							while(rs.next()) {
+								dto.setIdx(rs.getString(1));
+								dto.setId(rs.getString(2));
+								dto.setCode(rs.getInt(3));
+								dto.setPostNum(rs.getString(4));
+								dto.setDate(rs.getDate(5));
+								dto.setComment(rs.getString(6));
+								dto.setComClass(rs.getInt(7));
+								dto.setOrder(rs.getInt(8));
+								dto.setGroupNum(rs.getString(9));
+								
+						}
+					}
+						catch (Exception e) {
+							System.out.println("댓글 정보 오류");
+						}
+
+						return dto;
 					}
 }

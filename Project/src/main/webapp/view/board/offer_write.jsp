@@ -43,8 +43,8 @@ function validateForm(form){				//폼 내용 검증
 			<div class="card-body">
 				<!-- table start -->
 				<div class="table-responsive">
-					<form name="offerwriteFrm" method="post" action="/board/write.do"			
-						 onsubmit="return validateForm(this)">			<!-- 서블릿  -->
+					<form name="offerwriteFrm" method="post" action="../../Process/offer/writeProcess.jsp"			
+						 onsubmit="return validateForm(this)">			
 						<table>
 							<tr>
 								<th>작성자</th>

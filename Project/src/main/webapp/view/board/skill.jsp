@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ page import="board1.skillBoardDAO"%>
-<%@ page import="board1.skillBoardVO"%>
+<%@ page import="board1.skillBoardDTO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
 
@@ -69,7 +69,7 @@ param.put("end", end);
 /*** 페이지 처리 END ***/
 
 // 게시물 목록 받기
-List<skillBoardVO> boardLists = dao1.selectListPage(param);
+List<skillBoardDTO> boardLists = dao1.selectListPage(param);
 dao1.close();
 %>
 <!-- content body start -->
@@ -137,14 +137,15 @@ dao1.close();
 													<th>작성자</th>
 													<th>작성일</th>
 													<th>조회수</th>
+													<th>파일</th>
 												</tr>
 											</thead>
 											<tbody>
 												<!-- 기술 게시판 목록 start  -->
 											
 												<%
-												if (boardLists.isEmpty()) {
-													// 게시물이 하나도 없을때 -->
+													if (boardLists.isEmpty()) {
+																					// 게시물이 하나도 없을때 -->
 												%>
 												<tr>
 													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
@@ -152,23 +153,23 @@ dao1.close();
 
 												<%
 												} else {
-												// 게시물이 있을 때 -->
-												int virtualNum = 0; // 화면상에서의 게시물 번호 
-												int countNum = 0;
+														// 게시물이 있을 때 -->
+														int virtualNum = 0; // 화면상에서의 게시물 번호 
+														int countNum = 0;
 
-												for (skillBoardVO vo : boardLists) {
-													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
-													
+														for (skillBoardDTO dto : boardLists) {
+														virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
 												<tr>
 													<td><%=virtualNum%></td>
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
-														<a href="view.jsp?num=<%=vo.getNum()%>"><%=vo.getTitle()%></a>
+														<a href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 													</td>
-													<td><%=vo.getId()%></td>
-													<td><%=vo.getPostdate()%></td>
-													<td><%=vo.getVisitcount()%></td>
+													<td><%=dto.getId()%></td>
+													<td><%=dto.getPostdate()%></td>
+													<td><%=dto.getVisitcount()%></td>
+													<td><%=dto.getFilename()%></td>
 													<td>
 <%-- 			<c:if test="${ not empty row.ofile }"> --%>
 <%-- 				<a href="../mvcboard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a> --%>

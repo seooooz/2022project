@@ -1,8 +1,9 @@
+<%@page import="board3.CommentDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="board1.skillBoardDAO"%>
-<%@ page import="board1.skillBoardVO"%>
+<%@ page import="board3.offerBoardDAO"%>
+<%@ page import="board3.offerBoardDTO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
 
@@ -10,6 +11,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
+<%
+	offerBoardDAO dao = new offerBoardDAO();
+	
+	//뷰에 전달할 매개변수 저장용 맵 생성
+	Map<String, Object> map = new HashMap<String, Object>();
+	
+	String searchField = request.getParameter("searchField");
+	String searchWord = request.getParameter("searchWord");
+	if(searchWord != null) {
+		// 쿼리스트링으로 전달받은 매개변수 중 검색어가 있다면 map에 저장
+		map.put("searchField", searchField);
+		map.put("searchWord", searchWord);
+	}
+	
+	int totalCount = dao.selectCount(map); // 게시물 개수
+	
+	/* 페이지 처리 start*/
+	
+	int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
+	int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
+	
+	// 현재 페이지 확인
+	int pageNum = 1; // 기본값
+	String pageTemp = request.getParameter("pageNum");
+	if(pageTemp != null && !pageTemp.equals(""))
+		pageNum = Integer.parseInt(pageTemp);	// 요청받은 페이지로 수정
+	
+	// 목록에 출력할 게시물 범위 계산
+	int start = (pageNum -1) * pageSize + 1; // 첫 게시물 번호
+	int end = pageNum * pageSize;	// 마지막 게시물 번호
+	map.put("start", start);
+	map.put("end", end);
+	/* 페이지 처리 end*/
+	
+	// 게시물 목록 받기
+	List<offerBoardDTO> boardLists = dao.selectListPage(map);
+	dao.close();
+%>
 <script>
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
@@ -128,46 +167,58 @@
 									<div class="table-responsive">
 										<ul class="table mb-0">
 					<!-- OFFER 게시판 목록 start  -->
-						<c:choose>
-							<c:when test="${ empty boardLists }"> <!-- 게시물이 없을 때 -->
+							<!-- 게시물이 없을 때 -->
+						<div>
+							<%
+							if(boardLists.isEmpty()){   
+							%>
 								<li>
 									<div align="center">
 										등록된 게시물이 없습니다^^*
 									</div>
 								</li>
-							</c:when>
-							<c:otherwise> <!-- 게시물이 있을 때 -->
-							<c:forEach items = "${ boardLists }" var="row" varStatus="loop">
+							<%
+							} else {
+								int virtualNum = 0;
+								int countNum = 0;
+								
+								for (offerBoardDTO dto : boardLists) {
+									virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+							%>
+							<!-- 게시물이 있을 때 -->
+							<div>
 						<ul class="paper_list">
 							<li class="py-4">
 							<div class="flex flex-col ">
 								<div class="flex items-center gap-x-3">
 									<div class="flex flex-1 items-center gap-x-3"> <!-- id -->
-										${ row.id }
+										<%=dto.getId() %>
 									</div>
 									<div class="flex items-center gap-x-4">
 										<div><i class="bi bi-eye pull-right"></i></div>
-										<div>${ row.visitcount }</div>
+										<div><%= dto.getVisitcount() %></div>
 									</div>
 								</div>	
 								<div class="my-2" align="left"> <!-- 제목(링크) -->
-									<a class="title_a" href = "../board/view.do?onum=${ row.num }">${ row.title }</a>
+									<a class="title_a" href = "offer_view.jsp?onum=<%= dto.getNum()%>"><%= dto.getTitle() %></a>
 								</div>
 								<div class="flex flex-1">
 									<div class="flex flex-1 items-center gap-x-3">
-										<div class="flex items-center gap-x-3">${ row.cate }</div>
-										<div class="flex items-center gap-x-3">총 ${ row.memNum }명</div>
+										<div class="flex items-center gap-x-3"><%= dto.getCate() %></div>
+										<div class="flex items-center gap-x-3">총 <%= dto.getMemNum() %>명</div>
 									</div>	
 									<div class="flex items-center gap-x-3">
-										<div>마감일 : ${ row.dday }</div>
+										<div>마감일 : <%= dto.getDday() %></div>
 									</div>
 								</div>
 							</div>
 							</li>
 						</ul>
-							</c:forEach>
-							</c:otherwise>
-						</c:choose>		
+							</div>
+						</div>		
+						<%}
+							}
+								%>
 					<!-- OFFER 게시판 목록 end  -->
 										</ul>
 										<BR>
@@ -175,7 +226,7 @@
 									</div>
 									<!--                      기술 게시판 페이징 기능 start  -->
 									<div>
-										${ map.pagingImg }
+										<%= Paging.pagingStr(totalCount, pageSize, blockPage, pageNum, request.getRequestURI()) %>
 									</div>
 										<!--                      기술 게시판 페이징 기능 end  -->
 								</div>

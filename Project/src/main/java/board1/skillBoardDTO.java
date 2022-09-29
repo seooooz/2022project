@@ -1,6 +1,6 @@
 package board1;
 
-public class skillBoardVO {
+public class skillBoardDTO {
 	private String num;
 	private String id;
 	private String title;

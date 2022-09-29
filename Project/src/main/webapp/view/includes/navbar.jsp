@@ -42,7 +42,8 @@
                                 class="icon icon-form"></i><span class="nav-text">PROJECT</span></a>
                         <ul aria-expanded="false">
                             <li><a href="../../resources/form-element.html">공모전</a></li>
-                            <li><a href="/board/list.do">OFFER</a></li>
+<!--                             <li><a href="/board/list.do">OFFER</a></li> -->
+                            <li><a href="../board/offer.jsp">OFFER</a></li>
                         </ul>
                     </li>
 

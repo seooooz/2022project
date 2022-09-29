@@ -18,10 +18,10 @@ public class skillBoardDAO extends DBConnPool{
 	}
 	
 	// skillboard 게시물 보이기
-	public ArrayList<skillBoardVO> selectAllBoard() {
+	public ArrayList<skillBoardDTO> selectAllBoard() {
 		String sql = "select num, title, id, postdate, visitcount  from skillboard order by num desc";
 		
-		ArrayList<skillBoardVO> list = new ArrayList<skillBoardVO>();
+		ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();
 		
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class skillBoardDAO extends DBConnPool{
 			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				skillBoardVO fdo = new skillBoardVO();
+				skillBoardDTO fdo = new skillBoardDTO();
 				fdo.setNum(rs.getString("num"));
 				fdo.setTitle(rs.getString("title"));
 				fdo.setId(rs.getString("id"));
@@ -53,7 +53,7 @@ public class skillBoardDAO extends DBConnPool{
 	}
 	
 	//  게시물 작성(insert)
-	public int insertWrite(skillBoardVO dto) {
+	public int insertWrite(skillBoardDTO dto) {
 		int applyResult= 0;
 		
 		try {
@@ -106,8 +106,8 @@ public class skillBoardDAO extends DBConnPool{
 	
 	
 	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
-	public List<skillBoardVO> selectListPage(Map<String, Object> map){
-		List<skillBoardVO> bbs = new Vector<skillBoardVO>(); // 결과(게시물 목록)를 담을 변수
+	public List<skillBoardDTO> selectListPage(Map<String, Object> map){
+		List<skillBoardDTO> bbs = new Vector<skillBoardDTO>(); // 결과(게시물 목록)를 담을 변수
 		
 		String sql = " select * from ( select Tb.*, rownum rNum from ( select * from skillboard ";
 		
@@ -128,12 +128,13 @@ public class skillBoardDAO extends DBConnPool{
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				skillBoardVO vo = new skillBoardVO();
+				skillBoardDTO vo = new skillBoardDTO();
 				vo.setNum(rs.getString("num"));
 				vo.setId(rs.getString("id"));
 				vo.setTitle(rs.getString("title"));
 				vo.setContent(rs.getString("content"));
 				vo.setCate(rs.getString("cate"));
+				vo.setFilename(rs.getString("filename"));
 				vo.setPostdate(rs.getDate("postdate"));
 				vo.setVisitcount(rs.getString("visitcount"));
 				
@@ -150,14 +151,14 @@ public class skillBoardDAO extends DBConnPool{
 	}
 	
 	// index.jsp ) 최근 게시글 상위 5개 
-		public ArrayList<skillBoardVO> selectBoards() {
+		public ArrayList<skillBoardDTO> selectBoards() {
 			String sql = "select * from "
 					+ " ( "
 					+ "	SELECT * FROM skillboard "
 					+ "	ORDER  BY num DESC ) "
 					+ " where rownum <= 5";
 
-			ArrayList<skillBoardVO> list = new ArrayList<skillBoardVO>();
+			ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();
 			
 
 			try {
@@ -166,7 +167,7 @@ public class skillBoardDAO extends DBConnPool{
 				rs = stmt.executeQuery(sql);
 
 				while (rs.next()) {
-					skillBoardVO vo = new skillBoardVO();
+					skillBoardDTO vo = new skillBoardDTO();
 					vo.setNum(rs.getString("num"));
 					vo.setId(rs.getString("id"));
 					vo.setTitle(rs.getString("title"));
@@ -206,7 +207,7 @@ public class skillBoardDAO extends DBConnPool{
 		}
 		
 		// 페이징 처리 하기 위한 게시물 목록 10개 씩 
-		public ArrayList<skillBoardVO> getList(int pageNum){
+		public ArrayList<skillBoardDTO> getList(int pageNum){
 			String sql = "SELECT * FROM ( "
 					+ "	SELECT * FROM skillboard "
 					+ "	WHERE  num < ? "
@@ -214,7 +215,7 @@ public class skillBoardDAO extends DBConnPool{
 					+ " ) "
 					+ " WHERE rownum <=10";
 
-			ArrayList<skillBoardVO> list = new ArrayList<skillBoardVO>();
+			ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();
 			
 			try {
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -222,7 +223,7 @@ public class skillBoardDAO extends DBConnPool{
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					skillBoardVO vo = new skillBoardVO();
+					skillBoardDTO vo = new skillBoardDTO();
 					vo.setNum(rs.getString(1));
 					vo.setId(rs.getString(2));
 					vo.setTitle(rs.getString(3));
@@ -268,6 +269,95 @@ public class skillBoardDAO extends DBConnPool{
 			}
 
 			return false;
+		}
+		
+		
+		// 지정한 게시물을 찾아 내용을 반환
+		public skillBoardDTO selectView(String num) {
+			skillBoardDTO dto = new skillBoardDTO();
+
+			String sql = "select * from skillboard where num = ?";
+			System.out.println(sql);
+			try {
+
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, num);
+				rs = psmt.executeQuery();
+
+				while (rs.next()) {
+					dto.setNum(rs.getString(1));
+					dto.setId(rs.getString(2));
+					dto.setTitle(rs.getString(3));
+					dto.setContent(rs.getString(4));
+					dto.setCate(rs.getString(5));
+					dto.setFilename(rs.getString(6));
+					dto.setFilesize(rs.getLong(7));
+					dto.setPostdate(rs.getDate(8));
+					dto.setVisitcount(rs.getString(9));
+				}
+			} 
+			catch (Exception e) {
+				System.out.println("게시물 상세보기 중 예외 발생");
+				e.printStackTrace();
+			}
+			return dto;
+		}
+
+		// 지정한 게시물의 조회수즐 1 증가
+		public void updateVisitCount(String num) {
+			String sql = "update skillboard set "
+					+ " visitcount = visitcount+1 "
+					+ " where num=?";
+			System.out.println(sql);
+			try {
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, num);
+				psmt.executeQuery();
+			} catch (Exception e) {
+				System.out.println("게시물 조회수 증가 중 예외 발생");
+				e.printStackTrace();
+			}
+		}
+		
+		// 지정한 게시물을 수정
+		public int updateEdit(skillBoardDTO dto) {
+			int result = 0;
+			
+			try {
+				String sql = "update skillboard set title=?, content=? where num=?";
+				
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, dto.getTitle());
+				psmt.setString(2, dto.getContent());
+				psmt.setString(3, dto.getNum());
+				
+				result = psmt.executeUpdate();
+			}
+			catch(Exception e) {
+				System.out.println("게시물 수정 중 예외 발생");
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
+		
+		// 지정한 게시물을 삭제
+		public int deletePost(skillBoardDTO dto) {
+			int result = 0;
+			
+			try {
+				String sql = "delete from skillboard where num=?";
+				
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, dto.getNum());
+				
+				result = psmt.executeUpdate();
+			}
+			catch(Exception e) {
+				System.out.println("게시물 삭제 중 예외 발생");
+				e.printStackTrace();
+			}
+			return result;
 		}
 	
 }

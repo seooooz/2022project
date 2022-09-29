@@ -71,7 +71,6 @@ public class ViewController extends HttpServlet {
 		// 게시물(dto) 저장 후 뷰로 포워드
 		req.setAttribute("odto", dto);
 		req.setAttribute("comLists", comLists);
-//		req.setAttribute("map", map);
 		req.getRequestDispatcher("../view/board/offer_view.jsp").forward(req, resp);
 	}
 	
