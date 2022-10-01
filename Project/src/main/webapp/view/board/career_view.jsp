@@ -1,3 +1,5 @@
+<%@page import="board.careerBoardDTO"%>
+<%@page import="board.careerBoardDAO"%>
 <%@page import="board1.skillBoardDTO"%>
 <%@page import="board1.skillBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,30 +9,30 @@
 <%
 String snum = request.getParameter("num");
 
-skillBoardDAO sdao = new skillBoardDAO();
-sdao.updateVisitCount(snum);
-skillBoardDTO sdto = sdao.selectView(snum);
-sdao.close();
+careerBoardDAO dao = new careerBoardDAO();
+dao.updateVisitCount(snum);
+careerBoardDTO dto = dao.selectView(snum);
+dao.close();
 %>
 <script>
-function skilldeletePost(){
+function deletePost(){
 	var confirmed = confirm("게시물을 삭제하겟습니까?");
 	
 	if(confirmed){
 		var form = document.writeFrm;
 		form.method = "post";
-		form.action = "../../Process/skill/DeleteProcess.jsp";
+		form.action = "../../Process/career/DeleteProcess.jsp";
 		form.submit();
 	}
 }
 
-function skilleditPost(){
+function editPost(){
 // 	var confirmed = confirm("게시물을 삭제하겟습니까?");
 	
 // 	if(confirmed){
 		var form = document.writeFrm;
 		form.method = "post";
-		form.action = "skill_edit.jsp";
+		form.action = "career_edit.jsp";
 		form.submit();
 // 	}
 }
@@ -117,7 +119,7 @@ margin-top: 0.75rem;
                                           		 <form name="offercomFrm" method="post" action="../../Process/offer/ComWriteProcess.jsp">
                                                     <div class="media pt-3">
                                                         <div class="media-body">
-                                                             <h3 class="btitle my-1"><%= sdto.getTitle() %></h3>
+                                                             <h3 class="btitle my-1"><%= dto.getTitle() %></h3>
                                                         </div>
                                                         
                                                         <div>
@@ -125,14 +127,14 @@ margin-top: 0.75rem;
                                                         <a href="skill.jsp" class="text-muted "><i
                                                                 class="fa fa-reply"></i> </a>
                                                         <%
-														if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(sdto.getId())){
+														if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(dto.getId())){
 														%>
                                                         <div class="pull-right">
                                                         <!-- 수정하기 -->        
-                                                        <a href="javascript:skilleditPost()" class="text-muted ml-3"><i
+                                                        <a href="javascript:editPost()" class="text-muted ml-3"><i
                                                                 class="bi bi-pencil-fill"></i> </a>
                                                         <!-- 삭제하기 -->        
-                                                        <a href="javascript:skilldeletePost();" class="text-muted ml-3"><i
+                                                        <a href="javascript:deletePost();" class="text-muted ml-3"><i
                                                                 class="fa fa-trash"></i></a>
                                                         </div>
                                                         <%
@@ -143,26 +145,26 @@ margin-top: 0.75rem;
                                                     
                                                     <div class="media mb-4 mt-5">
                                                         <div class="media-body"> 
-                                                        <span class="pull-right" style="margin-left: 5px;"><%= sdto.getVisitcount() %></span>
+                                                        <span class="pull-right" style="margin-left: 5px;"><%= dto.getVisitcount() %></span>
                                                         	<i class="bi bi-eye pull-right"></i>
                                                         	<img class="pf rounded-circle pull-left" alt="image" src="../../resources/images/pf.png">
-                                                            <h5 class="bid"><%= sdto.getId() %></h5>
-                                                            <p class="bpostdate"><%= sdto.getPostdate() %></p>
+                                                            <h5 class="bid"><%= dto.getId() %></h5>
+                                                            <p class="bpostdate"><%= dto.getPostdate() %></p>
                                                         </div>
                                                     </div>
                                                     <div class="b bcontent bread-content-body">
-                                                        <p><%= sdto.getContent() %></p>
+                                                        <p><%=dto.getContent() %></p>
                                                     </div>
                                                     <div>
                                                     	<img alt=""
 											               style="height: auto; width: 100%"
-											               src="../../Uploads/<%=sdto.getFilename()%>">
-                                                    	<%= sdto.getCate() %>
+											               src="../../Uploads/<%=dto.getFilename()%>">
+                                                    	<%=dto.getCate()%>
                                                     </div>
                                                         <hr>
                                                         <h5 class="pt-3">COMMENT</h5>
                                                     <div class="form-group pt-3">
-                                                    	<input name="pnum" value =<%= sdto.getNum() %>>
+                                                    	<input name="pnum" value =<%=dto.getNum()%>>
                                                         <textarea class="btextarea w-100" name="comment" cols="30" rows="5"  placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
                                                     </div>
                                                 <div class="text-right">
@@ -185,9 +187,9 @@ margin-top: 0.75rem;
                                     </div>
                                     <div class="center_btn">
 										<%
-										if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(sdto.getId())){
+										if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(dto.getId())){
 										%>
-										<button type="button" onclick="location.href='Edit.jsp?num=<%= sdto.getNum() %>';" class="btn btn-outline-dark">수정하기</button>
+										<button type="button" onclick="location.href='Edit.jsp?num=<%=dto.getNum()%>';" class="btn btn-outline-dark">수정하기</button>
 										<button type="button" onclick="skilldeletePost();" class="btn btn-outline-dark">삭제하기</button>
 										<%
 										}

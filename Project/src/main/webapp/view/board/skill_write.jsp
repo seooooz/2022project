@@ -18,7 +18,7 @@
 			<div class="card-body">
 				<!-- table start -->
 				<div class="table-responsive">
-					<form name="writeFrm" method="post" action="../../Process/writeProcess.jsp"
+					<form name="writeFrm" method="post" action="../../Process/skill/writeProcess.jsp"
 						enctype="multipart/form-data" onsubmit="return validateForm(this)">
 						<table>
 							<tr>

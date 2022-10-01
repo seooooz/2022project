@@ -1,4 +1,4 @@
-package board1;
+package board;
 
 import java.io.File;
 import java.sql.PreparedStatement;
@@ -15,17 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import common.DBConnPool;
 
-public class skillBoardDAO extends DBConnPool{
+public class careerBoardDAO extends DBConnPool{
 	
-	public skillBoardDAO() {
+	public careerBoardDAO() {
 		super();
 	}
 	
 	// skillboard 게시물 보이기
-	public ArrayList<skillBoardDTO> selectAllBoard() {
-		String sql = "select num, title, id, postdate, visitcount  from skillboard order by num desc";
+	public ArrayList<careerBoardDTO> selectAllBoard() {
+		String sql = "select cnum, ctitle, cid, cpostdate, cvisitcount  from careerboard order by cnum desc";
 		
-		ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();
+		ArrayList<careerBoardDTO> list = new ArrayList<careerBoardDTO>();
 		
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -36,12 +36,12 @@ public class skillBoardDAO extends DBConnPool{
 			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				skillBoardDTO fdo = new skillBoardDTO();
-				fdo.setNum(rs.getString("num"));
-				fdo.setTitle(rs.getString("title"));
-				fdo.setId(rs.getString("id"));
-				fdo.setPostdate(rs.getDate("postdate"));
-				fdo.setVisitcount(rs.getString("visitcount"));
+				careerBoardDTO fdo = new careerBoardDTO();
+				fdo.setNum(rs.getString("cnum"));
+				fdo.setTitle(rs.getString("ctitle"));
+				fdo.setId(rs.getString("cid"));
+				fdo.setPostdate(rs.getDate("cpostdate"));
+				fdo.setVisitcount(rs.getString("cvisitcount"));
 				
 				list.add(fdo);
 			}
@@ -57,14 +57,14 @@ public class skillBoardDAO extends DBConnPool{
 	}
 	
 	//  게시물 작성(insert)
-	public int insertWrite(skillBoardDTO dto) {
+	public int insertWrite(careerBoardDTO dto) {
 		int applyResult= 0;
 		
 		try {
-			String query="INSERT INTO skillboard ("
-					+ "num, id, title, content, cate, filename, filesize, visitcount)"
+			String query="INSERT INTO careerboard ("
+					+ "cnum, cid, ctitle, ccontent, ccate, cfilename, cfilesize, cvisitcount)"
 					+ "VALUES ("
-					+ "seq_skillboard_num.nextval,?,?,?,?,?,?,0)";
+					+ "seq_careerboard_num.nextval,?,?,?,?,?,?,0)";
 			
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getId());
@@ -88,7 +88,7 @@ public class skillBoardDAO extends DBConnPool{
 		int totalCount = 0; // 결과(게시물 수) 담을 변수
 		
 		// 게시물 수 얻어온느 쿼리
-		String query = "select count(*) from skillboard";
+		String query = "select count(*) from careerboard";
 		
 		if(map.get("searchWord") != null) {
 			query += " where " + map.get("searchField") + " "
@@ -110,10 +110,10 @@ public class skillBoardDAO extends DBConnPool{
 	
 	
 	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
-	public List<skillBoardDTO> selectListPage(Map<String, Object> map){
-		List<skillBoardDTO> bbs = new Vector<skillBoardDTO>(); // 결과(게시물 목록)를 담을 변수
+	public List<careerBoardDTO> selectListPage(Map<String, Object> map){
+		List<careerBoardDTO> bbs = new Vector<careerBoardDTO>(); // 결과(게시물 목록)를 담을 변수
 		
-		String sql = " select * from ( select Tb.*, rownum rNum from ( select * from skillboard ";
+		String sql = " select * from ( select Tb.*, rownum rnum from ( select * from careerboard ";
 		
 		// 검색 조건 추가
 		if(map.get("searchWord") != null) {
@@ -121,7 +121,7 @@ public class skillBoardDAO extends DBConnPool{
 					+ " like '%" + map.get("searchWord") + "%' ";
 		}
 		
-		sql += " order by num desc ) Tb ) where rNum between ? and ?";
+		sql += " order by cnum desc ) Tb ) where rnum between ? and ?";
 		
 		System.out.println(sql);
 		try { 
@@ -132,15 +132,15 @@ public class skillBoardDAO extends DBConnPool{
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				skillBoardDTO vo = new skillBoardDTO();
-				vo.setNum(rs.getString("num"));
-				vo.setId(rs.getString("id"));
-				vo.setTitle(rs.getString("title"));
-				vo.setContent(rs.getString("content"));
-				vo.setCate(rs.getString("cate"));
-				vo.setFilename(rs.getString("filename"));
-				vo.setPostdate(rs.getDate("postdate"));
-				vo.setVisitcount(rs.getString("visitcount"));
+				careerBoardDTO vo = new careerBoardDTO();
+				vo.setNum(rs.getString("cnum"));
+				vo.setId(rs.getString("cid"));
+				vo.setTitle(rs.getString("ctitle"));
+				vo.setContent(rs.getString("ccontent"));
+				vo.setCate(rs.getString("ccate"));
+				vo.setFilename(rs.getString("cfilename"));
+				vo.setPostdate(rs.getDate("cpostdate"));
+				vo.setVisitcount(rs.getString("cvisitcount"));
 				
 				// 반환할 경과 목록에 게시물 추가
 				bbs.add(vo);
@@ -155,14 +155,14 @@ public class skillBoardDAO extends DBConnPool{
 	}
 	
 	// index.jsp ) 최근 게시글 상위 5개 
-		public ArrayList<skillBoardDTO> selectBoards() {
+		public ArrayList<careerBoardDTO> selectBoards() {
 			String sql = "select * from "
 					+ " ( "
-					+ "	SELECT * FROM skillboard "
-					+ "	ORDER  BY num DESC ) "
+					+ "	SELECT * FROM careerboard "
+					+ "	ORDER  BY cnum DESC ) "
 					+ " where rownum <= 5";
 
-			ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();
+			ArrayList<careerBoardDTO> list = new ArrayList<careerBoardDTO>();
 			
 
 			try {
@@ -171,12 +171,12 @@ public class skillBoardDAO extends DBConnPool{
 				rs = stmt.executeQuery(sql);
 
 				while (rs.next()) {
-					skillBoardDTO vo = new skillBoardDTO();
-					vo.setNum(rs.getString("num"));
-					vo.setId(rs.getString("id"));
-					vo.setTitle(rs.getString("title"));
-					vo.setPostdate(rs.getDate("postdate"));
-					vo.setVisitcount(rs.getString("visitcount"));
+					careerBoardDTO vo = new careerBoardDTO();
+					vo.setNum(rs.getString("cnum"));
+					vo.setId(rs.getString("cid"));
+					vo.setTitle(rs.getString("ctitle"));
+					vo.setPostdate(rs.getDate("cpostdate"));
+					vo.setVisitcount(rs.getString("cvisitcount"));
 					list.add(vo);
 				}
 				rs.close();
@@ -192,7 +192,7 @@ public class skillBoardDAO extends DBConnPool{
 		
 		// 작성 하려는 게시물 번호 확인
 		public int getNext() {
-			String sql = "SELECT NUM FROM skillboard ORDER BY NUM DESC";
+			String sql = "SELECT cnum FROM careerboard ORDER BY cnum DESC";
 			try {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
@@ -211,23 +211,23 @@ public class skillBoardDAO extends DBConnPool{
 		}
 		
 		// 페이징 처리 하기 위한 게시물 목록 10개 씩 
-		public ArrayList<skillBoardDTO> getList(int pageNum){
+		public ArrayList<careerBoardDTO> getList(int num){
 			String sql = "SELECT * FROM ( "
-					+ "	SELECT * FROM skillboard "
-					+ "	WHERE  num < ? "
-					+ "	ORDER BY num DESC "
+					+ "	SELECT * FROM careerboard "
+					+ "	WHERE  cnum < ? "
+					+ "	ORDER BY cnum DESC "
 					+ " ) "
 					+ " WHERE rownum <=10";
 
-			ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();
+			ArrayList<careerBoardDTO> list = new ArrayList<careerBoardDTO>();
 			
 			try {
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, getNext() - (pageNum -1) *10);
+				pstmt.setInt(1, getNext() - (num -1) *10);
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					skillBoardDTO vo = new skillBoardDTO();
+					careerBoardDTO vo = new careerBoardDTO();
 					vo.setNum(rs.getString(1));
 					vo.setId(rs.getString(2));
 					vo.setTitle(rs.getString(3));
@@ -251,13 +251,13 @@ public class skillBoardDAO extends DBConnPool{
 			return list;
 		}
 		// 게시글을 10개씩 자를 떄 1개라도 있다면 페이징 활성화
-		public boolean nextPage(int pageNum) {
-			String sql = "SELECT * FROM skillboard WHERE NUM < ? ";
+		public boolean nextPage(int num) {
+			String sql = "SELECT * FROM careerboard WHERE cnum < ? ";
 			
 			try {
 			
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, getNext() - (pageNum -1) *10);
+				pstmt.setInt(1, getNext() - (num -1) *10);
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
@@ -277,15 +277,15 @@ public class skillBoardDAO extends DBConnPool{
 		
 		
 		// 지정한 게시물을 찾아 내용을 반환
-		public skillBoardDTO selectView(String num) {
-			skillBoardDTO dto = new skillBoardDTO();
+		public careerBoardDTO selectView(String cnum) {
+			careerBoardDTO dto = new careerBoardDTO();
 
-			String sql = "select * from skillboard where num = ?";
+			String sql = "select * from careerboard where cnum = ?";
 			System.out.println(sql);
 			try {
 
 				psmt = con.prepareStatement(sql);
-				psmt.setString(1, num);
+				psmt.setString(1, cnum);
 				rs = psmt.executeQuery();
 
 				while (rs.next()) {
@@ -309,9 +309,9 @@ public class skillBoardDAO extends DBConnPool{
 
 		// 지정한 게시물의 조회수즐 1 증가
 		public void updateVisitCount(String num) {
-			String sql = "update skillboard set "
-					+ " visitcount = visitcount+1 "
-					+ " where num=?";
+			String sql = "update careerboard set "
+					+ " cvisitcount = cvisitcount+1 "
+					+ " where cnum=?";
 			System.out.println(sql);
 			try {
 				psmt = con.prepareStatement(sql);
@@ -324,11 +324,11 @@ public class skillBoardDAO extends DBConnPool{
 		}
 		
 		// 지정한 게시물을 수정
-		public int updateEdit(skillBoardDTO dto) {
+		public int updateEdit(careerBoardDTO dto) {
 			int result = 0;
 			
 			try {
-				String sql = "update skillboard set title=?, content=?,  filename=?, filesize=? where num=?";
+				String sql = "update careerboard set ctitle=?, ccontent=?,  cfilename=?, cfilesize=? where cnum=?";
 				
 				psmt = con.prepareStatement(sql);
 				psmt.setString(1, dto.getTitle());
@@ -348,11 +348,11 @@ public class skillBoardDAO extends DBConnPool{
 		}
 		
 		// 지정한 게시물을 삭제
-		public int deletePost(skillBoardDTO dto) {
+		public int deletePost(careerBoardDTO dto) {
 			int result = 0;
 			
 			try {
-				String sql = "delete from skillboard where num=?";
+				String sql = "delete from careerboard where cnum=?";
 				
 				psmt = con.prepareStatement(sql);
 				psmt.setString(1, dto.getNum());

@@ -16,6 +16,7 @@
 	odao.updateVisitCount(onum);
 	offerBoardDTO odto = odao.selectView(onum);
 	List<CommentDTO> comLists = odao.comselectView(onum);
+// 	List<CommentDTO> remLists = odao.reselectView(onum, );
 %>    
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
@@ -95,8 +96,8 @@ font-size:15px;
 margin-top: 0.75rem;
 }
 
-.tright{
-    float: right;
+.recom{
+   margin-left: 5rem;
 }
 </style>
 
@@ -183,8 +184,9 @@ margin-top: 0.75rem;
 														
 														for (CommentDTO dto : comLists) {
 // 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+															List<CommentDTO> reLists = odao.reselectView(onum, dto.getGroupNum());
 													%>
-													<div> <!-- 댓글이 있을 때 -->
+												<div> <!-- 댓글이 있을 때 -->
 														<div class="paper_list">
 															<div class="py-4">
 <!-- 															<div class="flex flex-col "> -->
@@ -218,9 +220,51 @@ margin-top: 0.75rem;
 																</form>
 																</div>
 														</div>
+												<div>
+															<%
+													if(reLists.isEmpty()){   // 대댓글이 없을 때 
+													%>
+														<li>
+															<div align="center">
+																등록된 대댓글이 없습니다^^*
+															</div>
+														</li>
+													<%
+													} else {
+// 														int virtualNum = 0;
+// 														int countNum = 0;
+														
+														for (CommentDTO redto : reLists) {
+// 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+													%>
+													<div  class="recom"> <!-- 대댓글이 있을 때 -->
+														<div class="paper_list">
+															<div class="py-4">
+<!-- 															<div class="flex flex-col "> -->
+<!-- 																<div class="flex items-center gap-x-3"> -->
+																	<div class="flex flex-1 items-center gap-x-3"> id
+																		<div"><%= redto.getId()  %></div>
+																		<div><%= redto.getComment() %></div>
+																		<div><%= redto.getDate() %></div>
+																	</div>
+<!-- 																</div>	 -->
+<!-- 															</div> -->
+															</div>
+															<div>
+																<form name="redelFrm" method="post" action="../../Process/offer/ComDelProcess.jsp">
+																<input type="hidden" name = "comidx" value=<%= redto.getIdx()%>>
+																<input type="hidden"  name = "pnum" value=<%= redto.getPostNum()%>>
+																<input type="hidden"  name = "id" value=<%= redto.getId()%>>
+																<button class="flex">댓글 삭제</button>
+																</form>
+															</div>
+														</div>
 													</div>
-												</div>	
+												</div>
+											</div>	
 												<%		}
+													}
+														}
 													}
 												%>
                                                 </div>

@@ -1,3 +1,4 @@
+<%@page import="org.apache.tomcat.util.http.fileupload.FileUtils"%>
 <%@page import="utils.JSFunction"%>
 <%@page import="board1.skillBoardDAO"%>
 <%@page import="board1.skillBoardDTO"%>
@@ -23,7 +24,9 @@ int delResult = 0;
 	
 	if(delResult == 1){
 		//성공 ) 목록 페이지로 이동
-		JSFunction.alertLocation("삭제되었습니다", "skill.jsp", out);
+		String FileName = dto.getFilename();
+		dao.deleteFile(request, "/Uploads", FileName);
+		JSFunction.alertLocation("삭제되었습니다", "../../view/board/skill.jsp", out);
 	}// 실패 ) 이전 페이지로 이동
 	else{
 		JSFunction.alertBack("삭제에 실패하였습니다.", out);

@@ -1,8 +1,8 @@
+<%@page import="board.careerBoardDTO"%>
+<%@page import="board.careerBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="board1.skillBoardDAO"%>
-<%@ page import="board1.skillBoardDTO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
 
@@ -34,7 +34,7 @@
 
 <%
 //DAO를 생성해 DB에 연결
-skillBoardDAO dao1 = new skillBoardDAO();
+careerBoardDAO dao1 = new careerBoardDAO();
 
 //사용자가 입력한 검색 조건 Map에 저장
 Map<String, Object> param = new HashMap<String, Object>();
@@ -69,7 +69,7 @@ param.put("end", end);
 /*** 페이지 처리 END ***/
 
 // 게시물 목록 받기
-List<skillBoardDTO> boardLists = dao1.selectListPage(param);
+List<careerBoardDTO> boardLists = dao1.selectListPage(param);
 dao1.close();
 %>
 <!-- content body start -->
@@ -89,7 +89,7 @@ dao1.close();
 				} else {
 				%>
 				<input type="button" class="btn btn-primary" value="글쓰기"
-					onclick="location.href='/view/board/skill_write.jsp'">
+					onclick="location.href='/view/board/career_write.jsp'">
 				<%
 				}
 				%>
@@ -158,18 +158,18 @@ dao1.close();
 																						int virtualNum = 0; // 화면상에서의 게시물 번호 
 																						int countNum = 0;
 
-																						for (skillBoardDTO vo : boardLists) {
+																						for (careerBoardDTO dto : boardLists) {
 																							virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
 												<tr>
 													<td><%=virtualNum%></td>
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
-														<a href="view.jsp?num=<%=vo.getNum()%>"><%=vo.getTitle()%></a>
+														<a href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 													</td>
-													<td><%=vo.getId()%></td>
-													<td><%=vo.getPostdate()%></td>
-													<td><%=vo.getVisitcount()%></td>
+													<td><%=dto.getId()%></td>
+													<td><%=dto.getPostdate()%></td>
+													<td><%=dto.getVisitcount()%></td>
 												</tr>
 												<%
 												}

@@ -233,11 +233,49 @@ public class offerBoardDAO extends DBConnPool{
 				}
 
 		
-				// 주어진 일련번호에 해당하는 댓글 반환
+				// 주어진 일련번호에 해당하는 댓글 반환 (대댓글까지)
+				public List<CommentDTO> reselectView(String onum, String gnum) {
+					List<CommentDTO> oboard = new Vector<CommentDTO>();
+					
+					String sql = "select * from BCOMMENT WHERE POSTNUM = ? and class = 1 AND GROUPNUM = ? ORDER BY COM_INDEX";
+					
+					try {
+						psmt = con.prepareStatement(sql);
+						psmt.setString(1, onum);
+						psmt.setString(2, gnum);
+						System.out.println(onum);
+						rs = psmt.executeQuery();
+						
+						while(rs.next()) {
+							CommentDTO dto = new CommentDTO();
+							dto.setIdx(rs.getString(1));
+							dto.setId(rs.getString(2));
+							dto.setCode(rs.getInt(3));
+							dto.setPostNum(rs.getString(4));
+							dto.setDate(rs.getDate(5));
+							dto.setComment(rs.getString(6));
+							dto.setComClass(rs.getInt(7));
+							dto.setOrder(rs.getInt(8));
+							dto.setGroupNum(rs.getString(9));
+							
+							// 반환할 경과 목록에 게시물 추가
+							oboard.add(dto);
+							
+						}
+					}
+					catch (Exception e) {
+						System.out.println("offer 게시물 상세보기 중 예외 발생");
+						e.printStackTrace();
+					}
+					
+					return oboard;
+				}
+				
+				// 주어진 일련번호에 해당하는 댓글 반환 (댓글만)
 				public List<CommentDTO> comselectView(String onum) {
 					List<CommentDTO> oboard = new Vector<CommentDTO>();
 					
-					String sql = "select * from BCOMMENT where POSTNUM  = ? ORDER BY GROUPNUM  DESC, COM_ORDER";
+					String sql = "select * from BCOMMENT WHERE POSTNUM = ? and class = 0 ORDER BY COM_INDEX DESC ";
 					
 					try {
 						psmt = con.prepareStatement(sql);
