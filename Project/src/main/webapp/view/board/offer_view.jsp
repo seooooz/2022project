@@ -1,4 +1,4 @@
-<%@page import="board3.CommentDTO"%>
+<%@page import="utils.CommentDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="board3.offerBoardDAO"%>
 <%@page import="board3.offerBoardDTO"%>
@@ -16,34 +16,40 @@
 	odao.updateVisitCount(onum);
 	offerBoardDTO odto = odao.selectView(onum);
 	List<CommentDTO> comLists = odao.comselectView(onum);
-// 	List<CommentDTO> remLists = odao.reselectView(onum, );
+	
+	
 %>    
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
 <script>
-// $(document).ready(function(){
-// 	  textchange = false;
-// 	  $('#Tbutton').click(function(){
-// 	    if(textchange){
-// 	      textchange = false;
-// 	      $('#Tbutton').text('댓글 쓰기');
-// 	    }else{
-// 	      textchange = true;
-// 	      $('#Tbutton').text('댓글 취소');
-// 	    }
-// 	    $('#divToggle').toggle('500',function(){
-// 	      $(this).css('color','white');
-// 	    });
-// 	  })
-// 	})
-
-function deletePost(){
-	var confirmed = confirm("정말로 삭제하겟습니까?");
-	if(confirmed){
-		var form = document.writeFrm;
-		form.method = "post";
-		form.action = "DeleteProcess.jsp";
-		form.submit();
+function deleditPost(str){
+	
+	if(str == '수정'){
+	 	var confirmed1 = confirm("게시물을 수정하겠습니까?");
+		
+	 	if(confirmed1){
+	 		var form = document.writeFrm;
+	 		form.method = "post";
+	 		form.action = "skill_edit.jsp";
+	 		form.submit();
+	 	}
 	}
+	else if(str == '삭제'){
+		var confirmed = confirm("게시물을 삭제하겠습니까?");
+		
+	 	if(confirmed){
+	 		var form = document.writeFrm;
+	 		form.method = "post";
+	 		form.action = "../../Process/skill/DeleteProcess.jsp";
+	 		form.submit();
+	 	}
+	}
+}
+	
+function reportFrm(args1,args2) {
+	var onum = args1;
+	var tuid = args2;
+	window.open("<c:url value='offer_report.jsp?onum="
+				+ onum + "&tuid="+tuid+"'/>", "Reporttext", "width=500, height=500");
 }
 </script> 
 <style>
@@ -97,7 +103,7 @@ margin-top: 0.75rem;
 }
 
 .recom{
-   margin-left: 5rem;
+ margin-left: 5rem;
 }
 </style>
 
@@ -115,6 +121,9 @@ margin-top: 0.75rem;
                         </ol>
                     </div>
                 </div>
+                <div>
+			<a href="javascript:reportFrm(<%=odto.getNum()%>,'<%=odto.getId()%>')" class="title_a">신고하기</a>
+		</div>
                 <!-- row -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -125,21 +134,30 @@ margin-top: 0.75rem;
                                         <div class="col-12">
                                             <div class="right-box-padding">
                                                 <div class="read_content">
-                                          		 <form name="offercomFrm" method="post" action="../../Process/offer/ComWriteProcess.jsp">
+                                          		<form name="writeFrm">
                                                     <div class="media pt-3">
                                                         <div class="media-body">
+                                                        	<input name="pnum" value =<%= odto.getNum() %>>
                                                              <h3 class="btitle my-1"><%= odto.getTitle() %></h3>
                                                         </div>
-                                                        <div class="pull-right">
+                                                          <div>
                                                         	<!-- 목록으로 돌아가기 -->
-                                                        <a href="javascript:void()" class="text-muted "><i
+                                                        <a href="offer.jsp" class="text-muted "><i
                                                                 class="fa fa-reply"></i> </a>
-                                                        <!-- 수정하기 -->        
-                                                        <a href="javascript:void()" class="text-muted ml-3"><i
-                                                                class="bi bi-pencil-fill"></i> </a>
+                                                        <%
+														if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(odto.getId())){
+														%>
+                                                        <div class="pull-right">
+                                                       	<!-- 수정하기 -->        
+                                                        <a href="javascript:deleditPost('수정')" class="text-muted ml-3"><i
+                                                                class="bi bi-pencil-fill"></i></a>
                                                         <!-- 삭제하기 -->        
-                                                        <a href="javascript:void()" class="text-muted ml-3"><i
+                                                        <a href="javascript:deleditPost('삭제');" class="text-muted ml-3"><i
                                                                 class="fa fa-trash"></i></a>
+                                                        </div>
+                                                        <%
+														}
+														%>
                                                         </div>
                                                     </div>
                                                     
@@ -158,6 +176,8 @@ margin-top: 0.75rem;
                                                     <div>
                                                     	<%= odto.getCate() %>
                                                     </div>
+                                                </form> 
+                                                 <form name="offercomFrm" method="post" action="../../Process/offer/ComWriteProcess.jsp">
                                                     	<input name="pnum" value =<%= odto.getNum() %>>
                                                         <hr>
                                                         <h5 class="pt-3">COMMENT</h5>
@@ -201,9 +221,9 @@ margin-top: 0.75rem;
 															</div>
 															<div>
 																<form name="redelFrm" method="post" action="../../Process/offer/ComDelProcess.jsp">
-																<input name = "comidx" value=<%= dto.getIdx()%>>
-																<input name = "pnum" value=<%= dto.getPostNum()%>>
-																<input name = "id" value=<%= dto.getId()%>>
+																<input type="hidden"  name = "comidx" value=<%= dto.getIdx()%>>
+																<input type="hidden"  name = "pnum" value=<%= dto.getPostNum()%>>
+																<input type="hidden"  name = "id" value=<%= dto.getId()%>>
 																<button class="flex">댓글 삭제</button>
 																</form>
 															</div>
@@ -212,8 +232,8 @@ margin-top: 0.75rem;
 																<div id="divToggle" >
 																<form name="replyFrm" method="post" action="../../Process/offer/replyProcess.jsp">
 																
-																<input name = "comidx" value=<%= dto.getIdx()%>>
-																<input name = "pnum" value=<%= dto.getPostNum()%>>
+																<input type="hidden"  name = "comidx" value=<%= dto.getIdx()%>>
+																<input type="hidden"  name = "pnum" value=<%= dto.getPostNum()%>>
 																
 																<textarea name="reply" rows="5" cols="50"></textarea>
 																<button type="submit">댓글 쓰기</button>
@@ -221,7 +241,7 @@ margin-top: 0.75rem;
 																</div>
 														</div>
 												<div>
-															<%
+													<%
 													if(reLists.isEmpty()){   // 대댓글이 없을 때 
 													%>
 														<li>
@@ -274,17 +294,17 @@ margin-top: 0.75rem;
 <!-- OFFER 댓글 목록 start  -->
 											
 					<!-- OFFER 댓글 목록 end  -->
+													
 												</div>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+               </div> 
         <!--**********************************
             Content body end
         ***********************************-->

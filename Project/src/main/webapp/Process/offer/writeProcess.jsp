@@ -11,7 +11,7 @@
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
 		dto.setCate(request.getParameter("cate"));
-		dto.setMemNum(request.getParameter("memNum"));
+		dto.setMemNum(Integer.valueOf(request.getParameter("memNum")));
 		dto.setDday(request.getParameter("datepicker"));
 		
 		offerBoardDAO dao = new offerBoardDAO();

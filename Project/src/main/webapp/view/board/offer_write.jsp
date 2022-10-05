@@ -75,7 +75,7 @@ function validateForm(form){				//폼 내용 검증
 							<tr>
 								<th>마감일</th>
 								<td>
-									<input name="datepicker" class="datepicker-default form-control" id="datepicker" >
+									<input name="datepicker" class="datepicker-default form-control">
 								</td>
 							</tr>
 							<tr>

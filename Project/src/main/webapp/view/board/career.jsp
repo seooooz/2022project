@@ -78,7 +78,7 @@ dao1.close();
 		<!-- card start -->
 		<div class="card">
 			<div class="card-header">
-				<h4 id="teqh" class="card-title">기술</h4>
+				<h4 id="teqh" class="card-title">커리어</h4>
 				<!-- 로그인 x => 글쓰기 안됨 -->
 				<%
 				if (UserId == null) {

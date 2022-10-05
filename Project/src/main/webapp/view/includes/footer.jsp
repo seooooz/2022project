@@ -63,7 +63,7 @@
 
     <!-- pickdate -->
     <script src="../../resources/vendor/pickadate/picker.js"></script>
-<!--     <script src="../../resources/vendor/pickadate/picker.time.js"></script> -->
+    <script src="../../resources/vendor/pickadate/picker.time.js"></script>
     <script src="../../resources/vendor/pickadate/picker.date.js"></script>
 
     <script src="../../resources/vendor/pickadate/translations/ko_KR.js"></script>

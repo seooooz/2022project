@@ -1,4 +1,4 @@
-<%@page import="board3.offerBoardDAO"%>
+<%@page import="board1.skillBoardDAO"%>
 <%@page import="utils.JSFunction"%>
 <%@page import="utils.CommentDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,17 +12,17 @@
 		dto.setComment(request.getParameter("comment"));
 		dto.setPostNum(request.getParameter("pnum"));
 		
-		offerBoardDAO dao = new offerBoardDAO();
-		int result = dao.offerinsertCom(dto);
+		skillBoardDAO dao = new skillBoardDAO();
+		int result = dao.skillinsertCom(dto);
 		dao.comgroupUpdate();
 		dao.close();
 		
 		if(result == 1) {
-			System.out.println("career 댓글 성공");
-			response.sendRedirect("../../view/board/offer_view.jsp?onum=" + request.getParameter("pnum"));
+			System.out.println("skill 댓글 성공");
+			response.sendRedirect("../../view/board/skill_view.jsp?num=" + request.getParameter("pnum"));
 		}
 		else {
-			System.out.println("career 댓글 실패");
+			System.out.println("skill 댓글 실패");
 			JSFunction.alertBack("댓글 실패", out);
 		}
 %>

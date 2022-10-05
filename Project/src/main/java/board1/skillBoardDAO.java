@@ -13,7 +13,9 @@ import java.util.Vector;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
+import board3.ReportDTO;
 import common.DBConnPool;
+import utils.CommentDTO;
 
 public class skillBoardDAO extends DBConnPool{
 	
@@ -21,40 +23,6 @@ public class skillBoardDAO extends DBConnPool{
 		super();
 	}
 	
-	// skillboard 게시물 보이기
-	public ArrayList<skillBoardDTO> selectAllBoard() {
-		String sql = "select num, title, id, postdate, visitcount  from skillboard order by num desc";
-		
-		ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();
-		
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-			
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
-				skillBoardDTO fdo = new skillBoardDTO();
-				fdo.setNum(rs.getString("num"));
-				fdo.setTitle(rs.getString("title"));
-				fdo.setId(rs.getString("id"));
-				fdo.setPostdate(rs.getDate("postdate"));
-				fdo.setVisitcount(rs.getString("visitcount"));
-				
-				list.add(fdo);
-			}
-			rs.close();
-			stmt.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		}
-		
-		return list;
-	}
 	
 	//  게시물 작성(insert)
 	public int insertWrite(skillBoardDTO dto) {
@@ -376,4 +344,267 @@ public class skillBoardDAO extends DBConnPool{
 			}
 		}
 	
-}
+				// 게시글 삭제 시 댓글 삭제
+				public int posetdeleteCom(String num) {
+					int result = 0;
+					
+					try {
+						
+						String sql = "delete from BCOMMENT where BOARD_CODE = 1 and postnum = ?";
+						
+						psmt = con.prepareStatement(sql);
+						psmt.setString(1, num);
+						
+						result = psmt.executeUpdate();
+					}
+					catch(Exception e) {
+						System.out.println("댓글 삭제 중 예외 발생");
+						e.printStackTrace();
+					}
+					
+					return result;
+				}
+				
+				// 부모 댓글 데이터를 받아 DB에 추가
+				public int skillinsertCom(CommentDTO dto) {
+					int result = 0;
+					try {
+						String sql = "insert into BCOMMENT (com_index, user_com_id, board_code, postnum, com, class, com_order) values (seq_com_num.nextval, ?,1,?,?,0,0)";
+							
+						psmt = con.prepareStatement(sql);
+						psmt.setString(1, dto.getId());
+						psmt.setString(2, dto.getPostNum());
+						psmt.setString(3, dto.getComment());
+							
+						result = psmt.executeUpdate();
+					}
+					catch (Exception e) {
+						System.out.println("career  댓글 입력 중 예외 발생");
+						e.printStackTrace();
+					}
+					return result;
+				}
+					
+				// 부모 댓글 groupnum 업데이트
+				public int comgroupUpdate() {
+				int result = 0;
+						
+					try {
+						String sql = "UPDATE BCOMMENT SET GROUPNUM = (SELECT nvl(max(com_index),0) FROM BCOMMENT) WHERE COM_INDEX = (SELECT nvl(max(com_index),0) FROM BCOMMENT) AND BOARD_CODE = 1";
+							
+						psmt = con.prepareStatement(sql);
+						result = psmt.executeUpdate();
+					}
+					catch (Exception e) {
+						System.out.println("career  댓글 groupnum 업데이트 중 예외 발생");
+						e.printStackTrace();
+					}
+					return result;
+				}
+					
+				// 주어진 일련번호에 해당하는 댓글 반환
+				public CommentDTO selectViewCom(String onum) {
+						
+					CommentDTO dto = new CommentDTO();
+						
+					String sql = "select * from BCOMMENT where BOARD_CODE = 1 and POSTNUM  = ? ORDER BY GROUPNUM  DESC, COM_ORDER";
+						
+					try {
+						psmt = con.prepareStatement(sql);
+						psmt.setString(1, onum);
+							
+						System.out.println(onum);
+							
+						rs = psmt.executeQuery();
+							
+						while(rs.next()) {
+							dto.setIdx(rs.getString(1));
+							dto.setId(rs.getString(2));
+							dto.setCode(rs.getInt(3));
+							dto.setPostNum(rs.getString(4));
+							dto.setDate(rs.getDate(5));
+							dto.setComment(rs.getString(6));
+							dto.setComClass(rs.getInt(7));
+							dto.setOrder(rs.getInt(8));
+							dto.setGroupNum(rs.getString(9));
+								
+								
+						}
+					}
+					catch (Exception e) {
+						System.out.println("career  게시물 상세보기 중 예외 발생");
+						e.printStackTrace();
+					}
+						
+					return dto;
+				}
+					
+					
+					// 자식 댓글 데이터를 받아 DB에 추가 (대댓글)
+					public int skillinsertreply(String id, String pnum, String reply, String comidx) {
+						int result = 0;
+						try {
+							String sql = "insert into BCOMMENT (com_index, user_com_id, board_code, postnum, com, class, com_order,GROUPNUM) values (seq_com_num.nextval, ?,1,?,?,1,(SELECT nvl(max(COM_ORDER),0) +1 FROM BCOMMENT where groupnum = ?),?)";
+							
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, id);
+							psmt.setString(2, pnum);
+							psmt.setString(3, reply);
+							psmt.setString(4, comidx);
+							psmt.setString(5, comidx);
+							result = psmt.executeUpdate();
+						}
+						catch (Exception e) {
+							System.out.println("career 대댓글 입력 중 예외 발생");
+							e.printStackTrace();
+						}
+						return result;
+					}
+					
+					// 댓글 삭제
+					public int deleteCom(String idx) {
+						int result = 0;
+						
+						try {
+							
+							String sql = "delete from BCOMMENT where com_index = ?";
+							
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, idx);
+							
+							result = psmt.executeUpdate();
+						}
+						catch(Exception e) {
+							System.out.println("댓글 삭제 중 예외 발생");
+							e.printStackTrace();
+						}
+						
+						return result;
+					}
+					
+					// 주어진 일련번호에 해당하는 댓글 반환 (댓글만)
+					public List<CommentDTO> comselectView(String onum) {
+						List<CommentDTO> oboard = new Vector<CommentDTO>();
+						
+						String sql = "select * from BCOMMENT WHERE BOARD_CODE = 1 and POSTNUM = ? and class = 0 ORDER BY COM_INDEX DESC ";
+						
+						try {
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, onum);
+							System.out.println(onum);
+							rs = psmt.executeQuery();
+							
+							while(rs.next()) {
+								CommentDTO dto = new CommentDTO();
+								dto.setIdx(rs.getString(1));
+								dto.setId(rs.getString(2));
+								dto.setCode(rs.getInt(3));
+								dto.setPostNum(rs.getString(4));
+								dto.setDate(rs.getDate(5));
+								dto.setComment(rs.getString(6));
+								dto.setComClass(rs.getInt(7));
+								dto.setOrder(rs.getInt(8));
+								dto.setGroupNum(rs.getString(9));
+								
+								// 반환할 경과 목록에 게시물 추가
+								oboard.add(dto);
+								
+							}
+						}
+						catch (Exception e) {
+							System.out.println("career 게시물 상세보기 중 예외 발생");
+							e.printStackTrace();
+						}
+						
+						return oboard;
+					}
+					
+					
+					// 주어진 일련번호에 해당하는 댓글 반환 (대댓글까지)
+					public List<CommentDTO> reselectView(String onum, String gnum) {
+						List<CommentDTO> oboard = new Vector<CommentDTO>();
+						
+						String sql = "select * from BCOMMENT WHERE BOARD_CODE = 1 and POSTNUM = ? and class = 1 AND GROUPNUM = ? ORDER BY COM_INDEX";
+						
+						try {
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, onum);
+							psmt.setString(2, gnum);
+							System.out.println(onum);
+							rs = psmt.executeQuery();
+							
+							while(rs.next()) {
+								CommentDTO dto = new CommentDTO();
+								dto.setIdx(rs.getString(1));
+								dto.setId(rs.getString(2));
+								dto.setCode(rs.getInt(3));
+								dto.setPostNum(rs.getString(4));
+								dto.setDate(rs.getDate(5));
+								dto.setComment(rs.getString(6));
+								dto.setComClass(rs.getInt(7));
+								dto.setOrder(rs.getInt(8));
+								dto.setGroupNum(rs.getString(9));
+								
+								// 반환할 경과 목록에 게시물 추가
+								oboard.add(dto);
+								
+							}
+						}
+						catch (Exception e) {
+							System.out.println("career  게시물 상세보기 중 예외 발생");
+							e.printStackTrace();
+						}
+						
+						return oboard;
+					}
+					
+					
+				// 게시물 신고하기
+				public int reportinsert(ReportDTO dto) {
+					
+					int result = 0;
+					try {
+						String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext, re_ip) "
+								+ "values (seq_reportboard_num.nextval,1,?,1,?,?,?,?)";
+						
+						psmt = con.prepareStatement(sql);
+						psmt.setInt(1, dto.getTarget_id());
+						psmt.setString(2, dto.getId());
+						psmt.setString(3, dto.getTuid());
+						psmt.setString(4, dto.getText());
+						psmt.setString(5, dto.getIp());
+						result = psmt.executeUpdate();
+					}
+					catch (Exception e) {
+						System.out.println("career  대댓글 입력 중 예외 발생");
+						e.printStackTrace();
+					}
+					return result;
+				}
+				
+				// 신고하기 1번만 가능하게
+				public int selectReport(int tid, String uid) {
+					 int count = 0;
+						
+					String sql = "SELECT COUNT(*) AS counter FROM REPORT WHERE RBOARD_ID = 3 AND TARGET_ID = ? AND USER_ID = ? GROUP BY rboard_id,target_id,user_id HAVING COUNT(*) > 0";
+				
+					try {
+						psmt = con.prepareStatement(sql);
+						psmt.setInt(1, tid);
+						psmt.setString(2, uid);
+						
+						rs = psmt.executeQuery();
+						
+						if(rs.next()) 
+							count = rs.getInt("counter");
+						
+					}	
+					catch (Exception e) {
+						System.out.println("신고 count 중 예외 발생");
+						e.printStackTrace();
+					}
+					return count;
+				}				
+
+			
+		}

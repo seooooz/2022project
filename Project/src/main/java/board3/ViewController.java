@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utils.CommentDTO;
+
 
 @WebServlet("/board/view.do")
 public class ViewController extends HttpServlet {

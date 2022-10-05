@@ -1,8 +1,8 @@
+<%@page import="board1.skillBoardDAO"%>
 <%@page import="utils.JSFunction"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="board3.offerBoardDAO" %>  
 <%@ page import="utils.CommentDTO" %>  
 
 <%
@@ -20,7 +20,7 @@
 		System.out.println(sessionId);		
 		System.out.println(id);
 
-		offerBoardDAO dao = new offerBoardDAO();
+		skillBoardDAO dao = new skillBoardDAO();
 		
 				
 		// session id랑 댓글 작성자 id랑 일치한지 확인
@@ -36,7 +36,7 @@
 			
 			if(delResult == 1){
 				//성공 ) 목록 페이지로 이동
-				JSFunction.alertLocation("삭제되었습니다", "../../view/board/offer.jsp", out);
+				JSFunction.alertLocation("삭제되었습니다", "../../view/board/skill_view.jsp?num=" + pnum, out);
 			}// 실패 ) 이전 페이지로 이동
 			else{
 				JSFunction.alertBack("삭제에 실패하였습니다.", out);

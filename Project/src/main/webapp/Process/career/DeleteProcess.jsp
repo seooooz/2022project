@@ -1,13 +1,13 @@
+<%@page import="board.careerBoardDTO"%>
+<%@page import="board.careerBoardDAO"%>
 <%@page import="org.apache.tomcat.util.http.fileupload.FileUtils"%>
 <%@page import="utils.JSFunction"%>
-<%@page import="board1.skillBoardDAO"%>
-<%@page import="board1.skillBoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 String num = request.getParameter("pnum");
-skillBoardDAO dao = new skillBoardDAO();
-skillBoardDTO dto = dao.selectView(num);
+careerBoardDAO dao = new careerBoardDAO();
+careerBoardDTO dto = dao.selectView(num);
 
 // 로그인된 사용자 ID 얻기
 String sessionId = session.getAttribute("UserId").toString();

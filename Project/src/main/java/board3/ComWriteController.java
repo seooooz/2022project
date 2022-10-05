@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import utils.CommentDTO;
+
 @WebServlet("/board/comwrite.do")
 public class ComWriteController extends HttpServlet {
 

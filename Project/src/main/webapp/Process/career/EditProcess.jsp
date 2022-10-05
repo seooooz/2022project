@@ -1,8 +1,8 @@
+<%@page import="board.careerBoardDTO"%>
+<%@page import="board.careerBoardDAO"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="utils.JSFunction"%>
 <%@ page import="java.io.File"%>
-<%@page import="board1.skillBoardDAO"%>
-<%@page import="board1.skillBoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -16,8 +16,8 @@ try {
 	String title = mr.getParameter("title");
 	String content = mr.getParameter("content");
 	
-	skillBoardDAO dao = new skillBoardDAO();
-	skillBoardDTO dto = dao.selectView(num);
+	careerBoardDAO dao = new careerBoardDAO();
+	careerBoardDTO dto = dao.selectView(num);
 	
 	String FileName = dto.getFilename();
 	dao.deleteFile(request, "/Uploads", FileName);
@@ -46,7 +46,7 @@ try {
 	dao.close();
 	
 	if(upResult == 1){
-		response.sendRedirect("../../view/board/skill_view.jsp?num=" + num);
+		response.sendRedirect("../../view/board/career_view.jsp?num=" + num);
 	}
 	else{
 		JSFunction.alertBack("수정에 실패하였습니다.", out);

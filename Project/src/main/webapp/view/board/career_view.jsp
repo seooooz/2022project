@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="utils.CommentDTO"%>
 <%@page import="board.careerBoardDTO"%>
 <%@page import="board.careerBoardDAO"%>
 <%@page import="board1.skillBoardDTO"%>
@@ -7,34 +9,60 @@
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%> 
 <%
-String snum = request.getParameter("num");
+String cnum = request.getParameter("num");
 
 careerBoardDAO dao = new careerBoardDAO();
-dao.updateVisitCount(snum);
-careerBoardDTO dto = dao.selectView(snum);
-dao.close();
+dao.updateVisitCount(cnum);
+careerBoardDTO dto = dao.selectView(cnum);
+List<CommentDTO> ccomLists = dao.comselectView(cnum);
+
+
 %>
 <script>
-function deletePost(){
-	var confirmed = confirm("게시물을 삭제하겟습니까?");
-	
-	if(confirmed){
-		var form = document.writeFrm;
-		form.method = "post";
-		form.action = "../../Process/career/DeleteProcess.jsp";
-		form.submit();
-	}
-}
-
-function editPost(){
-// 	var confirmed = confirm("게시물을 삭제하겟습니까?");
+// function deletePost(){
+// 	var confirmed = confirm("게시물을 삭제하겠습니까?");
 	
 // 	if(confirmed){
-		var form = document.writeFrm;
-		form.method = "post";
-		form.action = "career_edit.jsp";
-		form.submit();
+// 		var form = document.writeFrm;
+// 		form.method = "post";
+// 		form.action = "../../Process/career/DeleteProcess.jsp";
+// 		form.submit();
 // 	}
+// }
+
+// function editPost(){
+// 	var confirmed = confirm("게시물을 수정하겠습니까?");
+	
+// 	if(confirmed){
+// 		var form = document.writeFrm;
+// 		form.method = "post";
+// 		form.action = "career_edit.jsp";
+// 		form.submit();
+// 	}
+// }
+
+function deleditPost(str){
+	
+	if(str == '수정'){
+	 	var confirmed1 = confirm("게시물을 수정하겠습니까?");
+		
+	 	if(confirmed1){
+	 		var form = document.writeFrm;
+	 		form.method = "post";
+	 		form.action = "career_edit.jsp";
+	 		form.submit();
+	 	}
+	}
+	else if(str == '삭제'){
+		var confirmed = confirm("게시물을 삭제하겠습니까?");
+		
+	 	if(confirmed){
+	 		var form = document.writeFrm;
+	 		form.method = "post";
+	 		form.action = "../../Process/career/DeleteProcess.jsp";
+	 		form.submit();
+	 	}
+	}
 }
 </script>  
 <style>
@@ -91,7 +119,7 @@ margin-top: 0.75rem;
     float: right;
 }
 </style>
-<form name="writeFrm">
+<!-- <form name="writeFrm"> -->
         <!--**********************************
             Content body start
         ***********************************-->
@@ -116,10 +144,12 @@ margin-top: 0.75rem;
                                         <div class="col-12">
                                             <div class="right-box-padding">
                                                 <div class="read_content">
-                                          		 <form name="offercomFrm" method="post" action="../../Process/offer/ComWriteProcess.jsp">
+                                                   <form name="writeFrm">
+                                          		 
                                                     <div class="media pt-3">
                                                         <div class="media-body">
-                                                             <h3 class="btitle my-1"><%= dto.getTitle() %></h3>
+                                                        	<input name="pnum" value =<%= dto.getNum() %>>
+                                                            <h3 class="btitle my-1"><%= dto.getTitle() %></h3>
                                                         </div>
                                                         
                                                         <div>
@@ -131,10 +161,10 @@ margin-top: 0.75rem;
 														%>
                                                         <div class="pull-right">
                                                         <!-- 수정하기 -->        
-                                                        <a href="javascript:editPost()" class="text-muted ml-3"><i
-                                                                class="bi bi-pencil-fill"></i> </a>
+                                                        <a href="javascript:deleditPost('수정')" class="text-muted ml-3"><i
+                                                                class="bi bi-pencil-fill"></i></a>
                                                         <!-- 삭제하기 -->        
-                                                        <a href="javascript:deletePost();" class="text-muted ml-3"><i
+                                                        <a href="javascript:deleditPost('삭제');" class="text-muted ml-3"><i
                                                                 class="fa fa-trash"></i></a>
                                                         </div>
                                                         <%
@@ -161,6 +191,8 @@ margin-top: 0.75rem;
 											               src="../../Uploads/<%=dto.getFilename()%>">
                                                     	<%=dto.getCate()%>
                                                     </div>
+                                                    </form>
+                                                    <form name="offercomFrm" method="post" action="../../Process/career/ComWriteProcess.jsp">
                                                         <hr>
                                                         <h5 class="pt-3">COMMENT</h5>
                                                     <div class="form-group pt-3">
@@ -171,38 +203,122 @@ margin-top: 0.75rem;
                                                     <button class="btn btn-primary btn-sl-sm mb-5" type="submit">Send</button>
                                                 </div>
                                                 </form>	
-                                                
-                                                
-                                                
+                                                <div>
+													<%
+													if(ccomLists.isEmpty()){   // 댓글이 없을 때 
+													%>
+														<li>
+															<div align="center">
+																등록된 댓글이 없습니다^^*
+															</div>
+														</li>
+													<%
+													} else {
+														int virtualNum = 0;
+														int countNum = 0;
+														
+														for (CommentDTO cdto : ccomLists) {
+// 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+															List<CommentDTO> reLists = dao.reselectView(cnum, cdto.getGroupNum());
+													%>
+												<div> <!-- 댓글이 있을 때 -->
+														<div class="paper_list">
+															<div class="py-4">
+<!-- 															<div class="flex flex-col "> -->
+<!-- 																<div class="flex items-center gap-x-3"> -->
+																	<div class="flex flex-1 items-center gap-x-3"> id
+																		<div><%= cdto.getId()  %></div>
+																		<div><%= cdto.getComment() %></div>
+																		<div><%= cdto.getDate() %></div>
+																	</div>
+<!-- 																</div>	 -->
+<!-- 															</div> -->
+															</div>
+															<div>
+																<form name="redelFrm" method="post" action="../../Process/career/ComDelProcess.jsp">
+																<input type="hidden"  name = "comidx" value=<%= cdto.getIdx()%>>
+																<input type="hidden"  name = "pnum" value=<%= cdto.getPostNum()%>>
+																<input type="hidden"  name = "id" value=<%= cdto.getId()%>>
+																<button class="flex">댓글 삭제</button>
+																</form>
+															</div>
+																<button id="Tbutton" class="flex bi bi-arrow-return-right">댓글 쓰기</button>
+																
+																<div id="divToggle" >
+																<form name="replyFrm" method="post" action="../../Process/career/replyProcess.jsp">
+																
+																<input type="hidden"  name = "comidx" value=<%= cdto.getIdx()%>>
+																<input type="hidden"  name = "pnum" value=<%= cdto.getPostNum()%>>
+																
+																<textarea name="reply" rows="5" cols="50"></textarea>
+																<button type="submit">댓글 쓰기</button>
+																</form>
+																</div>
+														</div>
+												<div>
+													<%
+													if(reLists.isEmpty()){   // 대댓글이 없을 때 
+													%>
+														<li>
+															<div align="center">
+																등록된 대댓글이 없습니다^^*
+															</div>
+														</li>
+													<%
+													} else {
+// 														int virtualNum = 0;
+// 														int countNum = 0;
+														
+														for (CommentDTO redto : reLists) {
+// 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+													%>
+													<div  class="recom"> <!-- 대댓글이 있을 때 -->
+														<div class="paper_list">
+															<div class="py-4">
+<!-- 															<div class="flex flex-col "> -->
+<!-- 																<div class="flex items-center gap-x-3"> -->
+																	<div class="flex flex-1 items-center gap-x-3"> id
+																		<div"><%= redto.getId()  %></div>
+																		<div><%= redto.getComment() %></div>
+																		<div><%= redto.getDate() %></div>
+																	</div>
+<!-- 																</div>	 -->
+<!-- 															</div> -->
+															</div>
+															<div>
+																<form name="redelFrm" method="post" action="../../Process/career/ComDelProcess.jsp">
+																<input type="hidden" name = "comidx" value=<%= redto.getIdx()%>>
+																<input type="hidden"  name = "pnum" value=<%= redto.getPostNum()%>>
+																<input type="hidden"  name = "id" value=<%= redto.getId()%>>
+																<button class="flex">댓글 삭제</button>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>	
+												<%		}
+													}
+														}
+													}
+												%>
                                                 </div>
                                                 </div>
             								
-<%-- <%@include file="reply.jsp" %>  --%>
 <!-- OFFER 댓글 목록 start  -->
 											
 					<!-- OFFER 댓글 목록 end  -->
+													
 												</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="center_btn">
-										<%
-										if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(dto.getId())){
-										%>
-										<button type="button" onclick="location.href='Edit.jsp?num=<%=dto.getNum()%>';" class="btn btn-outline-dark">수정하기</button>
-										<button type="button" onclick="skilldeletePost();" class="btn btn-outline-dark">삭제하기</button>
-										<%
-										}
-										%>
-										<button type="button" onclick="location.href='skill.jsp';" class="btn btn-outline-dark">목록 보기</button>
-									</div>
-                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-               </form> 
+               </div> 
         <!--**********************************
             Content body end
         ***********************************-->

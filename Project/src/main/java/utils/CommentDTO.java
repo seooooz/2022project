@@ -1,4 +1,4 @@
-package board3;
+package utils;
 
 public class CommentDTO {
 

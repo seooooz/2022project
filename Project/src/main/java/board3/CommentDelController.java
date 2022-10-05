@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import utils.CommentDTO;
 import utils.JSFunction;
 
 @WebServlet("/board/comdelete.do")

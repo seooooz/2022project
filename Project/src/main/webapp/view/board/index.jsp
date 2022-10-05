@@ -1,9 +1,13 @@
+<%@page import="board3.offerBoardDTO"%>
+<%@page import="board3.offerBoardDAO"%>
+<%@page import="board.careerBoardDTO"%>
+<%@page import="board.careerBoardDAO"%>
+<%@page import="board1.skillBoardDTO"%>
+<%@page import="board1.skillBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-<%@ page import="board.BoardDAO"%>
-<%@ page import="board.BoardVO"%>
 <%@ page import="java.util.*"%>
 <% 
 // if( session.getAttribute("UserId")==null){
@@ -46,16 +50,16 @@ justify-content:center; */ /* align-items: center; */ /* } */
 										</thead>
 										<tbody>
 											<%
-											BoardDAO bDao = new BoardDAO();
-											ArrayList<BoardVO> list = bDao.selectBoards();
-											for (int i = 0; i < list.size(); i++) {
+											skillBoardDAO sdao = new skillBoardDAO();
+											ArrayList<skillBoardDTO> slist = sdao.selectBoards();
+											for (int i = 0; i < slist.size(); i++) {
 											%>
 											<tr>
-												<td><%=list.get(i).getNum()%></td>
-												<td><%=list.get(i).getTitle()%></td>
-												<td><%=list.get(i).getName()%></td>
-										<!--	<td><%=list.get(i).getWritedate() %></td>
-												<td><%=list.get(i).getReadcount() %></td>	-->
+												<td><%=slist.get(i).getNum()%></td>
+												<td><%=slist.get(i).getTitle()%></td>
+												<td><%=slist.get(i).getId()%></td>
+<%-- 												<td><%=slist.get(i).getPostdate()%></td> --%>
+<%-- 												<td><%=slist.get(i).getVisitcount()%></td> --%>
 											</tr>
 											<%
 											}
@@ -88,14 +92,16 @@ justify-content:center; */ /* align-items: center; */ /* } */
 										</thead>
 										<tbody>
 											<%
-											for (int i = 0; i < list.size(); i++) {
+											careerBoardDAO cdao = new careerBoardDAO();
+											ArrayList<careerBoardDTO> clist = cdao.selectBoards();
+											for (int i = 0; i < clist.size(); i++) {
 											%>
 											<tr>
-												<td><%=list.get(i).getNum()%></td>
-												<td><%=list.get(i).getTitle()%></td>
-												<td><%=list.get(i).getName()%></td>
-										<!--	<td><%=list.get(i).getWritedate() %></td>
-												<td><%=list.get(i).getReadcount() %></td>	-->
+												<td><%=clist.get(i).getNum()%></td>
+												<td><%=clist.get(i).getTitle()%></td>
+												<td><%=clist.get(i).getId()%></td>
+<%-- 												<td><%=clist.get(i).getPostdate()%></td> --%>
+<%-- 												<td><%=clist.get(i).getVisitcount()%></td> --%>
 											</tr>
 											<%
 											}
@@ -128,14 +134,16 @@ justify-content:center; */ /* align-items: center; */ /* } */
 										</thead>
 										<tbody>
 											<%
-											for (int i = 0; i < list.size(); i++) {
+// 											offerBoardDAO odao = new offerBoardDAO();
+// 											ArrayList<careerBoardDTO> olist = cdao.selectBoards();
+											for (int i = 0; i < clist.size(); i++) {
 											%>
 											<tr>
-												<td><%=list.get(i).getNum()%></td>
-												<td><%=list.get(i).getTitle()%></td>
-												<td><%=list.get(i).getName()%></td>
-										<!--	<td><%=list.get(i).getWritedate() %></td>
-												<td><%=list.get(i).getReadcount() %></td>	-->
+												<td><%=clist.get(i).getNum()%></td>
+												<td><%=clist.get(i).getTitle()%></td>
+												<td><%=clist.get(i).getId()%></td>
+<%-- 												<td><%=clist.get(i).getPostdate()%></td> --%>
+<%-- 												<td><%=clist.get(i).getVisitcount()%></td> --%>
 											</tr>
 											<%
 											}
@@ -169,14 +177,16 @@ justify-content:center; */ /* align-items: center; */ /* } */
 										</thead>
 										<tbody>
 											<%
-											for (int i = 0; i < list.size(); i++) {
+											offerBoardDAO odao = new offerBoardDAO();
+											ArrayList<offerBoardDTO> olist = odao.selectBoards();
+											for (int i = 0; i < olist.size(); i++) {
 											%>
 											<tr>
-												<td><%=list.get(i).getNum()%></td>
-												<td><%=list.get(i).getTitle()%></td>
-												<td><%=list.get(i).getName()%></td>
-										<!--	<td><%=list.get(i).getWritedate() %></td>
-												<td><%=list.get(i).getReadcount() %></td>	-->
+												<td><%=olist.get(i).getNum()%></td>
+												<td><%=olist.get(i).getTitle()%></td>
+												<td><%=olist.get(i).getId()%></td>
+<%-- 												<td><%=olist.get(i).getPostdate()%></td> --%>
+<%-- 												<td><%=olist.get(i).getVisitcount()%></td> --%>
 											</tr>
 											<%
 											}

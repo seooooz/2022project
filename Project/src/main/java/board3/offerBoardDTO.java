@@ -7,7 +7,7 @@ public class offerBoardDTO {
 	private String title;
 	private String content;
 	private String cate;
-	private String memNum;
+	private int memNum;
 	private String dday;
 	private java.sql.Date postdate;
 	private int visitcount;
@@ -46,10 +46,12 @@ public class offerBoardDTO {
 	public void setCate(String cate) {
 		this.cate = cate;
 	}
-	public String getMemNum() {
+	
+	
+	public int getMemNum() {
 		return memNum;
 	}
-	public void setMemNum(String memNum) {
+	public void setMemNum(int memNum) {
 		this.memNum = memNum;
 	}
 	public String getDday() {

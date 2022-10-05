@@ -1,5 +1,6 @@
 <%@page import="board1.skillBoardDAO"%>
 <%@page import="board1.skillBoardDTO"%>
+<%@page import="board3.offerBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>

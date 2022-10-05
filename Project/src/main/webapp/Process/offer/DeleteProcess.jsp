@@ -1,13 +1,13 @@
+<%@page import="board3.offerBoardDAO"%>
+<%@page import="board3.offerBoardDTO"%>
 <%@page import="org.apache.tomcat.util.http.fileupload.FileUtils"%>
 <%@page import="utils.JSFunction"%>
-<%@page import="board1.skillBoardDAO"%>
-<%@page import="board1.skillBoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 String num = request.getParameter("pnum");
-skillBoardDTO dto = new skillBoardDTO();
-skillBoardDAO dao = new skillBoardDAO();
+offerBoardDTO dto = new offerBoardDTO();
+offerBoardDAO dao = new offerBoardDAO();
 dto = dao.selectView(num);
 
 // 로그인된 사용자 ID 얻기
@@ -19,14 +19,12 @@ int delResult = 0;
 	// 작성자 본인
 	dto.setNum(num);
 	System.out.println(num);
+	dao.posetdeleteCom(num);
 	delResult = dao.deletePost(dto);
 	dao.close();
 	
 	if(delResult == 1){
-		//성공 ) 목록 페이지로 이동
-		String FileName = dto.getFilename();
-		dao.deleteFile(request, "/Uploads", FileName);
-		JSFunction.alertLocation("삭제되었습니다", "../../view/board/skill.jsp", out);
+		JSFunction.alertLocation("삭제되었습니다", "../../view/board/offer.jsp", out);
 	}// 실패 ) 이전 페이지로 이동
 	else{
 		JSFunction.alertBack("삭제에 실패하였습니다.", out);

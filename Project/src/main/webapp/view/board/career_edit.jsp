@@ -1,5 +1,5 @@
-<%@page import="board1.skillBoardDAO"%>
-<%@page import="board1.skillBoardDTO"%>
+<%@page import="board.careerBoardDTO"%>
+<%@page import="board.careerBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,8 +9,8 @@
 <%
 String pnum = request.getParameter("pnum");
 
-skillBoardDAO dao = new skillBoardDAO();
-skillBoardDTO dto = dao.selectView(pnum);
+careerBoardDAO dao = new careerBoardDAO();
+careerBoardDTO dto = dao.selectView(pnum);
 // String sessionId = session.getAttribute("UserId").toString();
 %>
 <script type="text/javascript">
@@ -38,7 +38,7 @@ function validateForm(form){				//폼 내용 검증
 			<div class="card-body">
 				<!-- table start -->
 				<div class="table-responsive">
-					<form name="editeFrm" method="post" action="../../Process/skill/EditProcess.jsp"
+					<form name="editeFrm" method="post" action="../../Process/career/EditProcess.jsp"
 						enctype="multipart/form-data" onsubmit="return validateForm(this)">
 						<input type = "hidden" name="num" value="<%= dto.getNum() %>"/>
 						<table>
@@ -89,7 +89,7 @@ function validateForm(form){				//폼 내용 검증
 						<button type="submit" class="btn btn-primary">작성 완료</button>
 						<button type="reset" class="btn btn-primary">다시 입력</button>
 						<button type="button" class="btn btn-primary"
-							onclick="location.href='skill.jsp'">목록 보기</button>
+							onclick="location.href='career.jsp'">목록 보기</button>
 					</form>
 				</div>
 				<!-- table end -->
