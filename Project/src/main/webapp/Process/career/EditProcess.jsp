@@ -1,5 +1,5 @@
-<%@page import="board.careerBoardDTO"%>
-<%@page import="board.careerBoardDAO"%>
+<%@page import="board2.careerBoardDTO"%>
+<%@page import="board2.careerBoardDAO"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="utils.JSFunction"%>
 <%@ page import="java.io.File"%>

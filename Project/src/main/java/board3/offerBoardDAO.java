@@ -462,43 +462,6 @@ public class offerBoardDAO extends DBConnPool{
 					return result;
 				}
 					
-				// 주어진 일련번호에 해당하는 댓글 반환
-				public CommentDTO selectViewCom(String onum) {
-						
-					CommentDTO dto = new CommentDTO();
-						
-					String sql = "select * from BCOMMENT where BOARD_CODE = 3 and POSTNUM  = ? ORDER BY GROUPNUM  DESC, COM_ORDER";
-						
-					try {
-						psmt = con.prepareStatement(sql);
-						psmt.setString(1, onum);
-							
-						System.out.println(onum);
-							
-						rs = psmt.executeQuery();
-							
-						while(rs.next()) {
-							dto.setIdx(rs.getString(1));
-							dto.setId(rs.getString(2));
-							dto.setCode(rs.getInt(3));
-							dto.setPostNum(rs.getString(4));
-							dto.setDate(rs.getDate(5));
-							dto.setComment(rs.getString(6));
-							dto.setComClass(rs.getInt(7));
-							dto.setOrder(rs.getInt(8));
-							dto.setGroupNum(rs.getString(9));
-								
-								
-						}
-					}
-					catch (Exception e) {
-						System.out.println("offer 게시물 상세보기 중 예외 발생");
-						e.printStackTrace();
-					}
-						
-					return dto;
-				}
-					
 					
 					// 자식 댓글 데이터를 받아 DB에 추가 (대댓글)
 					public int offerinsertreply(String id, String pnum, String reply, String comidx) {
@@ -595,6 +558,26 @@ public class offerBoardDAO extends DBConnPool{
 						}
 						
 						return oboard;
+					}
+					
+					// list에서 댓글 개수 보여주기
+					public int countCom(int num) {
+						int comcount = 0;
+						
+						try {
+							String sql = "SELECT COUNT(COM_INDEX) AS COMCOUNT FROM BCOMMENT WHERE BOARD_CODE = 3 AND POSTNUM = ?";
+							
+							psmt = con.prepareStatement(sql);
+							psmt.setInt(1, num);
+							rs = psmt.executeQuery();
+							
+							if(rs.next())
+								comcount = rs.getInt("COMCOUNT");
+						}
+						catch(Exception e) {
+							e.printStackTrace();
+						}
+						return comcount;
 					}
 					
 					

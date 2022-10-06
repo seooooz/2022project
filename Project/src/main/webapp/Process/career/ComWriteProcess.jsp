@@ -1,4 +1,4 @@
-<%@page import="board.careerBoardDAO"%>
+<%@page import="board2.careerBoardDAO"%>
 <%@page import="utils.JSFunction"%>
 <%@page import="utils.CommentDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

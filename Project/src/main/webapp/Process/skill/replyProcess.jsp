@@ -1,5 +1,5 @@
 <%@page import="board1.skillBoardDAO"%>
-<%@page import="board.careerBoardDAO"%>
+<%@page import="board2.careerBoardDAO"%>
 <%@page import="utils.JSFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

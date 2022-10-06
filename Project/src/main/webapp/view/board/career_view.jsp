@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="utils.CommentDTO"%>
-<%@page import="board.careerBoardDTO"%>
-<%@page import="board.careerBoardDAO"%>
+<%@page import="board2.careerBoardDTO"%>
+<%@page import="board2.careerBoardDAO"%>
 <%@page import="board1.skillBoardDTO"%>
 <%@page import="board1.skillBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

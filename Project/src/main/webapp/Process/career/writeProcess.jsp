@@ -1,5 +1,5 @@
-<%@page import="board.careerBoardDAO"%>
-<%@page import="board.careerBoardDTO"%>
+<%@page import="board2.careerBoardDAO"%>
+<%@page import="board2.careerBoardDTO"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.io.File"%>

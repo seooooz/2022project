@@ -15,7 +15,6 @@ public class offerBoardDTO {
 	
 	
 	
-	
 	public String getNum() {
 		return num;
 	}

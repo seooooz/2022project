@@ -1,4 +1,4 @@
-package board;
+package board2;
 
 public class careerBoardDTO {
 	private String num;

@@ -1,5 +1,5 @@
-<%@page import="board.careerBoardDTO"%>
-<%@page import="board.careerBoardDAO"%>
+<%@page import="board2.careerBoardDTO"%>
+<%@page import="board2.careerBoardDAO"%>
 <%@page import="org.apache.tomcat.util.http.fileupload.FileUtils"%>
 <%@page import="utils.JSFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

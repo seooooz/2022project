@@ -37,26 +37,26 @@
     <script src="../../resources/js/quixnav-init.js"></script>
     <script src="../../resources/js/custom.min.js"></script>
     
-<!-- <!--      Daterangepicker --> -->
-<!-- <!--     momment js is must --> -->
+<!-- <!--      Daterangepicker --> 
+<!-- <!--     momment js is must -->
 <!--     <script src="../../resources/vendor/moment/moment.min.js"></script> -->
 <!--     <script src="../../resources/vendor/bootstrap-daterangepicker/daterangepicker.js"></script> -->
-<!-- <!--     clockpicker --> -->
+<!-- <!--     clockpicker --> 
 <!--     <script src="../../resources/vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script> -->
-<!-- <!--     asColorPicker --> -->
+<!-- <!--     asColorPicker -->
 <!--     <script src="../../resources/vendor/jquery-asColor/jquery-asColor.min.js"></script> -->
 <!--     <script src="../../resources/vendor/jquery-asGradient/jquery-asGradient.min.js"></script> -->
 <!--     <script src="../../resources/vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script> -->
-<!-- <!--     Material color picker --> -->
+<!-- <!--     Material color picker --> 
 <!--     <script src="../../resources/vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script> -->
 
-<!-- <!--     Daterangepicker --> -->
+<!-- <!--     Daterangepicker --> 
 <!--     <script src="../../resources/js/plugins-init/bs-daterange-picker-init.js"></script> -->
-<!-- <!--     Clockpicker init --> -->
+<!-- <!--     Clockpicker init --> 
 <!--     <script src="../../resources/js/plugins-init/clock-picker-init.js"></script> -->
-<!-- <!--     asColorPicker init --> -->
+<!-- <!--     asColorPicker init -->
 <!--     <script src="../../resources/js/plugins-init/jquery-asColorPicker.init.js"></script> -->
-<!-- <!--     Material color picker init --> -->
+<!-- <!--     Material color picker init --> 
 <!--     <script src="../../resources/js/plugins-init/material-date-picker-init.js"></script> -->
    
     
