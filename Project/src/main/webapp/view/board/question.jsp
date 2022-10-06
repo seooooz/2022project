@@ -67,6 +67,8 @@ String User_Id = (String)session.getAttribute("UserId");
 .search_item {
 	flex: 1;
 }
+
+
 </style>
 
 <!-- content body start -->
@@ -122,11 +124,11 @@ String User_Id = (String)session.getAttribute("UserId");
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr>
+												<tr align="center">
 													<th width="10%">NO</th>
-													<th width="50%">제목</th>
+													<th width="40%">제목</th>
 													<th width="15%">작성자</th>
-													<th width="10%">처리 상태</th>
+													<th width="20%">처리 상태</th>
 													<th width="15%">작성일</th>
 
 												</tr>
@@ -149,7 +151,7 @@ String User_Id = (String)session.getAttribute("UserId");
 												String qid = dto.getQid();
 												%>
 												<tr>
-													<td><%= virtualNum %></td>
+													<td align="center"><%= virtualNum %></td>
 													<td>
 														<%
 															if(User_Id == null || User_Id.equals("null")){
@@ -175,17 +177,17 @@ String User_Id = (String)session.getAttribute("UserId");
 														}
 														%>
 													</td>
-													<td><%=dto.getQid()%></td>
+													<td align="center"><%=dto.getQid()%></td>
 													<%
 													QuestionBoardDAO dao1 = new QuestionBoardDAO();
 													int countcom = dao1.countCom(dto.getQnum());
 													if(countcom > 0){
 													%>
-													<td>답변 완료</td>
+													<td align="center" style="color:blue;">답변 완료</td>
 													<%}else { %>
-													<td>등록</td>
+													<td align="center" style="color:red;">등록</td>
 													<%} %>
-													<td><%=dto.getQpostdate()%></td>
+													<td align="center"><%=dto.getQpostdate()%></td>
 												</tr>
 												<%
 													}

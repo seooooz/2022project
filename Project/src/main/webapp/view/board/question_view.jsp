@@ -1,3 +1,4 @@
+<%@page import="utils.CommentDTO"%>
 <%@page import="board4.QuestionBoardDTO"%>
 <%@page import="board4.QuestionBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -27,8 +28,8 @@
 		QuestionBoardDAO dao = new QuestionBoardDAO();
 		dao.updateVisitCount(qnum);
 		QuestionBoardDTO dto = dao.selectView(qnum);
-		List<CommentDTO> comLists = odao.comselectView(qnum);
-		dao.close();
+		List<CommentDTO> comLists = dao.comselectView(qnum);
+// 		dao.close();
 	
 		Date date = dto.getQpostdate();
 		System.out.println(date);
@@ -108,6 +109,10 @@ margin-top: 0.75rem;
  margin-left: 5rem;
 }
 
+.card-center{
+	margin-left: 1.5rem !important;
+    margin-right: 1.5rem;
+}
 </style>
         <!--**********************************
             Content body start
@@ -131,12 +136,11 @@ margin-top: 0.75rem;
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="ml-0 ml-sm-4 ml-sm-0">
+                                <div class="card-center ml-0 ml-sm-0">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="right-box-padding">
-                                                <div class="toolbar" role="toolbar">
-                                                </div>
+                                               <div class="toolbar" role="toolbar">
                                                 <div class="table-responsive">
                                                     <div class="media pt-3">
                                                         <div class="media-body">
@@ -169,9 +173,8 @@ margin-top: 0.75rem;
                                                     <%
                                                     if(session.getAttribute("UserId").equals("admin")){
                                                     %>
-                                                    
                                                     <form name="offercomFrm" method="post" action="../../Process/question/ComWriteProcess.jsp">
-                                                    	<input name="pnum" value =<%= dto.getQnum()%>>
+                                                    	<input name="qnum" value =<%= dto.getQnum()%>>
                                                         <hr>
                                                         <h5 class="pt-3">COMMENT</h5>
 	                                                    <div class="form-group pt-3">
@@ -181,9 +184,12 @@ margin-top: 0.75rem;
 	                                                    <button class="btn btn-primary btn-sl-sm mb-5" type="submit">Send</button>
 	                                                	</div>
                                                 	</form>	
-                                                	<%} %>
                                                 	
-                                                	<div>
+                                                	<%} %>
+                                                	<br>
+                                                	<br>
+                                                	
+													<div>
 													<%
 													if(comLists.isEmpty()){   // 댓글이 없을 때 
 													%>
@@ -194,50 +200,46 @@ margin-top: 0.75rem;
 														</li>
 													<%
 													} else {
-														int virtualNum = 0;
-														int countNum = 0;
-														
-														for (CommentDTO dto : comLists) {
+														for (CommentDTO ccdto : comLists) {
 													%>
-												<div> <!-- 댓글이 있을 때 -->
+													<div> <!-- 댓글이 있을 때 -->
+													<hr>
 														<div class="paper_list">
 															<div class="py-4">
-<!-- 															<div class="flex flex-col "> -->
-<!-- 																<div class="flex items-center gap-x-3"> -->
 																	<div class="flex flex-1 items-center gap-x-3"> id
-																		<div><%= dto.getId()  %></div>
-																		<div><%= dto.getComment() %></div>
-																		<div><%= dto.getDate() %></div>
+																		<div><%= ccdto.getId()  %></div>
+																		<div><%= ccdto.getComment() %></div>
+																		<div><%= ccdto.getDate() %></div>
 																	</div>
-<!-- 																</div>	 -->
-<!-- 															</div> -->
 															</div>
+															 <%
+		                                                    if(session.getAttribute("UserId").equals("admin")){
+		                                                    %>
 															<div>
 																<form name="redelFrm" method="post" action="../../Process/question/ComDelProcess.jsp">
-																<input type="hidden"  name = "comidx" value=<%= dto.getIdx()%>>
-																<input type="hidden"  name = "pnum" value=<%= dto.getPostNum()%>>
-																<input type="hidden"  name = "id" value=<%= dto.getId()%>>
+																<input type="hidden"  name = "comidx" value=<%= ccdto.getIdx()%>>
+																<input type="hidden"  name = "qnum" value=<%= ccdto.getPostNum()%>>
+																<input type="hidden"  name = "id" value=<%= ccdto.getId()%>>
 																<button class="flex">댓글 삭제</button>
 																</form>
 															</div>
-																<div id="divToggle" >
-																<form name="replyFrm" method="post" action="../../Process/question/replyProcess.jsp">
-																
-																<input type="hidden"  name = "comidx" value=<%=dto.getIdx()%>>
-																<input type="hidden"  name = "pnum" value=<%=dto.getPostNum()%>>
-																
-																<textarea name="reply" rows="5" cols="50"></textarea>
-																<button type="submit">댓글 쓰기</button>
-																</form>
-																</div>
+															<%
+		                                                    }
+															%>
 														</div>
-                                            </div>
-                                        </div>
+                                            		</div>
+                                            		
+                                            		<%		}
+													}
+												%>
+                                        		</div>                                                	
+                                            </div>   
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

@@ -1,8 +1,8 @@
+<%@page import="board4.QuestionBoardDAO"%>
 <%@page import="utils.JSFunction"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="board3.offerBoardDAO" %>  
 <%@ page import="utils.CommentDTO" %>  
 
 <%
@@ -10,7 +10,7 @@
 		String sessionId = (String)session.getAttribute("UserId");
 		
 		// 매개변수 저장
-		String pnum = request.getParameter("pnum");
+		String pnum = request.getParameter("qnum");
 		String idx = request.getParameter("comidx");
 		String id = request.getParameter("id");
 		
@@ -20,7 +20,7 @@
 		System.out.println(sessionId);		
 		System.out.println(id);
 
-		offerBoardDAO dao = new offerBoardDAO();
+		QuestionBoardDAO dao = new QuestionBoardDAO();
 		
 
 				
@@ -37,7 +37,7 @@
 			
 			if(delResult == 1){
 				//성공 ) 목록 페이지로 이동
-				JSFunction.alertLocation("삭제되었습니다", "../../view/board/offer.jsp", out);
+				JSFunction.alertLocation("삭제되었습니다", "../../view/board/question_view.jsp?qnum=" + pnum, out);
 			}// 실패 ) 이전 페이지로 이동
 			else{
 				JSFunction.alertBack("삭제에 실패하였습니다.", out);

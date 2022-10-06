@@ -229,7 +229,7 @@ public class QuestionBoardDAO extends DBConnPool {
 		
 		return oboard;
 	}
-		
+	
 	
 	// list에서 댓글 개수 보여주기
 	public int countCom(int num) {
@@ -249,5 +249,26 @@ public class QuestionBoardDAO extends DBConnPool {
 			e.printStackTrace();
 		}
 		return comcount;
+	}
+	
+	// 댓글 삭제
+	public int deleteCom(String idx) {
+		int result = 0;
+		
+		try {
+			
+			String sql = "delete from BCOMMENT where com_index = ?";
+			
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, idx);
+			
+			result = psmt.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println("댓글 삭제 중 예외 발생");
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
