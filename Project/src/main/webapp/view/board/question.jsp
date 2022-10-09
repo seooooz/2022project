@@ -145,6 +145,7 @@ String User_Id = (String)session.getAttribute("UserId");
 												<%
 												// 게시물이 있을때
 												} else {
+												
 												int virtualNum = 0;
 												for (QuestionBoardDTO dto : questionList){
 												virtualNum= totalCount--;

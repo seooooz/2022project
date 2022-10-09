@@ -1,3 +1,5 @@
+<%@page import="admin.adminBoardDTO"%>
+<%@page import="admin.adminBoardDAO"%>
 <%@page import="utils.CommentDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,6 +15,7 @@
 <%@include file="../includes/navbar.jsp"%>
 <%
 	offerBoardDAO dao = new offerBoardDAO();
+	adminBoardDAO adao = new adminBoardDAO();
 
 	//뷰에 전달할 매개변수 저장용 맵 생성
 	Map<String, Object> map = new HashMap<String, Object>();
@@ -47,6 +50,7 @@
 	
 	// 게시물 목록 받기
 	List<offerBoardDTO> boardLists = dao.selectListPage(map);
+	List<adminBoardDTO> adminLists = adao.selectView(3);
 	dao.close();
 %>
 <script>
@@ -156,8 +160,6 @@
 						<ul class="nav nav-tabs">
 							<li class="nav-item"><a href="#my-posts" data-toggle="tab"
 								class="nav-link active show">전체</a></li>
-							<li class="nav-item"><a href="#about-me" data-toggle="tab"
-								class="nav-link">코드</a></li>
 						</ul>
 						<!-- 카테고리 안에 내용물 수정-->
 						<div class="tab-content">
@@ -179,6 +181,20 @@
 								</li>
 							<%
 							} else {
+							for(adminBoardDTO admdto : adminLists){
+							%>
+								<tr>
+									<td align="center"><i class="bi bi-megaphone-fill"></i></td>
+									<td><%=admdto.getTitle() %></td>
+									<td align="center">관리자</td>
+									<td align="center"><%=admdto.getPostdate() %></td>
+									<td align="center"><%=admdto.getVisitcount() %></td>
+								</tr>
+									<%
+									}
+									%>
+									<%	
+								
 								int virtualNum = 0;
 								int countNum = 0;
 								
@@ -241,26 +257,6 @@
 								</div>
 							</div>
 							<!-- 전체 -->
-							<div id="about-me" class="tab-pane fade">
-								<div class="profile-about-me">
-									<div class="my-post-content pt-3">
-										<div class="table-responsive">
-											<table class="table mb-0">
-												<thead>
-													<tr>
-														<th>NO</th>
-														<th>제목</th>
-														<th>작성자</th>
-														<th>작성일</th>
-														<th>조회수</th>
-													</tr>
-												</thead>
-
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

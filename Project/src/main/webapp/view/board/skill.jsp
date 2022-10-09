@@ -1,3 +1,5 @@
+<%@page import="admin.adminBoardDTO"%>
+<%@page import="admin.adminBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -35,7 +37,7 @@
 <%
 //DAO를 생성해 DB에 연결
 skillBoardDAO dao1 = new skillBoardDAO();
-
+adminBoardDAO adao = new adminBoardDAO();
 //사용자가 입력한 검색 조건 Map에 저장
 Map<String, Object> param = new HashMap<String, Object>();
 
@@ -70,6 +72,7 @@ param.put("end", end);
 
 // 게시물 목록 받기
 List<skillBoardDTO> boardLists = dao1.selectListPage(param);
+List<adminBoardDTO> adminLists = adao.selectView(1);
 dao1.close();
 %>
 <!-- content body start -->
@@ -131,10 +134,10 @@ dao1.close();
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr>
-													<th>NO</th>
-													<th>제목</th>
-													<th>작성자</th>
+												<tr align="center">
+													<th width="10%">NO</th>
+													<th width="40%">제목</th>
+													<th width="15%">작성자</th>
 													<th>작성일</th>
 													<th>조회수</th>
 													<th>파일</th>
@@ -153,6 +156,19 @@ dao1.close();
 
 												<%
 												} else {
+												for(adminBoardDTO admdto : adminLists){
+													%>
+														<tr>
+															<td align="center"><i class="bi bi-megaphone-fill"></i></td>
+															<td><%=admdto.getTitle() %></td>
+															<td align="center">관리자</td>
+															<td align="center"><%=admdto.getPostdate() %></td>
+															<td align="center"><%=admdto.getVisitcount() %></td>
+														</tr>
+															<%
+															}
+															%>
+															<%		
 														// 게시물이 있을 때 -->
 														int virtualNum = 0; // 화면상에서의 게시물 번호 
 														int countNum = 0;
@@ -161,15 +177,15 @@ dao1.close();
 														virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
 												<tr>
-													<td><%=virtualNum%></td>
+													<td align="center"><%=virtualNum%></td>
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
 														<a href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 													</td>
-													<td><%=dto.getId()%></td>
-													<td><%=dto.getPostdate()%></td>
-													<td><%=dto.getVisitcount()%></td>
-													<td><%=dto.getFilename()%></td>
+													<td align="center"><%=dto.getId()%></td>
+													<td align="center"><%=dto.getPostdate()%></td>
+													<td align="center"><%=dto.getVisitcount()%></td>
+													<td align="center"><%=dto.getFilename()%></td>
 													<td>
 <%-- 			<c:if test="${ not empty row.ofile }"> --%>
 <%-- 				<a href="../mvcboard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a> --%>

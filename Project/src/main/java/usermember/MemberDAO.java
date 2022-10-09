@@ -28,7 +28,6 @@ public class MemberDAO extends DBConnPool{
 		}
 		return result;
 	}
-	
 	// 입력받은 id/pw 일치하는 회원정보 
 	public MemberDTO selectMemberDTO(String uid, String upass) {
 		MemberDTO dto = new MemberDTO();
@@ -44,6 +43,7 @@ public class MemberDAO extends DBConnPool{
 				dto.setName(rs.getString("name"));
 				dto.setId(rs.getString("id"));
 				dto.setPass(rs.getString("pass"));
+				
 			}
 			
 		}

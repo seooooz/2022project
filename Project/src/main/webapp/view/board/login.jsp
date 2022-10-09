@@ -20,7 +20,6 @@
 	<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg") %>
 </span>
 <%
-// 	if(session.getAttribute("UserId") == null || session.getAttribute("UserId").equals("g")){
 	if(session.getAttribute("UserId") == null){
 %>
 	<script>

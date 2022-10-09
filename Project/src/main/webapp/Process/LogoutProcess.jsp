@@ -1,8 +1,8 @@
+<%@page import="utils.JSFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
 session.invalidate();
-
-response.sendRedirect("/view/board/index.jsp");
+JSFunction.alertLocation(response, "로그아웃 하셨습니다.", "/view/board/index.jsp");
 %>
