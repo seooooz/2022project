@@ -1,4 +1,4 @@
-<%@page import="board3.offerBoardDAO"%>
+<%@page import="board2.careerBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,9 +14,10 @@
 // 	}
 </script>
 <%
-offerBoardDAO odao = new offerBoardDAO();
-int count = odao.selectReport(Integer.valueOf(request.getParameter("onum")), (String)session.getAttribute("UserId"));
-if(count > 1){
+careerBoardDAO odao = new careerBoardDAO();
+int count = odao.selectReport(Integer.valueOf(request.getParameter("num")), (String)session.getAttribute("UserId"));
+odao.close();
+if(count > 0){
 %>
 <script>
 alert("이미 신고한 게시물 입니다.");
@@ -35,11 +36,11 @@ window.close();
 							<div class="col-xl-12">
 								<div class="auth-form">
 									<h4 class="text-center mb-4">신고 하기</h4>
-									<form method="post" action="../../Process/offer/ReportProcess.jsp">
+									<form method="post" action="../../Process/career/ReportProcess.jsp">
 										<div class="form-group">
 										</div>
 										<div class="form-group">
-											<input type="hidden" name="onum" id="onum" value="<%=request.getParameter("onum")%>" />
+											<input type="hidden" name="num" id="num" value="<%=request.getParameter("num")%>" />
 											<input type="hidden" name="tuid" id="tuid" value="<%=request.getParameter("tuid")%>" />
 										</div>
 										<div class="form-group">

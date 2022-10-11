@@ -53,4 +53,24 @@ public class MemberDAO extends DBConnPool{
 		}
 		return dto;
 	}
+	
+	// id 중복확인
+	public boolean checkId(String id) {
+		boolean result = true;
+		
+		try {
+			String sql = "select * from usermember where id = ?";
+			
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = false;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

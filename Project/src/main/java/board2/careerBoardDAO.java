@@ -10,9 +10,9 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
-import board3.ReportDTO;
 import common.DBConnPool;
 import utils.CommentDTO;
+import utils.ReportDTO;
 
 public class careerBoardDAO extends DBConnPool{
 	
@@ -87,6 +87,139 @@ public class careerBoardDAO extends DBConnPool{
 		}
 		
 		sql += " order by cnum desc ) Tb ) where rnum between ? and ?";
+		
+		System.out.println(sql);
+		try { 
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				careerBoardDTO vo = new careerBoardDTO();
+				vo.setNum(rs.getString("cnum"));
+				vo.setId(rs.getString("cid"));
+				vo.setTitle(rs.getString("ctitle"));
+				vo.setContent(rs.getString("ccontent"));
+				vo.setCate(rs.getString("ccate"));
+				vo.setFilename(rs.getString("cfilename"));
+				vo.setPostdate(rs.getDate("cpostdate"));
+				vo.setVisitcount(rs.getString("cvisitcount"));
+				
+				// 반환할 경과 목록에 게시물 추가
+				bbs.add(vo);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return bbs;
+		
+	}
+	
+	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
+	public List<careerBoardDTO> selectListCV(Map<String, Object> map){
+		List<careerBoardDTO> bbs = new Vector<careerBoardDTO>(); // 결과(게시물 목록)를 담을 변수
+		
+		String sql = " select * from ( select Tb.*, rownum rnum from ( select * from careerboard ";
+		
+		// 검색 조건 추가
+		if(map.get("searchWord") != null) {
+			sql += " where " + map.get("searchField")
+			+ " like '%" + map.get("searchWord") + "%' ";
+		}
+		
+		sql += " order by cnum desc ) Tb ) where rnum between ? and ? and  ccate = '이력서'";
+		
+		System.out.println(sql);
+		try { 
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				careerBoardDTO vo = new careerBoardDTO();
+				vo.setNum(rs.getString("cnum"));
+				vo.setId(rs.getString("cid"));
+				vo.setTitle(rs.getString("ctitle"));
+				vo.setContent(rs.getString("ccontent"));
+				vo.setCate(rs.getString("ccate"));
+				vo.setFilename(rs.getString("cfilename"));
+				vo.setPostdate(rs.getDate("cpostdate"));
+				vo.setVisitcount(rs.getString("cvisitcount"));
+				
+				// 반환할 경과 목록에 게시물 추가
+				bbs.add(vo);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return bbs;
+		
+	}
+	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
+	public List<careerBoardDTO> selectListIN(Map<String, Object> map){
+		List<careerBoardDTO> bbs = new Vector<careerBoardDTO>(); // 결과(게시물 목록)를 담을 변수
+		
+		String sql = " select * from ( select Tb.*, rownum rnum from ( select * from careerboard ";
+		
+		// 검색 조건 추가
+		if(map.get("searchWord") != null) {
+			sql += " where " + map.get("searchField")
+			+ " like '%" + map.get("searchWord") + "%' ";
+		}
+		
+		sql += " order by cnum desc ) Tb ) where rnum between ? and ? and  ccate = '인터뷰'";
+		
+		System.out.println(sql);
+		try { 
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				careerBoardDTO vo = new careerBoardDTO();
+				vo.setNum(rs.getString("cnum"));
+				vo.setId(rs.getString("cid"));
+				vo.setTitle(rs.getString("ctitle"));
+				vo.setContent(rs.getString("ccontent"));
+				vo.setCate(rs.getString("ccate"));
+				vo.setFilename(rs.getString("cfilename"));
+				vo.setPostdate(rs.getDate("cpostdate"));
+				vo.setVisitcount(rs.getString("cvisitcount"));
+				
+				// 반환할 경과 목록에 게시물 추가
+				bbs.add(vo);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return bbs;
+		
+	}
+	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
+	public List<careerBoardDTO> selectListETC(Map<String, Object> map){
+		List<careerBoardDTO> bbs = new Vector<careerBoardDTO>(); // 결과(게시물 목록)를 담을 변수
+		
+		String sql = " select * from ( select Tb.*, rownum rnum from ( select * from careerboard ";
+		
+		// 검색 조건 추가
+		if(map.get("searchWord") != null) {
+			sql += " where " + map.get("searchField")
+			+ " like '%" + map.get("searchWord") + "%' ";
+		}
+		
+		sql += " order by cnum desc ) Tb ) where rnum between ? and ? and  ccate = '기타'";
 		
 		System.out.println(sql);
 		try { 
@@ -458,6 +591,26 @@ public class careerBoardDAO extends DBConnPool{
 				return result;
 			}
 			
+			// list에서 댓글 개수 보여주기
+			public int countCom(int num) {
+				int comcount = 0;
+				
+				try {
+					String sql = "SELECT COUNT(COM_INDEX) AS COMCOUNT FROM BCOMMENT WHERE BOARD_CODE = 2 AND POSTNUM = ?";
+					
+					psmt = con.prepareStatement(sql);
+					psmt.setInt(1, num);
+					rs = psmt.executeQuery();
+					
+					if(rs.next())
+						comcount = rs.getInt("COMCOUNT");
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				return comcount;
+			}
+			
 			// 댓글 삭제
 			public int deleteCom(String idx) {
 				int result = 0;
@@ -561,15 +714,14 @@ public class careerBoardDAO extends DBConnPool{
 			
 			int result = 0;
 			try {
-				String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext, re_ip) "
-						+ "values (seq_reportboard_num.nextval,2,?,1,?,?,?,?)";
+				String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext) "
+						+ "values (seq_reportboard_num.nextval,2,?,1,?,?,?)";
 				
 				psmt = con.prepareStatement(sql);
 				psmt.setInt(1, dto.getTarget_id());
 				psmt.setString(2, dto.getId());
 				psmt.setString(3, dto.getTuid());
 				psmt.setString(4, dto.getText());
-				psmt.setString(5, dto.getIp());
 				result = psmt.executeUpdate();
 			}
 			catch (Exception e) {
@@ -579,7 +731,29 @@ public class careerBoardDAO extends DBConnPool{
 			return result;
 		}
 		
+		// 신고하기 1번만 가능하게
+		public int selectReport(int tid, String uid) {
+			 int count = 0;
+				
+			String sql = "SELECT COUNT(*) AS counter FROM REPORT WHERE RBOARD_ID = 2 AND TARGET_ID = ? AND USER_ID = ? GROUP BY rboard_id,target_id,user_id HAVING COUNT(*) > 0";
 		
+			try {
+				psmt = con.prepareStatement(sql);
+				psmt.setInt(1, tid);
+				psmt.setString(2, uid);
+				
+				rs = psmt.executeQuery();
+				
+				if(rs.next()) 
+					count = rs.getInt("counter");
+				
+			}	
+			catch (Exception e) {
+				System.out.println("career 신고 count 중 예외 발생");
+				e.printStackTrace();
+			}
+			return count;
+		}		
 
 	
 }

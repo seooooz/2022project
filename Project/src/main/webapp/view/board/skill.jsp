@@ -12,7 +12,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-<%-- <%@include file="../../Process/PageProcess.jsp"%> --%>
 <script>
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
@@ -34,47 +33,7 @@
 }
 </style>
 
-<%
-//DAO를 생성해 DB에 연결
-skillBoardDAO dao1 = new skillBoardDAO();
-adminBoardDAO adao = new adminBoardDAO();
-//사용자가 입력한 검색 조건 Map에 저장
-Map<String, Object> param = new HashMap<String, Object>();
-
-String searchField = request.getParameter("searchField");
-String searchWord = request.getParameter("searchWord");
-
-if (searchWord != null) {
-	param.put("searchField", searchField);
-	param.put("searchWord", searchWord);
-}
-// 게시물 수 확인
-int totalCount = dao1.selectCount(param);
-
-/*** 페이지 처리 START ***/
-//전체 페이지 수 계산
-int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
-int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
-int totalPage = (int)Math.ceil((double)totalCount / pageSize); 
-
-//현재 페이지 확인
-int pageNum = 1;
-String pageTemp = request.getParameter("pageNum");
-if(pageTemp != null && !pageTemp.equals(""))
-	pageNum = Integer.parseInt(pageTemp); // 요청받은 페이지로 수정
-	
-//목록에 출력할 게시물 범위 계산
-int start = (pageNum -1) * pageSize + 1;
-int end = pageNum * pageSize;
-param.put("start", start);
-param.put("end", end);
-/*** 페이지 처리 END ***/
-
-// 게시물 목록 받기
-List<skillBoardDTO> boardLists = dao1.selectListPage(param);
-List<adminBoardDTO> adminLists = adao.selectView(1);
-dao1.close();
-%>
+<%@include file="./skill/paging.jsp" %>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -121,9 +80,9 @@ dao1.close();
 						<ul class="nav nav-tabs">
 							<li class="nav-item"><a href="#my-posts" data-toggle="tab"
 								class="nav-link active show">전체</a></li>
-							<li class="nav-item"><a href="#about-me" data-toggle="tab"
+							<li class="nav-item"><a href="#skill-code" data-toggle="tab"
 								class="nav-link">코드</a></li>
-							<li class="nav-item"><a href="#profile-settings"
+							<li class="nav-item"><a href="#skill-etc"
 								data-toggle="tab" class="nav-link">기타</a></li>
 						</ul>
 						<!-- 카테고리 안에 내용물 수정-->
@@ -145,6 +104,22 @@ dao1.close();
 											</thead>
 											<tbody>
 												<!-- 기술 게시판 목록 start  -->
+												<%
+												for(adminBoardDTO admdto : adminLists){
+												%>
+													<tr>
+														<td align="center"><i class="bi bi-megaphone-fill"></i></td>
+														<!-- 게시물 클릭시 이동할 페이지 --> 
+														<td>
+														<a href="admin_view.jsp?num=<%=admdto.getNum()%>"><%=admdto.getTitle()%></a>
+														</td>
+														<td align="center">관리자</td>
+														<td align="center"><%=admdto.getPostdate() %></td>
+														<td align="center"><%=admdto.getVisitcount() %></td>
+													</tr>
+														<%
+														}
+														%>
 											
 												<%
 													if (boardLists.isEmpty()) {
@@ -156,19 +131,7 @@ dao1.close();
 
 												<%
 												} else {
-												for(adminBoardDTO admdto : adminLists){
-													%>
-														<tr>
-															<td align="center"><i class="bi bi-megaphone-fill"></i></td>
-															<td><%=admdto.getTitle() %></td>
-															<td align="center">관리자</td>
-															<td align="center"><%=admdto.getPostdate() %></td>
-															<td align="center"><%=admdto.getVisitcount() %></td>
-														</tr>
-															<%
-															}
-															%>
-															<%		
+														
 														// 게시물이 있을 때 -->
 														int virtualNum = 0; // 화면상에서의 게시물 번호 
 														int countNum = 0;
@@ -209,8 +172,8 @@ dao1.close();
 										<!--                      기술 게시판 페이징 기능 end  -->
 								</div>
 							</div>
-							<!-- 전체 -->
-							<div id="about-me" class="tab-pane fade">
+							<!-- 코드 -->
+							<div id="skill-code" class="tab-pane fade">
 								<div class="profile-about-me">
 									<div class="my-post-content pt-3">
 										<div class="table-responsive">
@@ -224,13 +187,56 @@ dao1.close();
 														<th>조회수</th>
 													</tr>
 												</thead>
+												<tbody>
+												<!-- 기술 게시판 목록 start  -->
+											
+												<%
+													if (cdLists.isEmpty()) {
+																					// 게시물이 하나도 없을때 -->
+												%>
+												<tr>
+													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+												</tr>
 
+												<%
+												} else {
+														
+														// 게시물이 있을 때 -->
+														int virtualNum = 0; // 화면상에서의 게시물 번호 
+														int countNum = 0;
+
+														for (skillBoardDTO dto : cdLists) {
+														virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+												%>
+												<tr>
+													<td align="center"><%=virtualNum%></td>
+													<td>
+														<!-- 게시물 클릭시 이동할 페이지 --> 
+														<a href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+													</td>
+													<td align="center"><%=dto.getId()%></td>
+													<td align="center"><%=dto.getPostdate()%></td>
+													<td align="center"><%=dto.getVisitcount()%></td>
+													<td align="center"><%=dto.getFilename()%></td>
+													<td>
+<%-- 			<c:if test="${ not empty row.ofile }"> --%>
+<%-- 				<a href="../mvcboard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a> --%>
+<%-- 			</c:if> --%>
+			</td>
+												</tr>
+												<%
+												}
+												}
+												%>
+												<!-- 기술 게시판 목록 end  -->
+											</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div id="profile-settings" class="tab-pane fade">
+							<!-- 기타 -->
+							<div id="skill-etc" class="tab-pane fade">
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<table class="table mb-0">
@@ -243,7 +249,48 @@ dao1.close();
 													<th>조회수</th>
 												</tr>
 											</thead>
+											<tbody>
+												<!-- 기술 게시판 목록 start  -->
+												<%
+													if (etcLists.isEmpty()) {
+																					// 게시물이 하나도 없을때 -->
+												%>
+												<tr>
+													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+												</tr>
 
+												<%
+												} else {
+														
+														// 게시물이 있을 때 -->
+														int virtualNum = 0; // 화면상에서의 게시물 번호 
+														int countNum = 0;
+
+														for (skillBoardDTO dto : etcLists) {
+														virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+												%>
+												<tr>
+													<td align="center"><%=virtualNum%></td>
+													<td>
+														<!-- 게시물 클릭시 이동할 페이지 --> 
+														<a href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+													</td>
+													<td align="center"><%=dto.getId()%></td>
+													<td align="center"><%=dto.getPostdate()%></td>
+													<td align="center"><%=dto.getVisitcount()%></td>
+													<td align="center"><%=dto.getFilename()%></td>
+													<td>
+<%-- 			<c:if test="${ not empty row.ofile }"> --%>
+<%-- 				<a href="../mvcboard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a> --%>
+<%-- 			</c:if> --%>
+			</td>
+												</tr>
+												<%
+												}
+												}
+												%>
+												<!-- 기술 게시판 목록 end  -->
+											</tbody>
 										</table>
 									</div>
 								</div>

@@ -11,7 +11,8 @@
 <%
 skillBoardDAO dao = new skillBoardDAO();
 int count = dao.selectReport(Integer.valueOf(request.getParameter("num")), (String)session.getAttribute("UserId"));
-if(count > 1){
+dao.close();
+if(count > 0){
 %>
 <script>
 alert("이미 신고한 게시물 입니다.");

@@ -16,7 +16,14 @@
 <span>
 	<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg") %>
 </span>
-
+<style>
+.f {
+	width:450px;
+}
+.flex{
+display:flex;
+}
+</style>
 	<script>
 		function validateForm(form) {
 			if(!form.user_name.value){
@@ -31,8 +38,19 @@
 				alert("패스워드를 입력하세요.");
 				return false;
 			}
+			if(document.joinForm.idDuplication.value != "idCheck"){
+				alert("아이디 중복체크 바람");
+				return false;
+			}
+		}
+		
+		function check(){
+			var checkid = document.getElementById('user_id').value;
+			
+			window.open("check.jsp?user_id="+ checkid, "idcheck", "width=400, height=350");
 		}
 	</script>
+	
     <div class="authincation h-100">
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -42,14 +60,18 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Sign up your account</h4>
-                                    <form method="post" action="../../Process/RegisterProcess.jsp">
+                                    <form name="regForm" method="post" action="../../Process/RegisterProcess.jsp">
                                         <div class="form-group">
                                             <label><strong>Name</strong></label>
    <!-- name입력  -->	                        <input type="text" name="user_name" class="form-control" placeholder="username">
                                         </div>
                                         <div class="form-group">
    <!-- id입력  -->                           <label><strong>ID</strong></label>
-                                            <input type="text" name="user_id" class="form-control" placeholder="abc123">
+   											<div class="flex">
+                                            <input type="text" name="user_id" id="user_id" class="form-control" placeholder="abc123">
+   											</div>
+                                            <a href="javascript:check()">중복확인</a>
+											                	
                                         </div>
                                         <div class="form-group">
    <!-- pw입력  -->                          <label><strong>Password</strong></label>

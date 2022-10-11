@@ -1,4 +1,4 @@
-package board3;
+package utils;
 
 public class ReportDTO {
 	private int num;				// 시퀀스
@@ -7,7 +7,6 @@ public class ReportDTO {
 	private String id;				// 신고신청한 id
 	private String tuid;			// 신고당한 게시물, 댓글 작성자 id
 	private String text;			// 신고하는 이유
-	private String ip;				// 신고 누른사람 ip
 	
 	
 	public int getNum() {
@@ -45,12 +44,6 @@ public class ReportDTO {
 	}
 	public void setText(String text) {
 		this.text = text;
-	}
-	public String getIp() {
-		return ip;
-	}
-	public void setIp(String ip) {
-		this.ip = ip;
 	}
 	
 	

@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import common.DBConnPool;
 import utils.CommentDTO;
+import utils.ReportDTO;
 
 public class offerBoardDAO extends DBConnPool{
 
@@ -602,50 +603,19 @@ public class offerBoardDAO extends DBConnPool{
 						return result;
 					}
 					
-//					public CommentDTO comselectidx(String idx) {
-//						
-//						CommentDTO dto = new CommentDTO();
-//						try {
-//							
-//							String sql = "select * from BCOMMENT where = ?";
-//							psmt = con.prepareStatement(sql);
-//							psmt.setString(1, idx);
-//							rs = psmt.executeQuery();
-//							
-//							while(rs.next()) {
-//								dto.setIdx(rs.getString(1));
-//								dto.setId(rs.getString(2));
-//								dto.setCode(rs.getInt(3));
-//								dto.setPostNum(rs.getString(4));
-//								dto.setDate(rs.getDate(5));
-//								dto.setComment(rs.getString(6));
-//								dto.setComClass(rs.getInt(7));
-//								dto.setOrder(rs.getInt(8));
-//								dto.setGroupNum(rs.getString(9));
-//								
-//						}
-//					}
-//						catch (Exception e) {
-//							System.out.println("댓글 정보 오류");
-//						}
-//
-//						return dto;
-//					}
-					
 				// 게시물 신고하기
 				public int reportinsert(ReportDTO dto) {
 					
 					int result = 0;
 					try {
-						String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext, re_ip) "
-								+ "values (seq_reportboard_num.nextval,3,?,1,?,?,?,?)";
+						String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext) "
+								+ "values (seq_reportboard_num.nextval,3,?,1,?,?,?)";
 						
 						psmt = con.prepareStatement(sql);
 						psmt.setInt(1, dto.getTarget_id());
 						psmt.setString(2, dto.getId());
 						psmt.setString(3, dto.getTuid());
 						psmt.setString(4, dto.getText());
-						psmt.setString(5, dto.getIp());
 						result = psmt.executeUpdate();
 					}
 					catch (Exception e) {
@@ -674,7 +644,7 @@ public class offerBoardDAO extends DBConnPool{
 					
 				}	
 				catch (Exception e) {
-					System.out.println("신고 count 중 예외 발생");
+					System.out.println("offer 신고 count 중 예외 발생");
 					e.printStackTrace();
 				}
 				return count;

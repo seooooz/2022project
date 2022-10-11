@@ -1,3 +1,5 @@
+<%@page import="admin.adminBoardDTO"%>
+<%@page import="admin.adminBoardDAO"%>
 <%@page import="board2.careerBoardDTO"%>
 <%@page import="board2.careerBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,7 +12,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-<%-- <%@include file="../../Process/PageProcess.jsp"%> --%>
 <script>
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
@@ -32,46 +33,7 @@
 }
 </style>
 
-<%
-//DAO를 생성해 DB에 연결
-careerBoardDAO dao1 = new careerBoardDAO();
-
-//사용자가 입력한 검색 조건 Map에 저장
-Map<String, Object> param = new HashMap<String, Object>();
-
-String searchField = request.getParameter("searchField");
-String searchWord = request.getParameter("searchWord");
-
-if (searchWord != null) {
-	param.put("searchField", searchField);
-	param.put("searchWord", searchWord);
-}
-// 게시물 수 확인
-int totalCount = dao1.selectCount(param);
-
-/*** 페이지 처리 START ***/
-//전체 페이지 수 계산
-int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
-int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
-int totalPage = (int)Math.ceil((double)totalCount / pageSize); 
-
-//현재 페이지 확인
-int pageNum = 1;
-String pageTemp = request.getParameter("pageNum");
-if(pageTemp != null && !pageTemp.equals(""))
-	pageNum = Integer.parseInt(pageTemp); // 요청받은 페이지로 수정
-	
-//목록에 출력할 게시물 범위 계산
-int start = (pageNum -1) * pageSize + 1;
-int end = pageNum * pageSize;
-param.put("start", start);
-param.put("end", end);
-/*** 페이지 처리 END ***/
-
-// 게시물 목록 받기
-List<careerBoardDTO> boardLists = dao1.selectListPage(param);
-dao1.close();
-%>
+<%@include file="./career/paging.jsp" %>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -118,11 +80,11 @@ dao1.close();
 						<ul class="nav nav-tabs">
 							<li class="nav-item"><a href="#my-posts" data-toggle="tab"
 								class="nav-link active show">전체</a></li>
-							<li class="nav-item"><a href="#about-me" data-toggle="tab"
+							<li class="nav-item"><a href="#career-cv" data-toggle="tab"
 								class="nav-link">이력서</a></li>
-							<li class="nav-item"><a href="#about-me" data-toggle="tab"
+							<li class="nav-item"><a href="#career-interview" data-toggle="tab"
 								class="nav-link">면접</a></li>
-							<li class="nav-item"><a href="#profile-settings"
+							<li class="nav-item"><a href="#career-etc"
 								data-toggle="tab" class="nav-link">기타</a></li>
 						</ul>
 						<!-- 카테고리 안에 내용물 수정-->
@@ -133,43 +95,65 @@ dao1.close();
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr>
-													<th>NO</th>
-													<th>제목</th>
-													<th>작성자</th>
+												<tr align="center">
+													<th width="10%">NO</th>
+													<th width="50%">제목</th>
+													<th width="15%">작성자</th>
 													<th>작성일</th>
-													<th>조회수</th>
+													<th width="10%">조회수</th>
 												</tr>
 											</thead>
 											<tbody>
-												<!-- 기술 게시판 목록 start  -->
+												<!-- 커리어 게시판 목록 start  -->
+												<%
+												for(adminBoardDTO admdto : adminLists){
+												%>
+													<tr>
+														<td align="center"><i class="bi bi-megaphone-fill"></i></td>
+														<td><%=admdto.getTitle() %></td>
+														<td align="center">관리자</td>
+														<td align="center"><%=admdto.getPostdate() %></td>
+														<td align="center"><%=admdto.getVisitcount() %></td>
+													</tr>
+														<%
+														}
+														%>
 											
 												<%
-																							if (boardLists.isEmpty()) {
+													if (boardLists.isEmpty()) {
 																																		// 게시물이 하나도 없을때 -->
-																							%>
+												%>
 												<tr>
 													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
 												</tr>
 
 												<%
 												} else {
-																						// 게시물이 있을 때 -->
-																						int virtualNum = 0; // 화면상에서의 게시물 번호 
-																						int countNum = 0;
+													// 게시물이 있을 때 -->
+													int virtualNum = 0; // 화면상에서의 게시물 번호 
+													int countNum = 0;
 
-																						for (careerBoardDTO dto : boardLists) {
-																							virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+													for (careerBoardDTO dto : boardLists) {
+													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
 												<tr>
-													<td><%=virtualNum%></td>
+													<td align="center"><%=virtualNum%></td>
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
-														<a href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+														<a href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
+														<%
+														careerBoardDAO dao = new careerBoardDAO();
+														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
+														dao1.close();
+														%>
+														&nbsp;
+														&nbsp;
+														&nbsp;
+														<a class="bi bi-chat-left-dots" href = "career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%> </a>
 													</td>
-													<td><%=dto.getId()%></td>
-													<td><%=dto.getPostdate()%></td>
-													<td><%=dto.getVisitcount()%></td>
+													<td align="center"><%=dto.getId()%></td>
+													<td align="center"><%=dto.getPostdate()%></td>
+													<td align="center"><%=dto.getVisitcount()%></td>
 												</tr>
 												<%
 												}
@@ -188,8 +172,8 @@ dao1.close();
 										<!--                      기술 게시판 페이징 기능 end  -->
 								</div>
 							</div>
-							<!-- 전체 -->
-							<div id="about-me" class="tab-pane fade">
+							<!-- 이력서 -->
+							<div id="career-cv" class="tab-pane fade">
 								<div class="profile-about-me">
 									<div class="my-post-content pt-3">
 										<div class="table-responsive">
@@ -203,13 +187,53 @@ dao1.close();
 														<th>조회수</th>
 													</tr>
 												</thead>
-
+												<tbody>
+													<%
+													if (cvLists.isEmpty()) {
+													// 게시물이 하나도 없을때 -->
+													%>
+													<tr>
+														<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+													</tr>
+							
+													<%
+													} else {
+													// 게시물이 있을 때 -->
+													int virtualNum = 0; // 화면상에서의 게시물 번호 
+													int countNum = 0;
+							
+													for (careerBoardDTO dto : cvLists) {
+													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+													%>
+													<tr>
+														<td align="center"><%=virtualNum%></td>
+														<td>
+															<!-- 게시물 클릭시 이동할 페이지 --> <a
+															href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
+															<%
+																careerBoardDAO dao = new careerBoardDAO();
+																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
+																dao1.close();
+															%> &nbsp; &nbsp; &nbsp; <a class="bi bi-chat-left-dots"
+															href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%>
+														</a>
+														</td>
+														<td align="center"><%=dto.getId()%></td>
+														<td align="center"><%=dto.getPostdate()%></td>
+														<td align="center"><%=dto.getVisitcount()%></td>
+													</tr>
+													<%
+													}
+													}
+													%>
+												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div id="profile-settings" class="tab-pane fade">
+							<!-- 면접 -->
+							<div id="career-interview" class="tab-pane fade">
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<table class="table mb-0">
@@ -222,12 +246,52 @@ dao1.close();
 													<th>조회수</th>
 												</tr>
 											</thead>
-
+											<tbody>
+													<%
+													if (inLists.isEmpty()) {
+													// 게시물이 하나도 없을때 -->
+													%>
+													<tr>
+														<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+													</tr>
+							
+													<%
+													} else {
+													// 게시물이 있을 때 -->
+													int virtualNum = 0; // 화면상에서의 게시물 번호 
+													int countNum = 0;
+							
+													for (careerBoardDTO dto : inLists) {
+													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+													%>
+													<tr>
+														<td align="center"><%=virtualNum%></td>
+														<td>
+															<!-- 게시물 클릭시 이동할 페이지 --> <a
+															href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
+															<%
+																careerBoardDAO dao = new careerBoardDAO();
+																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
+																dao1.close();
+															%> &nbsp; &nbsp; &nbsp; <a class="bi bi-chat-left-dots"
+															href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%>
+														</a>
+														</td>
+														<td align="center"><%=dto.getId()%></td>
+														<td align="center"><%=dto.getPostdate()%></td>
+														<td align="center"><%=dto.getVisitcount()%></td>
+													</tr>
+													<%
+													}
+													}
+													%>
+												</tbody>
 										</table>
 									</div>
 								</div>
 							</div>
-							<div id="profile-settings" class="tab-pane fade">
+							<!-- 기타 -->
+							<div id="career-ect" class="tab-pane fade">
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<table class="table mb-0">
@@ -240,7 +304,46 @@ dao1.close();
 													<th>조회수</th>
 												</tr>
 											</thead>
-
+											<tbody>
+													<%
+													if (etcLists.isEmpty()) {
+													// 게시물이 하나도 없을때 -->
+													%>
+													<tr>
+														<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+													</tr>
+							
+													<%
+													} else {
+													// 게시물이 있을 때 -->
+													int virtualNum = 0; // 화면상에서의 게시물 번호 
+													int countNum = 0;
+							
+													for (careerBoardDTO dto : etcLists) {
+													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
+													%>
+													<tr>
+														<td align="center"><%=virtualNum%></td>
+														<td>
+															<!-- 게시물 클릭시 이동할 페이지 --> <a
+															href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
+															<%
+																careerBoardDAO dao = new careerBoardDAO();
+																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
+																dao1.close();
+															%> &nbsp; &nbsp; &nbsp; <a class="bi bi-chat-left-dots"
+															href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%>
+														</a>
+														</td>
+														<td align="center"><%=dto.getId()%></td>
+														<td align="center"><%=dto.getPostdate()%></td>
+														<td align="center"><%=dto.getVisitcount()%></td>
+													</tr>
+													<%
+													}
+													}
+													%>
+												</tbody>
 										</table>
 									</div>
 								</div>

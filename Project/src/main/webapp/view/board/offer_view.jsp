@@ -29,7 +29,7 @@ function deleditPost(str){
 	 	if(confirmed1){
 	 		var form = document.writeFrm;
 	 		form.method = "post";
-	 		form.action = "skill_edit.jsp";
+	 		form.action = "offer_edit.jsp";
 	 		form.submit();
 	 	}
 	}
@@ -39,7 +39,7 @@ function deleditPost(str){
 	 	if(confirmed){
 	 		var form = document.writeFrm;
 	 		form.method = "post";
-	 		form.action = "../../Process/skill/DeleteProcess.jsp";
+	 		form.action = "../../Process/offer/DeleteProcess.jsp";
 	 		form.submit();
 	 	}
 	}
@@ -286,6 +286,7 @@ margin-top: 0.75rem;
 													}
 														}
 													}
+													odao.close();
 												%>
                                                 </div>
                                                 </div>

@@ -169,6 +169,19 @@
 									<div class="table-responsive">
 										<ul class="table mb-0">
 					<!-- OFFER 게시판 목록 start  -->
+					<%
+					for(adminBoardDTO admdto : adminLists){
+							%>
+								<tr>
+									<td align="center"><i class="bi bi-megaphone-fill"></i></td>
+									<td><%=admdto.getTitle() %></td>
+									<td align="center">관리자</td>
+									<td align="center"><%=admdto.getPostdate() %></td>
+									<td align="center"><%=admdto.getVisitcount() %></td>
+								</tr>
+									<%
+									}
+									%>
 							<!-- 게시물이 없을 때 -->
 						<div>
 							<%
@@ -181,20 +194,6 @@
 								</li>
 							<%
 							} else {
-							for(adminBoardDTO admdto : adminLists){
-							%>
-								<tr>
-									<td align="center"><i class="bi bi-megaphone-fill"></i></td>
-									<td><%=admdto.getTitle() %></td>
-									<td align="center">관리자</td>
-									<td align="center"><%=admdto.getPostdate() %></td>
-									<td align="center"><%=admdto.getVisitcount() %></td>
-								</tr>
-									<%
-									}
-									%>
-									<%	
-								
 								int virtualNum = 0;
 								int countNum = 0;
 								
@@ -202,7 +201,7 @@
 									virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 							%>
 							<!-- 게시물이 있을 때 -->
-							<div>
+						<div>
 						<ul class="paper_list">
 							<li class="py-4">
 							<div class="flex flex-col ">
@@ -239,7 +238,7 @@
 							</div>
 							</li>
 						</ul>
-							</div>
+						</div>
 						</div>		
 						<%}
 							}

@@ -13,9 +13,9 @@ import java.util.Vector;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
-import board3.ReportDTO;
 import common.DBConnPool;
 import utils.CommentDTO;
+import utils.ReportDTO;
 
 public class skillBoardDAO extends DBConnPool{
 	
@@ -90,6 +90,94 @@ public class skillBoardDAO extends DBConnPool{
 		}
 		
 		sql += " order by num desc ) Tb ) where rNum between ? and ?";
+		
+		System.out.println(sql);
+		try { 
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				skillBoardDTO vo = new skillBoardDTO();
+				vo.setNum(rs.getString("num"));
+				vo.setId(rs.getString("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setCate(rs.getString("cate"));
+				vo.setFilename(rs.getString("filename"));
+				vo.setPostdate(rs.getDate("postdate"));
+				vo.setVisitcount(rs.getString("visitcount"));
+				
+				// 반환할 경과 목록에 게시물 추가
+				bbs.add(vo);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return bbs;
+		
+	}
+	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
+	public List<skillBoardDTO> selectListCD(Map<String, Object> map){
+		List<skillBoardDTO> bbs = new Vector<skillBoardDTO>(); // 결과(게시물 목록)를 담을 변수
+		
+		String sql = " select * from ( select Tb.*, rownum rNum from ( select * from skillboard ";
+		
+		// 검색 조건 추가
+		if(map.get("searchWord") != null) {
+			sql += " where " + map.get("searchField")
+			+ " like '%" + map.get("searchWord") + "%' ";
+		}
+		
+		sql += " order by num desc ) Tb ) where rNum between ? and ? and cate = '코드'";
+		
+		System.out.println(sql);
+		try { 
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				skillBoardDTO vo = new skillBoardDTO();
+				vo.setNum(rs.getString("num"));
+				vo.setId(rs.getString("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setCate(rs.getString("cate"));
+				vo.setFilename(rs.getString("filename"));
+				vo.setPostdate(rs.getDate("postdate"));
+				vo.setVisitcount(rs.getString("visitcount"));
+				
+				// 반환할 경과 목록에 게시물 추가
+				bbs.add(vo);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return bbs;
+		
+	}
+	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
+	public List<skillBoardDTO> selectListETC(Map<String, Object> map){
+		List<skillBoardDTO> bbs = new Vector<skillBoardDTO>(); // 결과(게시물 목록)를 담을 변수
+		
+		String sql = " select * from ( select Tb.*, rownum rNum from ( select * from skillboard ";
+		
+		// 검색 조건 추가
+		if(map.get("searchWord") != null) {
+			sql += " where " + map.get("searchField")
+			+ " like '%" + map.get("searchWord") + "%' ";
+		}
+		
+		sql += " order by num desc ) Tb ) where rNum between ? and ? and cate = '기타'";
 		
 		System.out.println(sql);
 		try { 
@@ -564,19 +652,18 @@ public class skillBoardDAO extends DBConnPool{
 					
 					int result = 0;
 					try {
-						String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext, re_ip) "
-								+ "values (seq_reportboard_num.nextval,1,?,1,?,?,?,?)";
+						String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext) "
+								+ "values (seq_reportboard_num.nextval,1,?,1,?,?,?)";
 						
 						psmt = con.prepareStatement(sql);
 						psmt.setInt(1, dto.getTarget_id());
 						psmt.setString(2, dto.getId());
 						psmt.setString(3, dto.getTuid());
 						psmt.setString(4, dto.getText());
-						psmt.setString(5, dto.getIp());
 						result = psmt.executeUpdate();
 					}
 					catch (Exception e) {
-						System.out.println("career  대댓글 입력 중 예외 발생");
+						System.out.println("skill 신고 중 예외 발생");
 						e.printStackTrace();
 					}
 					return result;
@@ -586,7 +673,7 @@ public class skillBoardDAO extends DBConnPool{
 				public int selectReport(int tid, String uid) {
 					 int count = 0;
 						
-					String sql = "SELECT COUNT(*) AS counter FROM REPORT WHERE RBOARD_ID = 3 AND TARGET_ID = ? AND USER_ID = ? GROUP BY rboard_id,target_id,user_id HAVING COUNT(*) > 0";
+					String sql = "SELECT COUNT(*) AS counter FROM REPORT WHERE RBOARD_ID = 1 AND TARGET_ID = ? AND USER_ID = ? GROUP BY rboard_id,target_id,user_id HAVING COUNT(*) > 0";
 				
 					try {
 						psmt = con.prepareStatement(sql);
@@ -600,7 +687,7 @@ public class skillBoardDAO extends DBConnPool{
 						
 					}	
 					catch (Exception e) {
-						System.out.println("신고 count 중 예외 발생");
+						System.out.println("skill 신고 count 중 예외 발생");
 						e.printStackTrace();
 					}
 					return count;

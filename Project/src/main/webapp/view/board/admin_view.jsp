@@ -162,7 +162,7 @@ margin-top: 0.75rem;
                                                         <span class="pull-right" style="margin-left: 5px;"><%= dto.getVisitcount() %></span>
                                                         	<i class="bi bi-eye pull-right"></i>
                                                         	<img class="pf rounded-circle pull-left" alt="image" src="../../resources/images/pf.png">
-                                                            <h5 class="bid"><%= dto.getId() %></h5>
+                                                            <h5 class="bid">관리자</h5>
                                                             <p class="bpostdate"><%= dto.getPostdate() %></p>
                                                         </div>
                                                     </div>

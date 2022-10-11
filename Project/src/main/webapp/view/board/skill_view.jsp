@@ -116,6 +116,7 @@ margin-top: 0.75rem;
                         </ol>
                     </div>
                 </div>
+			<a href="javascript:reportFrm(<%=sdto.getNum()%>,'<%=sdto.getId()%>')" class="title_a">신고하기</a>                
                 <!-- row -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -282,6 +283,7 @@ margin-top: 0.75rem;
 													}
 														}
 													}
+													sdao.close();
 												%>
                                                 </div>
                                                 </div>

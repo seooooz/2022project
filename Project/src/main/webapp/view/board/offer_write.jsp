@@ -28,6 +28,8 @@ function validateForm(form){				//폼 내용 검증
 		return false;
 	}
 }
+
+
 </script>
 
 

@@ -16,7 +16,8 @@
 <%
 offerBoardDAO odao = new offerBoardDAO();
 int count = odao.selectReport(Integer.valueOf(request.getParameter("onum")), (String)session.getAttribute("UserId"));
-if(count > 1){
+odao.close();
+if(count > 0){
 %>
 <script>
 alert("이미 신고한 게시물 입니다.");
