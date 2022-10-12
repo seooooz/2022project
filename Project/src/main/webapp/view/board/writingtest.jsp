@@ -7,16 +7,16 @@
 	font-size: 22px;
 }
 
-a {
-	font-size: 17px;
-	color: blue;
-}
+/* a { */
+/* 	font-size: 17px; */
+/* 	color: blue; */
+/* } */
 
-p {
-	font-size: 14px;
-	color: black;
-	margin-bottom: -1px;
-}
+/* p { */
+/* 	font-size: 14px; */
+/* 	color: black; */
+/* 	margin-bottom: -1px; */
+/* } */
 
 </style>
 
