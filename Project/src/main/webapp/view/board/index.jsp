@@ -52,6 +52,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
 											<%
 											skillBoardDAO sdao = new skillBoardDAO();
 											ArrayList<skillBoardDTO> slist = sdao.selectBoards();
+											sdao.close();
 											for (int i = 0; i < slist.size(); i++) {
 											%>
 											<tr>
@@ -94,6 +95,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
 											<%
 											careerBoardDAO cdao = new careerBoardDAO();
 											ArrayList<careerBoardDTO> clist = cdao.selectBoards();
+											cdao.close();
 											for (int i = 0; i < clist.size(); i++) {
 											%>
 											<tr>
@@ -179,6 +181,7 @@ justify-content:center; */ /* align-items: center; */ /* } */
 											<%
 											offerBoardDAO odao = new offerBoardDAO();
 											ArrayList<offerBoardDTO> olist = odao.selectBoards();
+											odao.close();
 											for (int i = 0; i < olist.size(); i++) {
 											%>
 											<tr>

@@ -18,6 +18,8 @@ int delResult = 0;
 	// 작성자 본인
 	dto.setNum(num);
 	System.out.println(num);
+	dao.posetdeleteCom(num);
+	dao.reportdelete(num);
 	delResult = dao.deletePost(dto);
 	dao.close();
 	

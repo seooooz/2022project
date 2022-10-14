@@ -46,7 +46,7 @@ try {
 	dao.close();
 	
 	if(upResult == 1){
-		response.sendRedirect("../../view/board/career_view.jsp?cnum=" + num);
+		response.sendRedirect("../../view/board/career_view.jsp?num=" + num);
 	}
 	else{
 		JSFunction.alertBack("수정에 실패하였습니다.", out);

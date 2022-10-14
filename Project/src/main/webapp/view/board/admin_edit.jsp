@@ -1,5 +1,5 @@
-<%@page import="board3.offerBoardDTO"%>
-<%@page import="board3.offerBoardDAO"%>
+<%@page import="admin.adminBoardDTO"%>
+<%@page import="admin.adminBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,8 +9,9 @@
 <%
 String pnum = request.getParameter("pnum");
 
-offerBoardDAO dao = new offerBoardDAO();
-offerBoardDTO dto = dao.selectView(pnum);
+adminBoardDAO dao = new adminBoardDAO();
+adminBoardDTO dto = dao.selectView(pnum);
+dao.close();
 %>
 <script type="text/javascript">
 function validateForm(form){				//폼 내용 검증
@@ -37,13 +38,13 @@ function validateForm(form){				//폼 내용 검증
 			<div class="card-body">
 				<!-- table start -->
 				<div class="table-responsive">
-					<form method="post" action="../../Process/offer/EditProcess.jsp">
-						<input type = "hidden" name="num" value="<%= dto.getNum() %>"/>
+					<form method="post" action="../../Process/admin/EditProcess.jsp"
+						onsubmit="return validateForm(this)">
+						<input type = "hidden" name="anum" value="<%= dto.getAnum() %>"/>
 						<table>
 							<tr>
 								<th>작성자</th>
-								<td><input type="text" class="form-control input-default"
-									name="name" value=<%=session.getAttribute("UserId")%> disabled></td>
+								<td>관리자</td>
 							</tr>
 
 						<tr>
@@ -51,27 +52,6 @@ function validateForm(form){				//폼 내용 검증
 							<td><input type="text" class="form-control input-default"
 								size="70" name="title" value="<%=dto.getTitle()%>"></td>
 						</tr>
-							<tr>
-								<th>카데고리</th>
-
-								<td>&nbsp; <input type="checkbox" name="cate" value="개인"
-									checked /> 개인 <input type="checkbox" name="cate" value="공모전" />
-									공모전
-								</td>
-							</tr>
-							<tr>
-								<th>인원수</th>
-								<td>
-									<input type="text" class="form-control input-default" size="70" name="memNum" value="<%=dto.getMemNum()%>" disabled>
-								</td>
-							</tr>
-							<tr>
-								<th>마감일</th>
-								<td>
-									<input class="form-control input-default" value="<%=dto.getDday()%>" disabled>
-								</td>
-							</tr>
-							<tr>
 
 						<tr>
 							<th>내용</th>
@@ -84,7 +64,7 @@ function validateForm(form){				//폼 내용 검증
 						<button type="submit" class="btn btn-primary">작성 완료</button>
 						<button type="reset" class="btn btn-primary">다시 입력</button>
 						<button type="button" class="btn btn-primary"
-							onclick="location.href='skill.jsp'">목록 보기</button>
+							onclick="location.href='admin.jsp'">목록 보기</button>
 					</form>
 				</div>
 				<!-- table end -->

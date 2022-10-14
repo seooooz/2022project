@@ -52,4 +52,5 @@ List<careerBoardDTO> etcLists = dao1.selectListETC(param);
 
 List<adminBoardDTO> adminLists = adao.selectView(2);
 dao1.close();
+adao.close();
 %>

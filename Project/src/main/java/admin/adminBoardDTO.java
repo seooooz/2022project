@@ -1,20 +1,21 @@
 package admin;
 
 public class adminBoardDTO {
-	
-	private int num;
+
+	private String anum;
 	private int brd_code;
+	private String brd_name;
 	private String title;
 	private String content;
 	private java.sql.Date postdate;
-	private int visitcount;
+	private String visitcount;
 	
 	
-	public int getNum() {
-		return num;
+	public String getAnum() {
+		return anum;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setAnum(String anum) {
+		this.anum = anum;
 	}
 	public int getBrd_code() {
 		return brd_code;
@@ -40,11 +41,17 @@ public class adminBoardDTO {
 	public void setPostdate(java.sql.Date postdate) {
 		this.postdate = postdate;
 	}
-	public int getVisitcount() {
+	public String getVisitcount() {
 		return visitcount;
 	}
-	public void setVisitcount(int visitcount) {
+	public void setVisitcount(String visitcount) {
 		this.visitcount = visitcount;
+	}
+	public String getBrd_name() {
+		return brd_name;
+	}
+	public void setBrd_name(String brd_name) {
+		this.brd_name = brd_name;
 	}
 	
 }

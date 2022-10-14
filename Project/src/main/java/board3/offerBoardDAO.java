@@ -288,16 +288,16 @@ public class offerBoardDAO extends DBConnPool{
 		}
 		
 		// 지정한 게시물을 수정
-		public int updateEdit(offerBoardDTO dto) {
+		public int updateEdit(String title, String text, String num) {
 			int result = 0;
 			
 			try {
 				String sql = "update offerboard set otitle=?, ocontent=? where onum=?";
 				
 				psmt = con.prepareStatement(sql);
-				psmt.setString(1, dto.getTitle());
-				psmt.setString(2, dto.getContent());
-				psmt.setString(3, dto.getNum());
+				psmt.setString(1, title);
+				psmt.setString(2, text);
+				psmt.setString(3, num);
 				
 				result = psmt.executeUpdate();
 			}
@@ -329,6 +329,45 @@ public class offerBoardDAO extends DBConnPool{
 		}
 		
 		// 게시글 삭제 시 댓글 삭제
+		public int reportdelet(String num) {
+			int result = 0;
+			
+			try {
+				
+				String sql = "delete from REPORT where BOARD_CODE = 3 and postnum = ?";
+				
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, num);
+				
+				result = psmt.executeUpdate();
+			}
+			catch(Exception e) {
+				System.out.println("댓글 삭제 중 예외 발생");
+				e.printStackTrace();
+			}
+			
+			return result;
+		}// 신고당한 게시글 시) 게시글 삭제 시 report테이블 같이삭제
+		public int reportdelete(String num) {
+			int result = 0;
+			
+			try {
+				
+				String sql = "delete from REPORT where RBOARD_ID = 3 and TARGET_ID = ?";
+				
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, num);
+				
+				result = psmt.executeUpdate();
+			}
+			catch(Exception e) {
+				System.out.println("댓글 삭제 중 예외 발생");
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
+		// 신고 게시글 시) 게시글 삭제 시 신고 테이블도 삭제
 		public int posetdeleteCom(String num) {
 			int result = 0;
 			
@@ -348,7 +387,6 @@ public class offerBoardDAO extends DBConnPool{
 			
 			return result;
 		}
-		
 //		 댓글 목록을 반환(페이징)
 //					public List<CommentDTO> selectListCom(Map<String, Object> map, String num){
 //						List<CommentDTO> oboard = new Vector<CommentDTO>(); // 결과(게시물 목록)를 담을 변수

@@ -2,9 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="../includes/header.jsp"%>
-<%@include file="../includes/navbar.jsp"%>
-
+<%@include file="../includes/admin_header.jsp"%>
+<style>
+.main_body{
+margin-top: 7rem;
+margin-left: 1.5rem;
+margin-right: 1.5rem;
+}
+</style>
 <script type="text/javascript">
 function validateForm(form){				//폼 내용 검증
 	if(form.title.value == ""){
@@ -31,7 +36,7 @@ function validateForm(form){				//폼 내용 검증
 </script>
 
 
-<div class="content-body" align="center">
+<div class="main_body" align="center">
 	<div class="col-lg-8">
 		<!-- card start -->
 		<div class="card">
@@ -60,11 +65,10 @@ function validateForm(form){				//폼 내용 검증
 							</tr>
 							<tr>
 								<th>카데고리</th>
-<!-- 1-개인, 2-공모전  -->				<td>&nbsp; 
+									<td>&nbsp; 
 									<input type="radio" name="cate" value= 1 checked /> 기술
 									<input type="radio" name="cate" value= 2 /> 커리어
 									<input type="radio" name="cate" value= 3 /> offer
-									<input type="radio" name="cate" value= 4 /> FAQ
 								</td>
 							</tr>
 							<tr>

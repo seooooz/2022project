@@ -18,6 +18,8 @@ int delResult = 0;
 	// 작성자 본인
 	dto.setNum(num);
 	System.out.println(num);
+	dao.posetdeleteCom(num);
+	dao.reportdelete(num);
 	delResult = dao.deletePost(dto);
 	dao.close();
 	
@@ -30,10 +32,4 @@ int delResult = 0;
 	else{
 		JSFunction.alertBack("삭제에 실패하였습니다.", out);
 	}
-// }
-// else{
-// 	//작성자 본인이 아니면 이전 페이지
-// 	JSFunction.alertBack("본인만 삭제할 수 있습니다.", out);
-// 	return;
-// }
 %>  

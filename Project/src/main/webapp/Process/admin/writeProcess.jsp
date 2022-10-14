@@ -17,7 +17,7 @@
 		
 		if(result == 1) {
 			System.out.println("admin 글작성 성공");
-			response.sendRedirect("../../view/board/loginProfile.jsp");
+			response.sendRedirect("../../view/board/admin.jsp");
 		}
 		else {
 			System.out.println("admin 글작성 실패");

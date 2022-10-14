@@ -25,15 +25,6 @@
                     </div>
                 </div>
                 <!-- row -->
-                <%
-                if(session.getAttribute("UserId").equals("admin")){
-                %>
-                <input type="button" class="btn btn-primary" value="공지 작성"
-					onclick="location.href='/view/board/admin_write.jsp'">
-					
-					
-				
-                <%} %>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="profile">

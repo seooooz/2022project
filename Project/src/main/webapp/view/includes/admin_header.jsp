@@ -24,7 +24,11 @@
 
 
 </head>
-
+<style>
+.nav-header1{
+width: 3.75rem;
+}
+</style>
 <body>
 <%
 // 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
@@ -60,8 +64,6 @@ if(session.getAttribute("UserId") != null){
         <div class="nav-header">
             <a href="../../view/board/index.jsp" class="brand-logo">
                 <img class="logo-abbr" src="../../resources/images/logo.png" alt="">
-<!--                 <img class="logo-compact" src="../../resources/images/logo-text.png" alt=""> -->
-<!--                 <img class="brand-title" src="../../resources/images/logo-text.png" alt=""> -->
                 <img class="brand-title" src="../../resources/images/4Dlogo.png" alt="">
             </a>
 
@@ -85,14 +87,7 @@ if(session.getAttribute("UserId") != null){
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dropdown">
-                                <span class="p-3 c-pointer" data-toggle="dropdown">
-                                </span>
-<!--                                     <i class="mdi mdi-magnify"></i> -->
-<!--                                 <div class="dropdown-menu p-0 m-0"> -->
-<!--                                     <form> -->
-<!--                                         <input class="form-control" type="search" placeholder="Search" aria-label="Search"> -->
-<!--                                     </form> -->
-<!--                                 </div> -->
+                                <span class="p-3 c-pointer" data-toggle="dropdown"> </span>
                             </div>
                         </div>
 
@@ -183,21 +178,6 @@ if(session.getAttribute("UserId") != null){
                                     </a>
                                 </div>
                                 <%
-                               } else if(UserId.equals("admin")){
-                            	%>
-                            	<div class="dropdown-menu dropdown-menu-right">
-  <!-- 드롭다운메뉴바)프로필 -->              <a href="/view/board/admin.jsp" class="dropdown-item">
-                                        <i class="icon-user"></i>
-                                        <span class="ml-2">admin </span>
-                                    </a>
-                                    <a href="/Process/LogoutProcess.jsp" class="dropdown-item">
-                                        <i class="icon-key"></i>
-                                        <span class="ml-2">Logout</span>
-
-                                    </a>
-                                </div>
-                            	
-                            	<%
                                }
                                else { // 로그인이 되어 있는 상태에서 보여주는 화면
                                 %>
@@ -226,6 +206,7 @@ if(session.getAttribute("UserId") != null){
                     </div>
                 </nav>
             </div>
+        </div>
         </div>
         <!--**********************************
             Header end ti-comment-alt

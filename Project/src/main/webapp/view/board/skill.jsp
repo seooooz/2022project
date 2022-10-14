@@ -1,10 +1,5 @@
-<%@page import="admin.adminBoardDTO"%>
-<%@page import="admin.adminBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@ page import="board1.skillBoardDAO"%>
-<%@ page import="board1.skillBoardDTO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
 
@@ -111,7 +106,8 @@
 														<td align="center"><i class="bi bi-megaphone-fill"></i></td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
 														<td>
-														<a href="admin_view.jsp?num=<%=admdto.getNum()%>"><%=admdto.getTitle()%></a>
+														<a href="admin_view.jsp?anum=<%=admdto.getAnum() %>"><%=admdto.getTitle()%></a>
+														<a><%=admdto.getAnum() %></a>
 														</td>
 														<td align="center">관리자</td>
 														<td align="center"><%=admdto.getPostdate() %></td>

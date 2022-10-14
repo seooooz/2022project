@@ -24,7 +24,7 @@ if(result == 1){
 	PrintWriter script = response.getWriter();
 	script.println("<script>");		
 	script.println("alert('신고가 되었습니다.')");
-	script.println("opener.parent.location='../../view/board/career_view.jsp?cnum="+Integer.valueOf(request.getParameter("num"))+"'");
+	script.println("opener.parent.location='../../view/board/career_view.jsp?num="+Integer.valueOf(request.getParameter("num"))+"'");
 	script.println("window.close()");
 	script.println("</script>");
 	

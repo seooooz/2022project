@@ -432,6 +432,26 @@ public class skillBoardDAO extends DBConnPool{
 			}
 		}
 	
+		// 신고당한 게시글 시) 게시글 삭제 시 report테이블 같이삭제
+		public int reportdelete(String num) {
+			int result = 0;
+			
+			try {
+				
+				String sql = "delete from REPORT where RBOARD_ID = 1 and TARGET_ID = ?";
+				
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, num);
+				
+				result = psmt.executeUpdate();
+			}
+			catch(Exception e) {
+				System.out.println("댓글 삭제 중 예외 발생");
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
 				// 게시글 삭제 시 댓글 삭제
 				public int posetdeleteCom(String num) {
 					int result = 0;
@@ -452,6 +472,7 @@ public class skillBoardDAO extends DBConnPool{
 					
 					return result;
 				}
+				
 				
 				// 부모 댓글 데이터를 받아 DB에 추가
 				public int skillinsertCom(CommentDTO dto) {

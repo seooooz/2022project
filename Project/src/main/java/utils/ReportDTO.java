@@ -2,6 +2,8 @@ package utils;
 
 public class ReportDTO {
 	private int num;				// 시퀀스
+	private String brd_code1;
+	private int brd_code;
 	private int target_id;			// 신고 게시물, 댓글 시퀀스 번호
 	private int type;				// 1- 게시물 2 - 댓글
 	private String id;				// 신고신청한 id
@@ -44,6 +46,18 @@ public class ReportDTO {
 	}
 	public void setText(String text) {
 		this.text = text;
+	}
+	public String getBrd_code1() {
+		return brd_code1;
+	}
+	public void setBrd_code1(String brd_code1) {
+		this.brd_code1 = brd_code1;
+	}
+	public int getBrd_code() {
+		return brd_code;
+	}
+	public void setBrd_code(int brd_code) {
+		this.brd_code = brd_code;
 	}
 	
 	

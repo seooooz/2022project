@@ -16,10 +16,9 @@
 	odao.updateVisitCount(onum);
 	offerBoardDTO odto = odao.selectView(onum);
 	List<CommentDTO> comLists = odao.comselectView(onum);
-	
-	
+	odao.close();	
 %>    
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 function deleditPost(str){
 	
@@ -51,6 +50,105 @@ function reportFrm(args1,args2) {
 	window.open("<c:url value='offer_report.jsp?onum="
 				+ onum + "&tuid="+tuid+"'/>", "Reporttext", "width=500, height=500");
 }
+
+$(function(){
+	// 추천버튼 클릭시(추천 추가 또는 추천 제거)
+	$("#rec_update").click(function(){
+		
+		
+		$.ajax({
+			url: "/Project/RecUpdate.do",
+            type: "POST",
+            data: {
+                no: <%=odto.getNum()%>,
+                id: '${UserId}',
+                code: ${1},
+                like: ${1}
+                
+            },
+            
+            success: function (mycount) {
+            	
+		        recCount();
+		        recCount2();
+		        
+		        if(mycount == 0){
+	        		$('#rec_update').attr('class','bi-hand-thumbs-up-fill');
+	        	}else{
+	        		$('#rec_update').attr('class','bi-hand-thumbs-up');
+	        		
+	        	}
+ 
+            },
+		})
+		
+	})
+	
+	$("#rec_update2").click(function(){
+		
+			
+		$.ajax({
+			url: "/Project/RecUpdate.do",
+            type: "POST",
+            data: {
+                no: <%=odto.getNum()%>,
+                id: '${UserId}',
+                code: ${1},
+                like: ${2}
+            },
+            success: function (mycount) {
+            	recCount();
+            	recCount2();
+            	if(mycount == 0){
+   	        		$('#rec_update2').attr('class','bi-hand-thumbs-down-fill');
+   	        	}else{
+   	        		$('#rec_update2').attr('class','bi-hand-thumbs-down');
+   	        		
+   	        	}
+            },
+		})
+		
+	})
+
+
+// 게시글 추천수
+function recCount() {
+	$.ajax({
+		url: "/Project/RecLikeCount.do",
+        type: "POST",
+        data: {
+            no: <%=odto.getNum()%>,
+            code: ${1}
+        },
+        success: function (count) {
+        	
+        	$(".rec_count1").html(count);
+        	
+        },
+      
+	})
+	
+};
+
+function recCount2() {
+	$.ajax({
+		url: "/Project/RecHateCount.do",
+        type: "POST",
+        data: {
+        	id: '${UserId}',
+            no: <%=odto.getNum()%>,
+            code: ${1}
+        },
+        success: function (count2) {
+        	$(".rec_count2").html(count2);
+        	
+        },
+      
+	})
+};
+recCount();
+recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
+})
 </script> 
 <style>
 .mt-5 {
@@ -167,6 +265,19 @@ margin-top: 0.75rem;
                                                         	<i class="bi bi-eye pull-right"></i>
                                                         	<img class="pf rounded-circle pull-left" alt="image" src="../../resources/images/pf.png">
                                                             <h5 class="bid"><%= odto.getId() %></h5>
+                                                            <!-- 좋아요 싫어요 버튼 시작 -->
+                                                            <div class="pull-right">
+                                                            	<c:if test="${UserId != null}">
+
+																<i  id="rec_update" class="bi bi-hand-thumbs-up"></i>
+																&nbsp;<span class="rec_count1"></span>
+																
+															
+																<i id="rec_update2" class="bi bi-hand-thumbs-down"></i>
+																&nbsp;<span class="rec_count2"></span>
+																</c:if>
+															</div>
+															<!-- 좋아요 싫어요 버튼 끝 -->
                                                             <p class="bpostdate"><%= odto.getPostdate() %></p>
                                                         </div>
                                                     </div>
@@ -204,7 +315,9 @@ margin-top: 0.75rem;
 														
 														for (CommentDTO dto : comLists) {
 // 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
-															List<CommentDTO> reLists = odao.reselectView(onum, dto.getGroupNum());
+															offerBoardDAO odao1 = new offerBoardDAO();
+															List<CommentDTO> reLists = odao1.reselectView(onum, dto.getGroupNum());
+															odao1.close();
 													%>
 												<div> <!-- 댓글이 있을 때 -->
 														<div class="paper_list">
@@ -286,7 +399,6 @@ margin-top: 0.75rem;
 													}
 														}
 													}
-													odao.close();
 												%>
                                                 </div>
                                                 </div>

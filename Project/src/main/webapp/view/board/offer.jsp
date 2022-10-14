@@ -174,7 +174,9 @@
 							%>
 								<tr>
 									<td align="center"><i class="bi bi-megaphone-fill"></i></td>
-									<td><%=admdto.getTitle() %></td>
+									<td>
+									<a href="admin_view.jsp?anum=<%=admdto.getAnum()%>"><%=admdto.getTitle()%></a>
+									</td>
 									<td align="center">관리자</td>
 									<td align="center"><%=admdto.getPostdate() %></td>
 									<td align="center"><%=admdto.getVisitcount() %></td>
