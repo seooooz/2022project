@@ -1,4 +1,4 @@
-package Like;
+package like;
 
 import java.util.Date;
 

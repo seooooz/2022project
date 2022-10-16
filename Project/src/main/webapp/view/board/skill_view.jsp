@@ -1,4 +1,4 @@
-<%@page import="Like.likeBoardDAO"%>
+<%@page import="like.likeBoardDAO"%>
 <%@page import="utils.CommentDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="board1.skillBoardDTO"%>
@@ -78,7 +78,7 @@ $(function(){
 		        
 		        if(mycount == 0){
 	        		$('#rec_update').attr('class','bi-hand-thumbs-up-fill');
-	        	}else{
+	        	}else if(mycount == 1){
 	        		$('#rec_update').attr('class','bi-hand-thumbs-up');
 	        		
 	        	}
@@ -105,7 +105,7 @@ $(function(){
             	recCount2();
             	if(mycount == 0){
    	        		$('#rec_update2').attr('class','bi-hand-thumbs-down-fill');
-   	        	}else{
+   	        	}else if(mycount == 1){
    	        		$('#rec_update2').attr('class','bi-hand-thumbs-down');
    	        		
    	        	}

@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Like.likeBoardDAO;
+import like.likeBoardDAO;
 import member.service.Action;
 import member.service.ActionForward;
 

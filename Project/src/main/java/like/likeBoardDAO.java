@@ -1,4 +1,4 @@
-package Like;
+package like;
 
 import common.DBConnPool;
 
@@ -9,14 +9,14 @@ public class likeBoardDAO extends DBConnPool {
 	}
 	
 	// 좋아요 개수
-	public int likecount(int no, int code, int is_like) {
+	public int likecount(int page_id, int code, int is_like) {
 		
 		int count = 0;
 		try {
 			String query = "SELECT COUNT(*) FROM boardlike " + " WHERE page_id=? AND lboard_code=? "
 					+ "	AND is_like=? ";
 			psmt = con.prepareStatement(query);
-			psmt.setInt(1, no);
+			psmt.setInt(1, page_id);
 			psmt.setInt(2, code);
 			psmt.setInt(3, is_like);
 			
@@ -63,32 +63,31 @@ public class likeBoardDAO extends DBConnPool {
 		return mycount;
 		
 	}
-	
-	// 동일 게시글 추천 여부 검색
-	public int recCheck(String page_id, String code, String id) {
-		int result = 0;
-		try {
-			String query = "SELECT count(*) FROM boardlike "
-					+ " WHERE page_id=? and lboard_code=? and lid=?";
-			psmt = con.prepareStatement(query);
-			psmt.setString(1, page_id);
-			psmt.setString(2, code);
-			psmt.setString(3,id);
-			
-			rs=psmt.executeQuery();
-			if(rs.next()) {
-				result = rs.getInt(1);
-			}
-			
-			
-			
-		}catch(Exception e) {
-			System.out.println("좋아요 실어요 추천 여부 검색 오류!!!");
-			e.printStackTrace();
-		}
-		System.out.println("동일 게시글 추천 여부 성공!!");
-		return result;
 		
+	// 동일 게시글 추천 여부 검색
+		public int likeCheck(String page_id, String code, String id) {
+			int result = 0;
+			try {
+				String query = "SELECT is_like FROM boardlike "
+						+ " WHERE page_id=? and lboard_code=? and lid=?";
+				psmt = con.prepareStatement(query);
+				psmt.setString(1, page_id);
+				psmt.setString(2, code);
+				psmt.setString(3,id);
+				
+				rs=psmt.executeQuery();
+				
+				if(rs.next()) {
+					result = rs.getInt(1);
+				}
+				
+				
+			}catch(Exception e) {
+				System.out.println("좋아요 실어요 추천 여부 검색 오류!!!");
+				e.printStackTrace();
+			}
+			System.out.println("동일 게시글 추천 여부 성공!!");
+			return result;
 	}
 	// 좋아요 싫어요 값 넣기
 	public int likeInsert(likeBoardDTO dto) {

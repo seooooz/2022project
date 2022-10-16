@@ -7,8 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Like.likeBoardDAO;
-import Like.likeBoardDTO;
+import like.likeBoardDAO;
+import like.likeBoardDTO;
 import member.service.Action;
 import member.service.ActionForward;
 
@@ -26,6 +26,7 @@ public class RecUpdate implements Action {
 		String code = request.getParameter("code");
 		String id = request.getParameter("id");
 		String like = request.getParameter("like");
+		int clike = Integer.parseInt(like);
 		likeBoardDTO dto = new likeBoardDTO();
 		likeBoardDAO dao = new likeBoardDAO();
 		
@@ -39,7 +40,7 @@ public class RecUpdate implements Action {
 		
 		
 		// 동일 게시글에 대한 이전 추천  여부 검색
-		int result = dao.recCheck(no, code, id);
+		int result = dao.likeCheck(no, code, id);
 		System.out.println("RESEULT = "+result);
 		
 		int mycount = dao.melikecount(id, no, code, like);
@@ -50,7 +51,13 @@ public class RecUpdate implements Action {
 				dao.close();
 				out.println(mycount);
 				out.close();
-		}else{ // 좋아요 값 있을 시 삭제
+			}else if(result != clike){ // 좋아요 값 있을 시 삭제
+				dao.likeUpdate(like, id, no ,code);
+				dao.close();
+				out.println(mycount);
+				out.close();
+			
+			}else{ // 좋아요 값 있을 시 삭제
 			dao.likeDelete(id,no,code);
 			dao.close();
 			out.println(mycount);
