@@ -8,9 +8,8 @@
 <%@page import="board3.offerBoardDAO"%>
 <%@page import="board4.QuestionBoardDTO"%>
 <%@page import="board4.QuestionBoardDAO"%>
-<%@ page import="board5.MypageDAO"%>
-<%@ page import="board5.MypageDTO"%>
-<%@ page import="board6.htagDTO"%>
+<%@page import="board5.MypageDAO"%>
+<%@page import="board6.htagDTO"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
 <%@ page import="java.util.*"%>
@@ -20,7 +19,63 @@
 MypageDAO mdao = new MypageDAO();
 ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 %>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var tag = {};
+		var counter = 0;
+		//     var counter2 =0;
 
+		// 입력한 값을 태그로 생성한다.
+		function addTag(value) {
+			tag[counter] = value;
+			counter++; // del-btn 의 고유 id 가 된다.
+		}
+
+		// tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
+		function marginTag() {
+			return Object.values(tag).filter(function(word) {
+				return word !== "";
+			});
+		}
+
+		// 서버에 제공
+		$("#tag-form").on("submit", function(e) {
+			var value = marginTag(); // return array
+			$("#rdTag").val(value);
+			$(this).submit();
+		});
+		$("#tag").on("keypress", function(e) {
+			var self = $(this);
+
+			//엔터나 스페이스바 눌렀을때 실행
+			if (e.keyCode == 32) {
+
+				var tagValue = self.val(); // 값 가져오기
+
+				// 해시태그 값 없으면 실행X
+				if (tagValue !== "") {
+
+					// 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
+					var result = Object.values(tag).filter(function(word) {
+						return word === tagValue;
+					})
+
+					// 해시태그가 중복되었는지 확인
+					if (result.length == 0) {
+						$("#tag-list").append("#" + tagValue +" ");
+						addTag(tagValue);
+						self.val("");
+					} else {
+						alert("태그값이 중복됩니다.");
+					}
+				}
+				e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
+
+			}
+		});
+	})
+</script>
 <script type="text/javascript">
 	var bDisplay = true;
 	document.getElementById("cssTest").style.display = 'none';
@@ -68,19 +123,8 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 			pj2.style.display = "none";
 		}
 	}
-
-	function deleditPost(str) {
-		var confirmed = confirm("삭제하겠습니까?");
-		if (str == '삭제') {
-			if (confirmed) {
-				var writeFrm = document.writeFrm;
-				writeFrm.method = "post";
-				writeFrm.action = "../../Process/Mypage/MypageDeleteProcess.jsp";
-				writeFrm.submit();
-			}
-		}
-	}
 </script>
+
 
 <!--**********************************
             Content body start
@@ -90,8 +134,8 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 		<div class="row page-titles mx-0">
 			<div class="col-sm-6 p-md-0">
 				<div class="welcome-text">
-					<%=session.getAttribute("UserName")%>
-					회원님, 로그인하셨습니다.
+					<input type="text" style="border: none;" name="user" size=30
+						value="<%=session.getAttribute("UserName")%> 회원님, 로그인하셨습니다.">
 				</div>
 			</div>
 			<div
@@ -120,45 +164,39 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 			<div class="col-lg-4 ">
 				<div class="card">
 					<div class="card-body">
-						<button type="button" style="float: right;"
-							onclick="location.href='/view/board/loginProfilewrite.jsp'">수정
-							하기</button>
-						<div class="col-lg-9 row page-titles mx-0">
-							<div class="row">
-								<div class="col">
-									<h3 class="text-primary"><%=UserId%></h3>
+						<form name="qwriteFrm" method="post"
+							action="../../Process/Mypage/MypageWriteProcess.jsp">
+							<p>
+								*Enterkey를 누르면 자동 수정 완료
+								<button type="submit" style="float: right;">수정 완료</button>
+							<div class="col-lg-9 row page-titles mx-0">
+								<div class="row">
+									<div class="col">
+										<h3 class="text-primary"><%=session.getAttribute("UserId")%></h3>
+									</div>
+										<div class="row">
+											<div class="col">
+												<h3 class="text-muted">Email</h3>
+
+											</div>
+										</div>
 								</div>
-								<div class="col">
-									<h3 class="text-muted">Email</h3>
-									<p>Email</p>
-								</div>
-								<%
-								if (list.isEmpty()) {
-								%>
-								<%
-								} else {
-								%>
-								<div
+								<div\
 									class="profile-skills pt-2 border-bottom-1 pb-2 text-center">
-									<h4>Skills</h4>
-									<%
-									for (htagDTO hdto : list) {
-									%>
-									<form name="writeFrm">
-										<input type="text" class="btn btn-outline-dark btn-rounded"
-											name="htag" value="<%=hdto.getHtag()%>"><a
-											href="javascript:deleditPost('삭제');"><i class="bi bi-x"></i></a>
-									</form>
+									<br>
+									<h4 class="text-primary mb-4">Skills</h4>
+									<div class="tr_hashTag_area text-center ">
+										<input type="hidden" value="" name="tag" id="rdTag" /> <input
+											type="text" class="input-text" id="tag" size="7"
+											placeholder="스페이스 키로 해시태그를 등록해주세요." style="width: 300px;">
+										<p>
+											*최대 5개만 가능 <br>
+
+											<textarea id="tag-list" name="htag"></textarea>
+									</div>
 								</div>
-								<%
-								}
-								}
-								%>
-								<%
-								mdao.close();
-								%>
 							</div>
-						</div>
+						</form>
 						<div class="profile-statistics">
 							<div class="text-center mt-4 border-bottom-1 pb-3">
 								<div class="row">
@@ -226,7 +264,6 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 														<%
 														skillBoardDAO sdao = new skillBoardDAO();
 														ArrayList<skillBoardDTO> boardlist = sdao.selectskillView(UserId);
-														sdao.close();
 														for (int i = 0; i < boardlist.size(); i++) {
 														%>
 														<tr>
@@ -271,7 +308,6 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 														<%
 														careerBoardDAO cdao = new careerBoardDAO();
 														ArrayList<careerBoardDTO> boardlist2 = cdao.selectcareerView(UserId);
-														cdao.close();
 														for (int i = 0; i < boardlist2.size(); i++) {
 														%>
 														<tr>
@@ -316,7 +352,6 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 														<%
 														offerBoardDAO odao = new offerBoardDAO();
 														ArrayList<offerBoardDTO> boardlist3 = odao.selectofferView(UserId);
-														odao.close();
 														for (int i = 0; i < boardlist3.size(); i++) {
 														%>
 														<tr>
@@ -361,7 +396,6 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 														<%
 														QuestionBoardDAO qdao = new QuestionBoardDAO();
 														ArrayList<QuestionBoardDTO> boardlist4 = qdao.selectquestionView(UserId);
-														qdao.close();
 														for (int i = 0; i < boardlist4.size(); i++) {
 														%>
 														<tr>

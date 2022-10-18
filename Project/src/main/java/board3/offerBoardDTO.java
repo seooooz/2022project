@@ -1,15 +1,18 @@
-package board1;
+package board3;
 
-public class skillBoardVO {
+public class offerBoardDTO {
+	
 	private String num;
 	private String id;
 	private String title;
 	private String content;
 	private String cate;
-	private String filename;
-	private long filesize;
+	private int memNum;
+	private String dday;
 	private java.sql.Date postdate;
-	private String visitcount;
+	private int visitcount;
+	
+	
 	
 	
 	public String getNum() {
@@ -43,29 +46,36 @@ public class skillBoardVO {
 		this.cate = cate;
 	}
 	
+	
+	public int getMemNum() {
+		return memNum;
+	}
+	public void setMemNum(int memNum) {
+		this.memNum = memNum;
+	}
+	public String getDday() {
+		return dday;
+	}
+	public void setDday(String dday) {
+		this.dday = dday;
+	}
 	public java.sql.Date getPostdate() {
 		return postdate;
-	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-	public long getFilesize() {
-		return filesize;
-	}
-	public void setFilesize(long filesize) {
-		this.filesize = filesize;
 	}
 	public void setPostdate(java.sql.Date postdate) {
 		this.postdate = postdate;
 	}
-	public String getVisitcount() {
+	public int getVisitcount() {
 		return visitcount;
 	}
-	public void setVisitcount(String visitcount) {
+	public void setVisitcount(int visitcount) {
 		this.visitcount = visitcount;
 	}
-
+	
+	
+	
+	
+	
+	
+	
 }
