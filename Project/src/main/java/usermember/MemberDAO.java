@@ -12,12 +12,13 @@ public class MemberDAO extends DBConnPool{
 	public int insertMemberDTO(MemberDTO dto) {
 		int result = 0;
 		try {
-			String query = "INSERT INTO usermember(name, id, pass) values(?, ?, ?)";
+			String query = "INSERT INTO usermember(name, id, pass, email) values(?, ?, ?, ?)";
 			psmt = con.prepareStatement(query);
 			
 			psmt.setString(1, dto.getName());
 			psmt.setString(2, dto.getId());
 			psmt.setString(3, dto.getPass());
+			psmt.setString(4, dto.getEmail());
 			
 			result = psmt.executeUpdate();
 			
@@ -28,6 +29,7 @@ public class MemberDAO extends DBConnPool{
 		}
 		return result;
 	}
+	
 	// 입력받은 id/pw 일치하는 회원정보 
 	public MemberDTO selectMemberDTO(String uid, String upass) {
 		MemberDTO dto = new MemberDTO();
@@ -43,7 +45,6 @@ public class MemberDAO extends DBConnPool{
 				dto.setName(rs.getString("name"));
 				dto.setId(rs.getString("id"));
 				dto.setPass(rs.getString("pass"));
-				
 			}
 			
 		}
@@ -54,21 +55,58 @@ public class MemberDAO extends DBConnPool{
 		return dto;
 	}
 	
-	// id 중복확인
-	public boolean checkId(String id) {
-		boolean result = true;
+	// 비밀번호 찾기 회원정보 일치
+	public int findPassword(String name, String id, String email) {
+		int result = 0;
+		String query = "SELECT * FROM usermember WHERE name = ? and id = ?"
+				+ " and email = ? ";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, name);
+			psmt.setString(2, id);
+			psmt.setString(3, email);
+	
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("비밀번호 찾기 중 오류 발생!!");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	// 비밀번호 변경
+	public int updatePassword(String id, String pass) {
+		int result = 0;
+		String query = "UPDATE usermember SET pass = ? WHERE id = ? ";
 		
 		try {
-			String sql = "select * from usermember where id = ?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, pass);
+			psmt.setString(2, id);
 			
-			psmt = con.prepareStatement(sql);
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("비밀번호 변경 중 오류 발생!!");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// 회원 탈퇴 
+	public int userDelete(String id, String pw) {
+		int result = 0;
+		String query = "DELETE FROM usermember WHERE id=? and pass=?";
+		
+		try {
+			psmt = con.prepareStatement(query);
 			psmt.setString(1, id);
-			rs = psmt.executeQuery();
+			psmt.setString(2, pw);
 			
-			if(rs.next()) {
-				result = false;
-			}
-		}catch (Exception e) {
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("회원탈퇴 중 오류 발생!!");
 			e.printStackTrace();
 		}
 		return result;
