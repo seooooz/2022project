@@ -570,6 +570,27 @@ public class skillBoardDAO extends DBConnPool{
 						return result;
 					}
 					
+					
+					// list에서 댓글 개수 보여주기
+					public int countCom(int num) {
+						int comcount = 0;
+						
+						try {
+							String sql = "SELECT COUNT(COM_INDEX) AS COMCOUNT FROM BCOMMENT WHERE BOARD_CODE = 1 AND POSTNUM = ?";
+							
+							psmt = con.prepareStatement(sql);
+							psmt.setInt(1, num);
+							rs = psmt.executeQuery();
+							
+							if(rs.next())
+								comcount = rs.getInt("COMCOUNT");
+						}
+						catch(Exception e) {
+							e.printStackTrace();
+						}
+						return comcount;
+					}
+					
 					// 댓글 삭제
 					public int deleteCom(String idx) {
 						int result = 0;

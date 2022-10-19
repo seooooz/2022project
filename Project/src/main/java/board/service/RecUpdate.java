@@ -29,10 +29,6 @@ public class RecUpdate implements Action {
 		int clike = Integer.parseInt(like);
 		likeBoardDTO dto = new likeBoardDTO();
 		likeBoardDAO dao = new likeBoardDAO();
-		
-	
-//		int mycount2 = dao.melikecount(id, no, code, 2);
-		
 		dto.setLid(id);
 		dto.setPage_id(no);
 		dto.setLboard_code(code);

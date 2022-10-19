@@ -140,16 +140,19 @@
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
 														<a href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+														<%
+														skillBoardDAO dao = new skillBoardDAO();
+														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
+														dao.close();
+														%> &nbsp; &nbsp; &nbsp; 
+													<a class="bi bi-chat-left-dots"href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%></a>	
 													</td>
 													<td align="center"><%=dto.getId()%></td>
 													<td align="center"><%=dto.getPostdate()%></td>
 													<td align="center"><%=dto.getVisitcount()%></td>
 													<td align="center"><%=dto.getFilename()%></td>
 													<td>
-<%-- 			<c:if test="${ not empty row.ofile }"> --%>
-<%-- 				<a href="../mvcboard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a> --%>
-<%-- 			</c:if> --%>
-			</td>
+													</td>
 												</tr>
 												<%
 												}
@@ -175,12 +178,13 @@
 										<div class="table-responsive">
 											<table class="table mb-0">
 												<thead>
-													<tr>
-														<th>NO</th>
-														<th>제목</th>
-														<th>작성자</th>
-														<th>작성일</th>
-														<th>조회수</th>
+													<tr align="center">
+													<th width="10%">NO</th>
+													<th width="40%">제목</th>
+													<th width="15%">작성자</th>
+													<th>작성일</th>
+													<th>조회수</th>
+													<th>파일</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -209,16 +213,19 @@
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
 														<a href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+														<%
+														skillBoardDAO dao = new skillBoardDAO();
+														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
+														dao.close();
+														%> &nbsp; &nbsp; &nbsp; 
+													<a class="bi bi-chat-left-dots"href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%></a>		
 													</td>
 													<td align="center"><%=dto.getId()%></td>
 													<td align="center"><%=dto.getPostdate()%></td>
 													<td align="center"><%=dto.getVisitcount()%></td>
 													<td align="center"><%=dto.getFilename()%></td>
 													<td>
-<%-- 			<c:if test="${ not empty row.ofile }"> --%>
-<%-- 				<a href="../mvcboard/download.do?ofile=${ row.ofile }&sfile=${ row.sfile }&idx=${ row.idx }">[Down]</a> --%>
-<%-- 			</c:if> --%>
-			</td>
+													</td>
 												</tr>
 												<%
 												}
@@ -237,12 +244,13 @@
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr>
-													<th>NO</th>
-													<th>제목</th>
-													<th>작성자</th>
+												<tr align="center">
+													<th width="10%">NO</th>
+													<th width="40%">제목</th>
+													<th width="15%">작성자</th>
 													<th>작성일</th>
 													<th>조회수</th>
+													<th>파일</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -270,6 +278,13 @@
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
 														<a href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+														<%
+														skillBoardDAO dao = new skillBoardDAO();
+														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
+														dao.close();
+														%> 
+														&nbsp; &nbsp; &nbsp; 
+													<a class="bi bi-chat-left-dots"href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%></a>	
 													</td>
 													<td align="center"><%=dto.getId()%></td>
 													<td align="center"><%=dto.getPostdate()%></td>

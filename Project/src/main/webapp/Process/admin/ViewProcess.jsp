@@ -14,6 +14,6 @@ if(brdcode.equals("2")){
 	response.sendRedirect("../../view/board/career_view.jsp?num=" + bnum);
 }
 if(brdcode.equals("3")){
-	response.sendRedirect("../../view/board/offer_view.jsp?num=" + bnum);
+	response.sendRedirect("../../view/board/offer_view.jsp?onum=" + bnum);
 }
 %>

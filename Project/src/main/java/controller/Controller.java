@@ -8,11 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.service.Comment;
+import board.service.CommentList;
+import board.service.CommentList3;
+import board.service.CommentMyList;
+import board.service.MyHate;
+import board.service.MyLike;
 import board.service.RecHateCount;
 import board.service.RecLikeCount;
 import board.service.RecUpdate;
 import member.service.Action;
 import member.service.ActionForward;
+import utils.CommentDAO;
 
 /**
  * Servlet implementation class Controller
@@ -61,6 +68,46 @@ public class Controller extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(command.equals("/Project/MyLike.do")) {
+			try {
+				action = new MyLike();
+				action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/Project/MyHate.do")) {
+			try {
+				action = new MyHate();
+				action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+//		else if(command.equals("/Project/Comment.do")) {
+//			try {
+//				action = new Comment();
+//				action.execute(request, response);
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		else if(command.equals("/Project/CommentList.do")) {
+//			try {
+//				action = new CommentList();
+//				action.execute(request, response);
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		else if(command.equals("/Project/CommentmyList.do")) {
+//			try {
+//				action = new CommentMyList();
+//				action.execute(request, response);
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -76,5 +123,6 @@ public class Controller extends HttpServlet {
 		System.out.println("post");
 		doProcess(request, response);
 	}
+	
 
 }

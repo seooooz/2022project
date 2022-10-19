@@ -36,7 +36,7 @@
 			
 			if(delResult == 1){
 				//성공 ) 목록 페이지로 이동
-				JSFunction.alertLocation("삭제되었습니다", "../../view/board/career_view.jsp?cnum=" + pnum, out);
+				JSFunction.alertLocation("삭제되었습니다", "../../view/board/career_view.jsp?num=" + pnum, out);
 			}// 실패 ) 이전 페이지로 이동
 			else{
 				JSFunction.alertBack("삭제에 실패하였습니다.", out);

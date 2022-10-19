@@ -165,4 +165,24 @@ public class likeBoardDAO extends DBConnPool {
 		System.out.println("좋아요 싫어요 삭제 완료");
 		return result;
 	}
+	
+	// 게시판 삭제시 좋아요 or 싫어요 누른 값 같이 삭제
+	public int deleteLike(int num, int code) {
+		int result = -1;
+		try {
+			String query = "DELETE FROM boardlike "
+					+ "	WHERE page_id=? and lboard_code=?";
+			psmt = con.prepareStatement(query);
+			psmt.setInt(1, num);
+			psmt.setInt(2, code);
+			
+			result = psmt.executeUpdate();
+			
+			System.out.println("좋아요 게시물 삭제 값 " + result );
+		}catch(Exception e) {
+			System.out.println("좋아요 게시물 삭제 중 오류!!!!");
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

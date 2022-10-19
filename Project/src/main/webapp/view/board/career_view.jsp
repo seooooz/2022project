@@ -1,3 +1,4 @@
+<%@page import="utils.JSFunction"%>
 <%@page import="java.util.List"%>
 <%@page import="utils.CommentDTO"%>
 <%@page import="board2.careerBoardDTO"%>
@@ -16,6 +17,7 @@ List<CommentDTO> ccomLists = dao.comselectView(cnum);
 dao.close();
 %>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <script>
 function deleditPost(str){
 	
@@ -38,7 +40,14 @@ function deleditPost(str){
 	 		form.action = "../../Process/career/DeleteProcess.jsp";
 	 		form.submit();
 	 	}
+	 	
 	}
+	else if(str == '대댓삭제'){
+	 		var form = document.redelFrm;
+	 		form.method = "post";
+	 		form.action = "../../Process/career/ComDelProcess.jsp";
+	 		form.submit();
+}
 }
 
 function reportFrm(args1,args2) {
@@ -47,6 +56,30 @@ function reportFrm(args1,args2) {
 	window.open("<c:url value='career_report.jsp?num="
 				+ onum + "&tuid="+tuid+"'/>", "Reporttext", "width=500, height=500");
 }
+
+window.onload=function(){
+	$.ajax({
+	url: "/Project/MyLike.do",
+	type: "POST",
+	data: {
+		id: '${UserId}',
+		no: <%=dto.getNum()%>,
+		code: ${2}
+	},
+		success: function (t) {
+			 
+	        if(t > 0){
+        		$('#rec_update').attr('class','bi-hand-thumbs-up-fill');
+        	}else{
+        		$('#rec_update2').attr('class','bi-hand-thumbs-down-fill');
+        		
+        	}
+ } ,
+ error : function(){
+              alert('실패 ㅠㅠ');
+  }
+});
+};
 
 $(function(){
 	// 추천버튼 클릭시(추천 추가 또는 추천 제거)
@@ -59,7 +92,7 @@ $(function(){
             data: {
                 no: <%=dto.getNum()%>,
                 id: '${UserId}',
-                code: ${1},
+                code: ${2},
                 like: ${1}
                 
             },
@@ -71,6 +104,7 @@ $(function(){
 		        
 		        if(mycount == 0){
 	        		$('#rec_update').attr('class','bi-hand-thumbs-up-fill');
+	        		$('#rec_update2').attr('class','bi-hand-thumbs-down');
 	        	}else{
 	        		$('#rec_update').attr('class','bi-hand-thumbs-up');
 	        		
@@ -90,7 +124,7 @@ $(function(){
             data: {
                 no: <%=dto.getNum()%>,
                 id: '${UserId}',
-                code: ${1},
+                code: ${2},
                 like: ${2}
             },
             success: function (mycount) {
@@ -98,6 +132,7 @@ $(function(){
             	recCount2();
             	if(mycount == 0){
    	        		$('#rec_update2').attr('class','bi-hand-thumbs-down-fill');
+   	        		$('#rec_update').attr('class','bi-hand-thumbs-up');
    	        	}else{
    	        		$('#rec_update2').attr('class','bi-hand-thumbs-down');
    	        		
@@ -115,7 +150,7 @@ function recCount() {
         type: "POST",
         data: {
             no: <%=dto.getNum()%>,
-            code: ${1}
+            code: ${2}
         },
         success: function (count) {
         	
@@ -134,7 +169,7 @@ function recCount2() {
         data: {
         	id: '${UserId}',
             no: <%=dto.getNum()%>,
-            code: ${1}
+            code: ${2}
         },
         success: function (count2) {
         	$(".rec_count2").html(count2);
@@ -147,9 +182,17 @@ recCount();
 recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 })
 </script>  
+
 <style>
 .mt-5 {
 margin-top: 1.5rem !important;
+}
+.side{
+margin-left: 1.5rem !important;
+margin-right: 1.5rem !important;
+}
+.f{
+color : black !important;
 }
 .b {
 color:black;
@@ -168,6 +211,7 @@ font-weight: 100;
 .bpostdate{
 font-size: 12px;
 font-weight: 100;
+color: rgb(107 114 128);
 }
 .bcontent {
 margin-buttom: 5rem
@@ -176,16 +220,13 @@ margin-buttom: 5rem
   color: #828690;
   border-color: rgba(0, 0, 0, 0.1);
   padding: 0.625rem 1.25rem; }
-  .read-content textarea::placeholder {
+  
+.read-content textarea::placeholder {
     color: #abafb3; }
     
 .pf {
 	margin-right: 0.5rem;
 }    
-
-.com{
-color:black;
-}
 
 .comdate{
 font-size: 12px;
@@ -200,6 +241,45 @@ margin-top: 0.75rem;
 .tright{
     float: right;
 }
+.comm{
+margin-left : 1rem;
+margin-right : 1rem;
+}
+.recomm{
+margin-left : 2rem;
+margin-right : 2rem;
+}
+
+.allcomm{
+margin: 5rem 0 0 0;
+}
+
+.float{
+float: left;
+}
+
+.clear{
+clear: both;
+}
+
+.line{
+   border-bottom: 1px solid #dee2e6;
+}
+.rounded {
+ border-radius: 39px !important;
+}
+.cate{
+ color : black !important;
+ background-color: rgb(241 241 241);
+ padding : 3px 8px;
+}
+.mart{
+ margin-top : 4rem;
+}
+
+.top{
+    display: flex;
+ }
 </style>
 <!-- <form name="writeFrm"> -->
         <!--**********************************
@@ -208,13 +288,11 @@ margin-top: 0.75rem;
         <div class="content-body">
 
             <div class="container-fluid col-lg-8">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Email</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Read</a></li>
+                    <div class="p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="top tright">
+                            <li class="breadcrumb-item"><a class="f" href="career.jsp">커리어</a></li>
+                            <li class="breadcrumb-item active"><a class="f" href="javascript:void(0)"><%=dto.getCate() %></a></li>
                         </ol>
-                    </div>
                 </div>
 			<a href="javascript:reportFrm(<%=dto.getNum()%>,'<%=dto.getId()%>')" class="title_a">신고하기</a>                
                 <!-- row -->
@@ -222,7 +300,7 @@ margin-top: 0.75rem;
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="ml-0 ml-sm-4 ml-sm-0">
+                                <div class="ml-0 side ml-sm-0">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="right-box-padding">
@@ -231,13 +309,13 @@ margin-top: 0.75rem;
                                           		 
                                                     <div class="media pt-3">
                                                         <div class="media-body">
-                                                        	<input name="pnum" value =<%= dto.getNum() %>>
+                                                        	<input type="hidden" name="pnum" value =<%= dto.getNum() %>>
                                                             <h3 class="btitle my-1"><%= dto.getTitle() %></h3>
                                                         </div>
                                                         
                                                         <div>
                                                         	<!-- 목록으로 돌아가기 -->
-                                                        <a href="skill.jsp" class="text-muted "><i
+                                                        <a href="career.jsp" class="text-muted "><i
                                                                 class="fa fa-reply"></i> </a>
                                                         <%
 														if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(dto.getId())){
@@ -278,27 +356,40 @@ margin-top: 0.75rem;
                                                             <p class="bpostdate"><%= dto.getPostdate() %></p>
                                                         </div>
                                                     </div>
-                                                    <div class="b bcontent bread-content-body">
+                                                    <div class="b bcontent bread-content-body mart">
                                                         <p><%=dto.getContent() %></p>
                                                     </div>
                                                     <div>
                                                     	<img alt=""
 											               style="height: auto; width: 100%"
 											               src="../../Uploads/<%=dto.getFilename()%>">
-                                                    	<%=dto.getCate()%>
+                                                    </div>
+                                                    <div class="mart">
+                                                    	<a class="cate rounded"><%=dto.getCate()%></a>
                                                     </div>
                                                     </form>
+                                                    <div class="allcomm">
                                                     <form name="offercomFrm" method="post" action="../../Process/career/ComWriteProcess.jsp">
-                                                        <hr>
                                                         <h5 class="pt-3">COMMENT</h5>
                                                     <div class="form-group pt-3">
-                                                    	<input name="pnum" value =<%=dto.getNum()%>>
-                                                        <textarea class="btextarea w-100" name="comment" cols="30" rows="5"  placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                                                    	<input type="hidden" name="pnum" value =<%=dto.getNum()%>>
+                                                    	<%if(UserId != null) {%>
+                                                        <textarea id="retext" class="btextarea w-100" name="comment" cols="30" rows="5"  placeholder= "<%=UserId %>님 댓글을 입력해주세요."></textarea>
+                                                    	<%}else{%>
+                                                        <textarea id="retext" class="btextarea w-100" name="comment" cols="30" rows="5"  placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                                                   		<%} %>
                                                     </div>
                                                 <div class="text-right">
-                                                    <button class="btn btn-primary btn-sl-sm mb-5" type="submit">Send</button>
+                                                    <button class="btn btn-primary btn-sl-sm mb-5" type="submit">댓글 쓰기</button>
                                                 </div>
                                                 </form>	
+                                                </div>
+                                                <%
+												careerBoardDAO cdao = new careerBoardDAO();
+												int comcount = cdao.countCom(Integer.valueOf(dto.getNum()));
+												cdao.close();
+												%>
+                                                <p class="b"><%=comcount %>개의 댓글</p>
                                                 <div>
 													<%
 													if(ccomLists.isEmpty()){   // 댓글이 없을 때 
@@ -320,36 +411,34 @@ margin-top: 0.75rem;
 															dao1.close();
 													%>
 												<div> <!-- 댓글이 있을 때 -->
+												<hr>
 														<div class="paper_list">
-															<div class="py-4">
-<!-- 															<div class="flex flex-col "> -->
-<!-- 																<div class="flex items-center gap-x-3"> -->
-																	<div class="flex flex-1 items-center gap-x-3"> id
-																		<div><%= cdto.getId()  %></div>
-																		<div><%= cdto.getComment() %></div>
-																		<div><%= cdto.getDate() %></div>
-																	</div>
-<!-- 																</div>	 -->
-<!-- 															</div> -->
+															<div class="py-4 comm">
+																		<div class="b bid"><%= cdto.getId()  %></div>
+																		<div class="bpostdate"><%= cdto.getDate() %></div>
+																		<div style="font-size:16px;" class="b comment"><%= cdto.getComment() %></div>
+																		
 															</div>
 															<div>
-																<form name="redelFrm" method="post" action="../../Process/career/ComDelProcess.jsp">
+																<form method="post" action="../../Process/career/ComDelProcess.jsp">
 																<input type="hidden"  name = "comidx" value=<%= cdto.getIdx()%>>
 																<input type="hidden"  name = "pnum" value=<%= cdto.getPostNum()%>>
 																<input type="hidden"  name = "id" value=<%= cdto.getId()%>>
-																<button class="flex">댓글 삭제</button>
+																<button class="pull-right btn btn-default text-muted">댓글 삭제</button>
 																</form>
 															</div>
-																<button id="Tbutton" class="flex bi bi-arrow-return-right">댓글 쓰기</button>
-																
-																<div id="divToggle" >
+																<div class="accordion-header" id="headingOne">
+																<button class="accordion-button btn float" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<%=cdto.getIdx()%>" aria-expanded="true" aria-controls="collapseOne<%=cdto.getIdx()%>"><i class="bi bi-arrow-return-right"></i>댓글 달기</button>
+																</div>
+                                    							<div class="accordion-collapse collapse clear" id="collapseOne<%=cdto.getIdx()%>" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    							&nbsp;
 																<form name="replyFrm" method="post" action="../../Process/career/replyProcess.jsp">
-																
-																<input type="hidden"  name = "comidx" value=<%= cdto.getIdx()%>>
+																<input type="hidden" name = "comidx" value=<%= cdto.getIdx()%>>
 																<input type="hidden"  name = "pnum" value=<%= cdto.getPostNum()%>>
-																
-																<textarea name="reply" rows="5" cols="50"></textarea>
-																<button type="submit">댓글 쓰기</button>
+																<textarea style="width:90%;" name="reply" rows="1" ></textarea>
+																<button class="pull-right btn btn-primary" type="submit">
+																댓글 쓰기
+																</button>
 																</form>
 																</div>
 														</div>
@@ -357,38 +446,35 @@ margin-top: 0.75rem;
 													<%
 													if(reLists.isEmpty()){   // 대댓글이 없을 때 
 													%>
-														<li>
-															<div align="center">
-																등록된 대댓글이 없습니다^^*
-															</div>
-														</li>
+													<a style="opacity: 0;">대댓글 없음</a>
 													<%
 													} else {
-// 														int virtualNum = 0;
-// 														int countNum = 0;
-														
-														for (CommentDTO redto : reLists) {
-// 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 													%>
+													<div class="accordion-header" id="headingTwo">
+																<button class="accordion-button btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo<%=cdto.getIdx()%>" aria-expanded="true" aria-controls="collapseTwo<%=cdto.getIdx()%>"><i class="bi bi-chat-text-fill"></i>&nbsp;대댓글 열기</button>
+													</div>
+													<%	
+														for (CommentDTO redto : reLists) {
+													%>
+													<div class="accordion-collapse collapse" id="collapseTwo<%=cdto.getIdx()%>" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 													<div  class="recom"> <!-- 대댓글이 있을 때 -->
-														<div class="paper_list">
+														<div class="paper_list recomm">
 															<div class="py-4">
-																	<div class="flex flex-1 items-center gap-x-3"> id
-																		<div"><%= redto.getId()  %></div>
-																		<div><%= redto.getComment() %></div>
-																		<div><%= redto.getDate() %></div>
-																	</div>
+																		<div class="b bid"><%= redto.getId()  %></div>
+																		<div class="bpostdate"><%= redto.getDate() %></div>
+																		<div style="font-size:16px;" class="b comment"><%= redto.getComment() %></div>
 															</div>
 															<div>
-																<form name="redelFrm" method="post" action="../../Process/career/ComDelProcess.jsp">
+																<form name="redelFrm">
 																<input type="hidden" name = "comidx" value=<%= redto.getIdx()%>>
 																<input type="hidden"  name = "pnum" value=<%= redto.getPostNum()%>>
 																<input type="hidden"  name = "id" value=<%= redto.getId()%>>
-																<button class="flex">댓글 삭제</button>
+																<a href="javascript:deleditPost('대댓삭제');">댓글 삭제</a>
 																</form>
 															</div>
 														</div>
 													</div>
+												</div>
 												</div>
 											</div>	
 												<%		}
@@ -416,5 +502,8 @@ margin-top: 0.75rem;
         <!--**********************************
             Content body end
         ***********************************-->
-
+ <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
 <%@include file="../includes/footer.jsp"%>

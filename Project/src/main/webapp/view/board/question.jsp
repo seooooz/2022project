@@ -55,6 +55,21 @@ String User_Id = (String)session.getAttribute("UserId");
 </script>
 
 <style>
+
+#top-content{
+	color:aqua;
+	
+}
+
+#qtable {
+	color:black;
+	
+}
+
+#qtable a{
+	
+	color: inherit;
+}
 #teqh {
 	font-size: 22px;
 }
@@ -71,8 +86,9 @@ String User_Id = (String)session.getAttribute("UserId");
 
 </style>
 
+
 <!-- content body start -->
-<div class="content-body" align="center">
+<div class="content-body" align="center" style="color:black;">
 	<div class="col-lg-8">
 		<!-- card start -->
 		<div class="card">
@@ -107,7 +123,7 @@ String User_Id = (String)session.getAttribute("UserId");
 			</form>
 			<!-- 검색창 끝 -->
 
-			<div class="card-body">
+			<div id="top-content" class="card-body">
 				<!-- 테이블 버튼 시작 (전체, 코드, 기타) -->
 				<div class="profile-tab">
 					<!-- 카테고리 수정 -->
@@ -124,7 +140,7 @@ String User_Id = (String)session.getAttribute("UserId");
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr align="center">
+												<tr id="qtable" align="center">
 													<th width="10%">NO</th>
 													<th width="40%">제목</th>
 													<th width="15%">작성자</th>
@@ -145,20 +161,19 @@ String User_Id = (String)session.getAttribute("UserId");
 												<%
 												// 게시물이 있을때
 												} else {
-												
 												int virtualNum = 0;
 												for (QuestionBoardDTO dto : questionList){
 												virtualNum= totalCount--;
 												String qid = dto.getQid();
 												%>
-												<tr>
+												<tr id="qtable">
 													<td align="center"><%= virtualNum %></td>
-													<td>
+													<td >
 														<%
 															if(User_Id == null || User_Id.equals("null")){
 														%> 
 															
-															<a href="#" onclick="return validateForm(this);"><%=dto.getQtitle() %></a>
+															<a class="tt" href="#" onclick="return validateForm(this);" ><%=dto.getQtitle() %></a>
 														
 														<%
 															}else if(User_Id.equals("admin")){
@@ -182,6 +197,7 @@ String User_Id = (String)session.getAttribute("UserId");
 													<%
 													QuestionBoardDAO dao1 = new QuestionBoardDAO();
 													int countcom = dao1.countCom(dto.getQnum());
+													dao1.close();
 													if(countcom > 0){
 													%>
 													<td align="center" style="color:blue;">답변 완료</td>
@@ -215,5 +231,6 @@ String User_Id = (String)session.getAttribute("UserId");
 	</div>
 </div>
 <!-- content body end -->
+
 
 <%@include file="../includes/footer.jsp"%>

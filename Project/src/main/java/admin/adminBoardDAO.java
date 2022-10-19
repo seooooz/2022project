@@ -35,9 +35,6 @@ public class adminBoardDAO extends DBConnPool {
 						dto.setAnum(rs.getString(1));
 						dto.setTitle(rs.getString(2));
 						dto.setBrd_name(rs.getString(3));
-//						dto.setContent(rs.getString(4));
-//						dto.setPostdate(rs.getDate(5));
-//						dto.setVisitcount(rs.getString(6));
 						list.add(dto);
 					}
 					rs.close();

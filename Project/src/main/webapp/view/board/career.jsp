@@ -181,13 +181,14 @@
 										<div class="table-responsive">
 											<table class="table mb-0">
 												<thead>
-													<tr>
-														<th>NO</th>
-														<th>제목</th>
-														<th>작성자</th>
-														<th>작성일</th>
-														<th>조회수</th>
-													</tr>
+													<tr align="center">
+													<th width="10%">NO</th>
+													<th width="40%">제목</th>
+													<th width="15%">작성자</th>
+													<th>작성일</th>
+													<th>조회수</th>
+													<th>파일</th>
+												</tr>
 												</thead>
 												<tbody>
 													<%
@@ -215,14 +216,14 @@
 															<%
 																careerBoardDAO dao = new careerBoardDAO();
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
-																dao1.close();
-															%> &nbsp; &nbsp; &nbsp; <a class="bi bi-chat-left-dots"
-															href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%>
-														</a>
+																dao.close();
+															%> &nbsp; &nbsp; &nbsp; 
+															<a class="bi bi-chat-left-dots"href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%></a>
 														</td>
 														<td align="center"><%=dto.getId()%></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
+														<td align="center"><%=dto.getFilename()%></td>
 													</tr>
 													<%
 													}
@@ -240,12 +241,13 @@
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr>
-													<th>NO</th>
-													<th>제목</th>
-													<th>작성자</th>
+												<tr align="center">
+													<th width="10%">NO</th>
+													<th width="40%">제목</th>
+													<th width="15%">작성자</th>
 													<th>작성일</th>
 													<th>조회수</th>
+													<th>파일</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -282,6 +284,7 @@
 														<td align="center"><%=dto.getId()%></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
+														<td align="center"><%=dto.getFilename()%></td>
 													</tr>
 													<%
 													}

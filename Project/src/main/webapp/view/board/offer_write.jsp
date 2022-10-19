@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 function validateForm(form){				//폼 내용 검증
 	if(form.title.value == ""){
@@ -28,7 +28,6 @@ function validateForm(form){				//폼 내용 검증
 		return false;
 	}
 }
-
 
 </script>
 
@@ -77,7 +76,7 @@ function validateForm(form){				//폼 내용 검증
 							<tr>
 								<th>마감일</th>
 								<td>
-									<input name="datepicker" class="datepicker-default form-control">
+									<input name="datepicker" type="date" class="form-control" >
 								</td>
 							</tr>
 							<tr>
@@ -102,4 +101,5 @@ function validateForm(form){				//폼 내용 검증
 	</div>
 </div>
 <!-- content body end -->
+
 <%@include file="../includes/footer.jsp"%>

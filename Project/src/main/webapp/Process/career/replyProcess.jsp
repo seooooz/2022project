@@ -20,7 +20,7 @@ dao.close();
 
 if(result == 1) {
 	System.out.println("career 대댓글 성공");
-	response.sendRedirect("../../view/board/career_view.jsp?cnum=" + request.getParameter("pnum"));
+	response.sendRedirect("../../view/board/career_view.jsp?num=" + request.getParameter("pnum"));
 }
 else {
 	System.out.println("career 대댓글 실패");
