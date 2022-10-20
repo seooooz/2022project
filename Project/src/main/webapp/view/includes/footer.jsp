@@ -5,8 +5,12 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright � Designed &amp; Developed by <a href="#" target="_blank">Github</a> 2022</p>
-                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p> 
+                <p>For Developer &amp; Developed by <a href="https://github.com/seooooz/2022project.git" target="_blank">Github</a> 2022</p>
+                <p>Members
+                <a href="https://themewagon.com/" target="_blank">seoju</a> &amp;
+                <a href="https://github.com/horyong1" target="_blank">horyong</a> &amp;
+                <a href="https://github.com/choye07" target="_blank">yeajin</a>
+                </p> 
             </div>
         </div>
         <!--**********************************

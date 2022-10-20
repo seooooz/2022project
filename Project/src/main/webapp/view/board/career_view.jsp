@@ -289,9 +289,7 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
                                                     <div>
                                                     	<%if(dto.getFilesize() > 0){ %>
                                                     	<a href="../../Process/DownloadProcess.jsp?fname=<%=URLEncoder.encode(dto.getFilename(), "UTF-8")%>"><%=dto.getFilename() %></a>
-                                                    	<%}else{ %>
-                                                    	<p><%=dto.getFilename() %></p>
-                                                    	<%} %>
+                                                    	<%}else{ }%>
                                                     </div>
                                                     <div class="mart">
                                                     	<a class="cate rounded"><%=dto.getCate()%></a>
