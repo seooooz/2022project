@@ -55,6 +55,22 @@ public class MemberDAO extends DBConnPool{
 		return dto;
 	}
 	
+	  public boolean checkId(String id) {
+	      boolean result = true;
+	      try {
+	         String query = "SELECT id from usermember where id = ?";
+	         psmt = con.prepareStatement(query);
+	         psmt.setString(1, id);
+	         rs = psmt.executeQuery();
+	         if(rs.next()) {
+	            result = false;
+	         }
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return result;
+	   }
+	
 	// 비밀번호 찾기 회원정보 일치
 	public int findPassword(String name, String id, String email) {
 		int result = 0;

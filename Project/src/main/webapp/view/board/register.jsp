@@ -84,7 +84,30 @@
 				return false;
 			}
 			
+			 if(form.checkid.value != "idCheck"){
+		            alert("ID 중복체크를 해주세요.");
+		            return false;
+		         }
+
+			
 		}
+		
+//      아이디　중복체크창
+        function checkID(){
+           var checkID = document.getElementById('id').value;
+           if(checkID==""){
+              alert("아이디를 입력하세요.");
+            form.user_id.focus();
+           }else{
+           window.open("check.jsp?id=" + checkID, "checkid", "width=400, height=350");
+           }
+        }
+        
+        function chkForm(){
+            document.regForm.checkid.value = "idUncheck";
+            }
+
+
 	</script>
     <div class="authincation h-100">
         <div class="container-fluid h-100">
@@ -95,14 +118,16 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">회원 가입</h4>
-                                    <form method="post" action="../../Process/RegisterProcess.jsp" onsubmit="return validateForm(this)">
+                                    <form name="regForm" method="post" action="../../Process/RegisterProcess.jsp" onsubmit="return validateForm(this)">
                                         <div class="form-group">
                                             <label><strong>Name</strong></label>
    <!-- name입력  -->	                        <input type="text" name="user_name" class="form-control" value="" placeholder="2~10자 사이로 입력해주세요">
                                         </div>
                                         <div class="form-group">
    <!-- id입력  -->                           <label><strong>ID</strong></label>
-                                            <input type="text" name="user_id" class="form-control" value="" placeholder="4~10자 사이로 입력해주세요">
+                                            <input type="text" name="user_id" id="id" class="form-control" value="" placeholder="4~10자 사이로 입력해주세요">
+                                            <input type="hidden" name="checkid" value="idUncheck"/>
+                                            <input type="button" value="중복확인" onClick="checkID()"/>
                                         </div>
                                         <div class="form-group">
    <!-- pw입력  -->                          <label><strong>Password</strong></label>

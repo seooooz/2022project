@@ -9,16 +9,6 @@
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
 <%@ page import="java.util.*"%>
-<% 
-// if( session.getAttribute("UserId")==null){
-// 	session.setAttribute("UserId", "g");
-// 	System.out.println("엄준식화이팅");
-// }
-%>
-<!-- <style> -->
-/* #fbox{ */ /* display:flex; */ /* flex-flow:row; */ /*
-justify-content:center; */ /* align-items: center; */ /* } */
-<!-- </style> -->
 <!--**********************************
             Content body start
         ***********************************-->
@@ -33,19 +23,17 @@ justify-content:center; */ /* align-items: center; */ /* } */
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6" s>
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title"><a href="../../view/board/skill.jsp">기술</a></h4>
+								<h4>기술</h4>
 							</div>
 							<div class="card-body">
 								<!-- QnA table start -->
 								<div class="table-responsive">
 									<table class="table mb-0">
-										<thead>
+										<thead class="f">
 											<tr>
 												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
-										<!--	<th>작성일</th>
-												<th>조회수</th>	-->
 											</tr>
 										</thead>
 										<tbody>
@@ -55,12 +43,13 @@ justify-content:center; */ /* align-items: center; */ /* } */
 											sdao.close();
 											for (int i = 0; i < slist.size(); i++) {
 											%>
-											<tr>
+											<tr class="f">
 												<td><%=slist.get(i).getNum()%></td>
-												<td><%=slist.get(i).getTitle()%></td>
+												<td>
+												<a class="f" href="skill_view.jsp?num=<%=slist.get(i).getNum()%>"><%=slist.get(i).getTitle()%>
+												</a>
+												</td>
 												<td><%=slist.get(i).getId()%></td>
-<%-- 												<td><%=slist.get(i).getPostdate()%></td> --%>
-<%-- 												<td><%=slist.get(i).getVisitcount()%></td> --%>
 											</tr>
 											<%
 											}
@@ -76,22 +65,20 @@ justify-content:center; */ /* align-items: center; */ /* } */
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6" s>
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title"><a href="../../view/board/career.jsp">커리어</a></h4>
+								<h4>커리어</h4>
 							</div>
 							<div class="card-body">
 								<!-- QnA table start -->
 								<div class="table-responsive">
 									<table class="table mb-0">
-										<thead>
+										<thead class="f">
 											<tr>
 												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
-										<!--	<th>작성일</th>
-												<th>조회수</th>	-->
 											</tr>
 										</thead>
-										<tbody>
+										<tbody class="f">
 											<%
 											careerBoardDAO cdao = new careerBoardDAO();
 											ArrayList<careerBoardDTO> clist = cdao.selectBoards();
@@ -100,10 +87,12 @@ justify-content:center; */ /* align-items: center; */ /* } */
 											%>
 											<tr>
 												<td><%=clist.get(i).getNum()%></td>
-												<td><%=clist.get(i).getTitle()%></td>
+												<td>
+												<a class="f" href="career_view.jsp?num=<%=clist.get(i).getNum()%>">
+												<%=clist.get(i).getTitle()%>
+												</a>
+												</td>
 												<td><%=clist.get(i).getId()%></td>
-<%-- 												<td><%=clist.get(i).getPostdate()%></td> --%>
-<%-- 												<td><%=clist.get(i).getVisitcount()%></td> --%>
 											</tr>
 											<%
 											}
@@ -119,37 +108,19 @@ justify-content:center; */ /* align-items: center; */ /* } */
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">KNOWLEDGE</h4>
+								<h4>시험 일정</h4>
 							</div>
 							<div class="card-body">
 								<!-- QnA table start -->
 								<div class="table-responsive">
 									<table class="table mb-0">
-										<thead>
-											<tr>
-												<th>NO</th>
-												<th>제목</th>
-												<th>작성자</th>
-										<!--	<th>작성일</th>
-												<th>조회수</th>	-->
-											</tr>
-										</thead>
 										<tbody>
-											<%
-// 											offerBoardDAO odao = new offerBoardDAO();
-// 											ArrayList<careerBoardDTO> olist = cdao.selectBoards();
-											for (int i = 0; i < clist.size(); i++) {
-											%>
-											<tr>
-												<td><%=clist.get(i).getNum()%></td>
-												<td><%=clist.get(i).getTitle()%></td>
-												<td><%=clist.get(i).getId()%></td>
-<%-- 												<td><%=clist.get(i).getPostdate()%></td> --%>
-<%-- 												<td><%=clist.get(i).getVisitcount()%></td> --%>
+											<tr class="f">
+												<td><a class="f" href="../board/writingtest.jsp">필기 시험</a></td>
 											</tr>
-											<%
-											}
-											%>
+											<tr>
+												<td><a class="f" href="../board/practicaltest.jsp">실기 시험</a></td>
+											</tr>
 										</tbody>
 										
 
@@ -162,19 +133,17 @@ justify-content:center; */ /* align-items: center; */ /* } */
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">PROJECT</h4>
+								<h4 class="card-title">오퍼</h4>
 							</div>
 							<div class="card-body">
 								<!-- QnA table start -->
 								<div class="table-responsive">
 									<table class="table mb-0">
-										<thead>
+										<thead class="f">
 											<tr>
 												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
-										<!--	<th>작성일</th>
-												<th>조회수</th>	-->
 											</tr>
 										</thead>
 										<tbody>
@@ -184,12 +153,14 @@ justify-content:center; */ /* align-items: center; */ /* } */
 											odao.close();
 											for (int i = 0; i < olist.size(); i++) {
 											%>
-											<tr>
+											<tr class="f">
 												<td><%=olist.get(i).getNum()%></td>
-												<td><%=olist.get(i).getTitle()%></td>
+												<td>
+												<a class="f" href = "offer_view.jsp?onum=<%=olist.get(i).getNum()%>">
+												<%=olist.get(i).getTitle()%>
+												</a>
+												</td>
 												<td><%=olist.get(i).getId()%></td>
-<%-- 												<td><%=olist.get(i).getPostdate()%></td> --%>
-<%-- 												<td><%=olist.get(i).getVisitcount()%></td> --%>
 											</tr>
 											<%
 											}
@@ -200,50 +171,6 @@ justify-content:center; */ /* align-items: center; */ /* } */
 									</table>
 								</div>
 								<!-- table end -->
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-12 col-xxl-6 col-lg-6 col-md-12">
-				<div class="row">
-					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-						<div class="card">
-							<div class="social-graph-wrapper widget-facebook">
-								<span class="s-icon"><i class="fa fa-facebook"></i></span>
-							</div>
-							<div class="row">
-								<div class="pt-3 pb-3 pl-0 pr-0 text-center"></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-						<div class="card">
-							<div class="social-graph-wrapper widget-linkedin">
-								<span class="s-icon"><i class="fa fa-linkedin"></i></span>
-							</div>
-							<div class="row">
-								<div class="pt-3 pb-3 pl-0 pr-0 text-center"></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-						<div class="card">
-							<div class="social-graph-wrapper widget-googleplus">
-								<span class="s-icon"><i class="fa fa-google-plus"></i></span>
-							</div>
-							<div class="row">
-								<div class="pt-3 pb-3 pl-0 pr-0 text-center"></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-						<div class="card">
-							<div class="social-graph-wrapper widget-twitter">
-								<span class="s-icon"><i class="fa fa-twitter"></i></span>
-							</div>
-							<div class="row">
-								<div class="pt-3 pb-3 pl-0 pr-0 text-center"></div>
 							</div>
 						</div>
 					</div>

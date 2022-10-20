@@ -104,6 +104,7 @@ public class careerBoardDAO extends DBConnPool{
 				vo.setContent(rs.getString("ccontent"));
 				vo.setCate(rs.getString("ccate"));
 				vo.setFilename(rs.getString("cfilename"));
+				vo.setFilesize(rs.getLong("cfilesize"));
 				vo.setPostdate(rs.getDate("cpostdate"));
 				vo.setVisitcount(rs.getString("cvisitcount"));
 				
@@ -149,6 +150,7 @@ public class careerBoardDAO extends DBConnPool{
 				vo.setContent(rs.getString("ccontent"));
 				vo.setCate(rs.getString("ccate"));
 				vo.setFilename(rs.getString("cfilename"));
+				vo.setFilesize(rs.getLong("cfilesize"));
 				vo.setPostdate(rs.getDate("cpostdate"));
 				vo.setVisitcount(rs.getString("cvisitcount"));
 				
@@ -193,6 +195,7 @@ public class careerBoardDAO extends DBConnPool{
 				vo.setContent(rs.getString("ccontent"));
 				vo.setCate(rs.getString("ccate"));
 				vo.setFilename(rs.getString("cfilename"));
+				vo.setFilesize(rs.getLong("cfilesize"));
 				vo.setPostdate(rs.getDate("cpostdate"));
 				vo.setVisitcount(rs.getString("cvisitcount"));
 				
@@ -237,6 +240,7 @@ public class careerBoardDAO extends DBConnPool{
 				vo.setContent(rs.getString("ccontent"));
 				vo.setCate(rs.getString("ccate"));
 				vo.setFilename(rs.getString("cfilename"));
+				vo.setFilesize(rs.getLong("cfilesize"));
 				vo.setPostdate(rs.getDate("cpostdate"));
 				vo.setVisitcount(rs.getString("cvisitcount"));
 				

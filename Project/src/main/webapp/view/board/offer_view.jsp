@@ -43,9 +43,6 @@ function deleditPost(str){
 	 	}
 	}
 	else if(str == '대댓삭제'){
-// 		var confirmed = confirm("게시물을 삭제하겠습니까?");
-		
-// 	 	if(confirmed){
 	 		var form = document.redelFrm;
 	 		form.method = "post";
 	 		form.action = "../../Process/offer/ComDelProcess.jsp";
@@ -210,102 +207,7 @@ recCount();
 recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 })
 </script> 
-<style>
-.mt-5 {
-margin-top: 1.5rem !important;
-}
-.side{
-margin-left: 1.5rem !important;
-margin-right: 1.5rem !important;
-}
-.b {
-color:black;
-font-size: 16px
-}
-.btitle {
-font-size: 20px;
-font-weight: bolder;
-}
 
-.bid {
-margin-top: 0.3rem;
-font-size: 15px;
-font-weight: 100;
-}
-
-.bpostdate{
-font-size: 12px;
-font-weight: 100;
-color: rgb(107 114 128);
-}
-.bcontent {
-margin-buttom: 5rem
-}
-.read_content textarea {
-  color: #828690;
-  border-color: rgba(0, 0, 0, 0.1);
-  padding: 0.625rem 1.25rem; }
-  
-.read-content textarea::placeholder {
-    color: #abafb3; }
-    
-.pf {
-	margin-right: 0.5rem;
-}    
-
-.comdate{
-font-size: 12px;
-color: rgb(107 114 128);
-}
-
-.comment{
-font-size:15px;
-margin-top: 0.75rem;
-}
-
-.tright{
-    float: right;
-}
-.comm{
-margin-left : 1rem;
-margin-right : 1rem;
-}
-.recomm{
-margin-left : 2rem;
-margin-right : 2rem;
-}
-
-.allcomm{
-margin: 5rem 0 0 0;
-}
-
-.float{
-float: left;
-}
-
-.clear{
-clear: both;
-}
-
-.line{
-   border-bottom: 1px solid #dee2e6;
-}
-.rounded {
- border-radius: 39px !important;
-}
-.cate{
- color : black !important;
- background-color: rgb(241 241 241);
- padding : 3px 8px;
-}
-.mart{
- margin-top : 4rem;
-}
-
-.top{
-    display: flex;
- }
-</style>
 
         <!--**********************************
             Content body start
@@ -316,7 +218,7 @@ clear: both;
                     <div class="p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="top tright">
                             <li class="breadcrumb-item"><a href="offer.jsp">오퍼</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)"><%=odto.getCate() %></a></li>
+                            <li class="breadcrumb-item active"><a class="a"><%=odto.getCate() %></a></li>
                         </ol>
                 </div>
 			<a href="javascript:reportFrm(<%=odto.getNum()%>,'<%=odto.getId()%>')" class="title_a">신고하기</a>                
@@ -380,13 +282,12 @@ clear: both;
                                                         </div>
                                                     </div>
                                                     <div>
-                                                    <p><i class="bi bi-calendar-check"></i>&nbsp;<%=odto.getDday() %></p>
-                                                    <p><i class="bi bi-person-plus-fill"></i>&nbsp;<%=odto.getMemNum() %></p>
+                                                    <p class="f"><i class=" bi bi-calendar-check"></i>&nbsp;<%=odto.getDday() %></p>
+                                                    <p class="f"><i class="bi bi-person-plus-fill"></i>&nbsp;<%=odto.getMemNum() %></p>
                                                     </div>
                                                     <div class="b bcontent bread-content-body mart">
                                                         <p><%= odto.getContent() %></p>
                                                     </div>
-                                                    <div>
                                                     <div class="mart">
                                                     	<a class="cate rounded"><%=odto.getCate()%></a>
                                                     </div>
@@ -522,7 +423,6 @@ clear: both;
                     </div>
                 </div>
                </div> 
-               </div>
         <!--**********************************
             Content body end
         ***********************************-->

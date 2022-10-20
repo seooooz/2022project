@@ -107,6 +107,7 @@ public class skillBoardDAO extends DBConnPool{
 				vo.setContent(rs.getString("content"));
 				vo.setCate(rs.getString("cate"));
 				vo.setFilename(rs.getString("filename"));
+				vo.setFilesize(rs.getShort("filesize"));
 				vo.setPostdate(rs.getDate("postdate"));
 				vo.setVisitcount(rs.getString("visitcount"));
 				
@@ -151,6 +152,7 @@ public class skillBoardDAO extends DBConnPool{
 				vo.setContent(rs.getString("content"));
 				vo.setCate(rs.getString("cate"));
 				vo.setFilename(rs.getString("filename"));
+				vo.setFilesize(rs.getLong("filesize"));
 				vo.setPostdate(rs.getDate("postdate"));
 				vo.setVisitcount(rs.getString("visitcount"));
 				
@@ -195,6 +197,7 @@ public class skillBoardDAO extends DBConnPool{
 				vo.setContent(rs.getString("content"));
 				vo.setCate(rs.getString("cate"));
 				vo.setFilename(rs.getString("filename"));
+				vo.setFilesize(rs.getLong("filesize"));
 				vo.setPostdate(rs.getDate("postdate"));
 				vo.setVisitcount(rs.getString("visitcount"));
 				

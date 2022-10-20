@@ -169,6 +169,7 @@
 									<div class="table-responsive">
 										<ul class="table mb-0">
 					<!-- OFFER 게시판 목록 start  -->
+					<table>
 					<%
 					for(adminBoardDTO admdto : adminLists){
 							%>
@@ -184,6 +185,7 @@
 									<%
 									}
 									%>
+						</table>	
 							<!-- 게시물이 없을 때 -->
 						<div>
 							<%
@@ -204,7 +206,7 @@
 							%>
 							<!-- 게시물이 있을 때 -->
 						<div>
-						<ul class="paper_list">
+						<ul class="paper_list f">
 							<li class="py-4">
 							<div class="flex flex-col ">
 								<div class="flex items-center gap-x-3">
@@ -218,14 +220,15 @@
 								</div>	
 								<div class="my-2 flex" align="left"> <!-- 제목(링크) -->
 									<div class="flex flex-1 items-center gap-x-3">
-									<a class="flex items-center gap-x-3 title_a" href = "offer_view.jsp?onum=<%= dto.getNum()%>"><%= dto.getTitle() %></a>
 									
 									<%
 									offerBoardDAO dao1 = new offerBoardDAO();
 									int comcount = dao1.countCom(Integer.valueOf(dto.getNum()));
 									dao1.close();
 									%>
-									<a class="bi bi-chat-left-dots" href = "offer_view.jsp?onum=<%= dto.getNum()%>"> <%=comcount%> </a>
+									<a class="f flex items-center gap-x-3 title_a" href = "offer_view.jsp?onum=<%= dto.getNum()%>"><%= dto.getTitle() %></a>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 									</div>
 								</div>
 								<div class="flex flex-1">
@@ -258,6 +261,7 @@
 								</div>
 							</div>
 							<!-- 전체 -->
+							
 						</div>
 					</div>
 				</div>

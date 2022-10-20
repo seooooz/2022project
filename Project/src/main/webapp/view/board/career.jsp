@@ -4,36 +4,19 @@
 <%@page import="board2.careerBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
+<%@include file="./career/paging.jsp" %>
 <script>
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
 	}
 </script>
 
-<style>
-#teqh {
-	font-size: 22px;
-}
-
-.search_flex {
-	display: flex;
-	padding: 1.25rem 1.25rem 5px;
-}
-
-.search_item {
-	flex: 1;
-}
-</style>
-
-<%@include file="./career/paging.jsp" %>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -94,13 +77,13 @@
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<table class="table mb-0">
-											<thead>
+											<thead class="f">
 												<tr align="center">
 													<th width="10%">NO</th>
-													<th width="50%">제목</th>
+													<th width="40%">제목</th>
 													<th width="15%">작성자</th>
 													<th>작성일</th>
-													<th width="10%">조회수</th>
+													<th>조회수</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -138,20 +121,18 @@
 													for (careerBoardDTO dto : boardLists) {
 													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
-												<tr>
+												<tr class="f">
 													<td align="center"><%=virtualNum%></td>
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
-														<a href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
 														<%
 														careerBoardDAO dao = new careerBoardDAO();
 														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 														dao1.close();
 														%>
-														&nbsp;
-														&nbsp;
-														&nbsp;
-														<a class="bi bi-chat-left-dots" href = "career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%> </a>
+														<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+															&nbsp;&nbsp;&nbsp;&nbsp;
+															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>													
 													</td>
 													<td align="center"><%=dto.getId()%></td>
 													<td align="center"><%=dto.getPostdate()%></td>
@@ -180,7 +161,7 @@
 									<div class="my-post-content pt-3">
 										<div class="table-responsive">
 											<table class="table mb-0">
-												<thead>
+												<thead class="f">
 													<tr align="center">
 													<th width="10%">NO</th>
 													<th width="40%">제목</th>
@@ -208,22 +189,27 @@
 													for (careerBoardDTO dto : cvLists) {
 													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 													%>
-													<tr>
+													<tr class="f">
 														<td align="center"><%=virtualNum%></td>
 														<td>
-															<!-- 게시물 클릭시 이동할 페이지 --> <a
-															href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
+															<!-- 게시물 클릭시 이동할 페이지 --> 
 															<%
 																careerBoardDAO dao = new careerBoardDAO();
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 																dao.close();
-															%> &nbsp; &nbsp; &nbsp; 
-															<a class="bi bi-chat-left-dots"href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%></a>
+															%> 
+															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+															&nbsp;&nbsp;&nbsp;&nbsp;
+															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
 														<td align="center"><%=dto.getId()%></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
-														<td align="center"><%=dto.getFilename()%></td>
+														<%if(dto.getFilesize()>0){ %>
+														<td align="center"><i class="bi bi-folder-fill"></i></td>
+														<%}else{ %>
+														<td style="opacity: 0;">첨부파일 없음</td>
+														<%} %>
 													</tr>
 													<%
 													}
@@ -240,7 +226,7 @@
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<table class="table mb-0">
-											<thead>
+											<thead class="f">
 												<tr align="center">
 													<th width="10%">NO</th>
 													<th width="40%">제목</th>
@@ -268,23 +254,27 @@
 													for (careerBoardDTO dto : inLists) {
 													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 													%>
-													<tr>
+													<tr class="f">
 														<td align="center"><%=virtualNum%></td>
 														<td>
-															<!-- 게시물 클릭시 이동할 페이지 --> <a
-															href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
+															<!-- 게시물 클릭시 이동할 페이지 --> 
 															<%
 																careerBoardDAO dao = new careerBoardDAO();
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 																dao1.close();
-															%> &nbsp; &nbsp; &nbsp; <a class="bi bi-chat-left-dots"
-															href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%>
-														</a>
+															%>
+															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+															&nbsp;&nbsp;&nbsp;&nbsp;
+															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
 														<td align="center"><%=dto.getId()%></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
-														<td align="center"><%=dto.getFilename()%></td>
+														<%if(dto.getFilesize()>0){ %>
+														<td align="center"><i class="bi bi-folder-fill"></i></td>
+														<%}else{ %>
+														<td style="opacity: 0;">첨부파일 없음</td>
+														<%} %>
 													</tr>
 													<%
 													}
@@ -300,7 +290,7 @@
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<table class="table mb-0">
-											<thead>
+											<thead class="f">
 												<tr>
 													<th>NO</th>
 													<th>제목</th>
@@ -327,18 +317,18 @@
 													for (careerBoardDTO dto : etcLists) {
 													virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 													%>
-													<tr>
+													<tr class="f">
 														<td align="center"><%=virtualNum%></td>
 														<td>
-															<!-- 게시물 클릭시 이동할 페이지 --> <a
-															href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)&nbsp;<%=dto.getTitle()%></a>
+															<!-- 게시물 클릭시 이동할 페이지 --> 
 															<%
 																careerBoardDAO dao = new careerBoardDAO();
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 																dao1.close();
-															%> &nbsp; &nbsp; &nbsp; <a class="bi bi-chat-left-dots"
-															href="career_view.jsp?num=<%= dto.getNum()%>"> <%=comcount%>
-														</a>
+															%>
+															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+															&nbsp;&nbsp;&nbsp;&nbsp;
+															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
 														<td align="center"><%=dto.getId()%></td>
 														<td align="center"><%=dto.getPostdate()%></td>
