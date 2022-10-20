@@ -11,33 +11,42 @@
 		<!-- card start -->
 		<div class="card">
 			<div class="card-header">
-				<h4 class="card-title">기술</h4>
+				<h4 class="card-title">커리어</h4>
 <!-- 				<input type="button" class="btn btn-primary" value="글쓰기" -->
 <!-- 					onclick="location.href='/view/board/register.jsp'"> -->
 			</div>
 			<div class="card-body">
 				<!-- table start -->
 				<div class="table-responsive">
-
-					<table>
-						<tr>
-							<th>작성자</th>
-							<td><input type="text" class="form-control input-default"
-								name="name" value=<%=session.getAttribute("UserId")%> disabled ></td>
-						</tr>
+					<form name="writeFrm" method="post" action="../../Process/career/writeProcess.jsp"
+						enctype="multipart/form-data" onsubmit="return validateForm(this)">
+						<table>
+							<tr>
+								<th>작성자</th>
+								<td><input type="text" class="form-control input-default"
+									name="name" value=<%=session.getAttribute("UserId")%> disabled></td>
+							</tr>
 
 						<tr>
 							<th>제목</th>
 							<td><input type="text" class="form-control input-default"
 								size="70" name="title"></td>
 						</tr>
+							<tr>
+								<th>카데고리</th>
 
+								<td>&nbsp; 
+									<input type="checkbox" name="cate" value="이력서" checked /> 이력서 
+									<input type="checkbox" name="cate" value="면접"  /> 면접 
+									<input type="checkbox" name="cate" value="기타" />기타
+								</td>
+							</tr>
 						<tr>
 							<th>첨부파일</th>
 							<td>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input"> <label
-										class="custom-file-label"></label>
+										<input type="file" name="attachedFile">
+<!-- 										<label class="custom-file-label"></label> -->
 								</div>
 								</td>
 						</tr>
@@ -49,13 +58,15 @@
 									cols="70" name="content"></textarea></td>
 						</tr>
 					</table>
+<br>
+						<button type="reset" class="btn btn-primary">다시 입력</button>
+						<button type="button" class="btn btn-primary"
+							onclick="location.href='skill.jsp'">목록 보기</button>
+						<button type="submit" class="btn btn-primary">작성 완료</button>
+					</form>
 				</div>
 				<!-- table end -->
-				<br>
-				
-				<div>
-					<button type="submit" class="btn btn-primary">작성 완료</button>
-				</div>
+
 			</div>
 		</div>
 		<!-- card end -->

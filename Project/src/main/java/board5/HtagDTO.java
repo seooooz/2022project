@@ -1,26 +1,18 @@
-package board6;
+package board5;
 
-public class htagDTO {
-	private int hidx;
+public class HtagDTO {
 	private String hid;
 	private String htag;
 
 
-	public htagDTO() {
+	public HtagDTO() {
 
 	}
 
-	public htagDTO(int hidx,String hid, String htag) {
+	public HtagDTO(int hidx,String hid, String htag) {
 		
 	}
-	
-	public int getHidx() {
-		return hidx;
-	}
-	
-	public void setHidx(int hidx) {
-		this.hidx = hidx;
-	}
+
 	
 	public String getHid() {
 		return hid;

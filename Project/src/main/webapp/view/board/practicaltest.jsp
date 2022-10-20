@@ -7,16 +7,16 @@
 	font-size: 22px;
 }
 
-/* a { */
-/* 	font-size: 17px; */ */
-/* 	color: bl; */
-/* } */
+a {
+	font-size: 17px; */
+	color: bl;
+}
 
-/* p { */
-/* 	font-size: 14px; */
-/* 	color: black; */
-/* 	margin-bottom: -1px; */
-/* } */
+p {
+	font-size: 14px;
+	color: black;
+	margin-bottom: -1px;
+}
 </style>
 
 <!-- content body start -->

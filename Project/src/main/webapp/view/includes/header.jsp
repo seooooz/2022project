@@ -9,12 +9,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Focus - Bootstrap Admin Dashboard </title>
+    
+    <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.date.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicon.png">
     <link rel="stylesheet" href="../../resources/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../../resources/vendor/owl-carousel/css/owl.theme.default.min.css">
     <link href="../../resources/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="../../resources/css/style.css" rel="stylesheet">
+    
 
 
 
@@ -25,7 +30,7 @@
 // 메인 페이지로 이동 했을때 세션에 값이 담겨있는지 체크
 String UserId = null;
 if(session.getAttribute("UserId") != null){
-	UserId = (String)session.getAttribute("UserId");
+   UserId = (String)session.getAttribute("UserId");
 }
 %>
 
@@ -55,8 +60,9 @@ if(session.getAttribute("UserId") != null){
         <div class="nav-header">
             <a href="../../view/board/index.jsp" class="brand-logo">
                 <img class="logo-abbr" src="../../resources/images/logo.png" alt="">
-                <img class="logo-compact" src="../../resources/images/logo-text.png" alt="">
-                <img class="brand-title" src="../../resources/images/logo-text.png" alt="">
+<!--                 <img class="logo-compact" src="../../resources/images/logo-text.png" alt=""> -->
+<!--                 <img class="brand-title" src="../../resources/images/logo-text.png" alt=""> -->
+                <img class="brand-title" src="../../resources/images/4Dlogo.png" alt="">
             </a>
 
             <div class="nav-control">
@@ -91,7 +97,7 @@ if(session.getAttribute("UserId") != null){
                         </div>
 
                         <ul class="navbar-nav header-right">
-                        	<!-- 우측 상단 아이콘(알림) -->
+                           <!-- 우측 상단 아이콘(알림) -->
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-bell"></i>
@@ -161,8 +167,8 @@ if(session.getAttribute("UserId") != null){
                                 
                                 
                             <%
-                            	// 로그인 하지 않았을 때 보여지는 화면
-                            	if(UserId == null){
+                               // 로그인 하지 않았을 때 보여지는 화면
+                               if(UserId == null){
                             %>
                             
                             
@@ -177,8 +183,23 @@ if(session.getAttribute("UserId") != null){
                                     </a>
                                 </div>
                                 <%
-                            	}
-                            	else { // 로그인이 되어 있는 상태에서 보여주는 화면
+                               } else if(UserId.equals("admin")){
+                            	%>
+                            	<div class="dropdown-menu dropdown-menu-right">
+  <!-- 드롭다운메뉴바)프로필 -->              <a href="/view/board/admin.jsp" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">admin </span>
+                                    </a>
+                                    <a href="/Process/LogoutProcess.jsp" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout</span>
+
+                                    </a>
+                                </div>
+                            	
+                            	<%
+                               }
+                               else { // 로그인이 되어 있는 상태에서 보여주는 화면
                                 %>
                                 
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -199,7 +220,7 @@ if(session.getAttribute("UserId") != null){
                             </li>
                            <!-- 우측 상단 아이콘(프로필) 끝 -->
                         <%
-                            	}
+                               }
                         %>
                         </ul>
                     </div>

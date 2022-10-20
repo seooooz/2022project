@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="usermember.MemberDTO"%>
 <%@page import="board1.skillBoardDTO"%>
 <%@page import="board1.skillBoardDAO"%>
 <%@page import="board2.careerBoardDTO"%>
@@ -8,17 +9,24 @@
 <%@page import="board3.offerBoardDAO"%>
 <%@page import="board4.QuestionBoardDTO"%>
 <%@page import="board4.QuestionBoardDAO"%>
-<%@ page import="board5.MypageDAO"%>
-<%@ page import="board5.MypageDTO"%>
-<%@ page import="board6.htagDTO"%>
+<%@ page import="board5.HtagDAO"%>
+<%@ page import="board5.HtagDTO"%>
+<%@ page import="utils.CommentDTO"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
 
 <%
-MypageDAO mdao = new MypageDAO();
-ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
+HtagDAO mdao = new HtagDAO();
+ArrayList<HtagDTO> list = mdao.selectMypageDTO2(UserId);
+int result = 0;
+int cresult = 0;
+result = mdao.selectboardcount(UserId);
+cresult = mdao.selectcommentount(UserId);
+HtagDAO mdao3 = new HtagDAO();
+MemberDTO dto = mdao3.selectMember(UserId);
+mdao3.close();
 %>
 
 <script type="text/javascript">
@@ -80,6 +88,16 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 			}
 		}
 	}
+	function view(args1, args2) {
+		var brdcode = args1;
+		var brdnum = args2;
+		var form = document.viewfrm;
+
+		form.method = "post";
+		form.action = "../../Process/Mypage/MviewProcess.jsp?brdcode="
+				+ brdcode + "&brdnum=" + brdnum;
+		form.submit();
+	}
 </script>
 
 <!--**********************************
@@ -90,7 +108,7 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 		<div class="row page-titles mx-0">
 			<div class="col-sm-6 p-md-0">
 				<div class="welcome-text">
-					<%=session.getAttribute("UserName")%>
+					<%=(session.getAttribute("UserName"))%>
 					회원님, 로그인하셨습니다.
 				</div>
 			</div>
@@ -119,19 +137,21 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 		<div class="row">
 			<div class="col-lg-4 ">
 				<div class="card">
-					<div class="card-body">
-						<button type="button" style="float: right;"
-							onclick="location.href='/view/board/loginProfilewrite.jsp'">수정
-							하기</button>
-						<div class="col-lg-9 row page-titles mx-0">
+					<div class="card-body ">
+
+						<button style="float: right; width: 130px;" class="btn btn-primary pl-5 pr-5 mr-3 mb-4"
+							onclick="location.href='/view/board/loginProfileWrite.jsp'">수정</button>
+							<br>
+						<div class="col-lg-9 row page-titles mx-0 ">
 							<div class="row">
 								<div class="col">
-									<h3 class="text-primary"><%=UserId%></h3>
+									<h3 class="text-primary"><%=dto.getId()%></h3>
 								</div>
+								<br><br><br> 
 								<div class="col">
-									<h3 class="text-muted">Email</h3>
-									<p>Email</p>
+									<h3 class="text-muted"><%=dto.getEmail()%></h3>
 								</div>
+								<!--해시태그 -->
 								<%
 								if (list.isEmpty()) {
 								%>
@@ -142,7 +162,7 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 									class="profile-skills pt-2 border-bottom-1 pb-2 text-center">
 									<h4>Skills</h4>
 									<%
-									for (htagDTO hdto : list) {
+									for (HtagDTO hdto : list) {
 									%>
 									<form name="writeFrm">
 										<input type="text" class="btn btn-outline-dark btn-rounded"
@@ -158,28 +178,27 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 								mdao.close();
 								%>
 							</div>
+							<!--해시태그 -->
 						</div>
 						<div class="profile-statistics">
 							<div class="text-center mt-4 border-bottom-1 pb-3">
 								<div class="row">
+									<!--사용자가 쓴 글 갯수 -->
 									<div class="col">
-										<h3 class="m-b-0">150</h3>
-										<span>Follower</span>
+										<h3 class="m-b-0"><%=result%></h3>
+										<span>Post</span>
 									</div>
+									<!--사용자가 쓴 댓글 갯수 -->
 									<div class="col">
-										<h3 class="m-b-0">140</h3>
-										<span>Place Stay</span>
+										<h3 class="m-b-0"><%=cresult%></h3>
+										<span>Comment</span>
 									</div>
-									<div class="col">
-										<h3 class="m-b-0">45</h3>
-										<span>Reviews</span>
-									</div>
-								</div>
-								<div class="mt-4">
-									<a href="javascript:void()"
-										class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Follow</a> <a
-										href="javascript:void()" class="btn btn-dark pl-5 pr-5 mb-4">Send
-										Message</a>
+<!-- 									<div class="mt-4"> -->
+<!-- 										<a href="javascript:void()" -->
+<!-- 											class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Follow</a> <a -->
+<!-- 											href="javascript:void()" class="btn btn-dark pl-5 pr-5 mb-4">Send -->
+<!-- 											Message</a> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 						</div>
@@ -197,13 +216,10 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 										class="nav-link active show">게시글</a></li>
 									<li class="nav-item"><a href="#about-me" data-toggle="tab"
 										class="nav-link">댓글</a></li>
-									<li class="nav-item"><a href="#profile-settings"
-										data-toggle="tab" class="nav-link">좋아요 누른 글</a></li>
 								</ul>
 								<div class="tab-content">
 									<div id="my-posts" class="tab-pane fade active show">
-
-
+										<!-- 내가 쓴 글 보기 (기술)-->
 										<div class="card-header">
 											<h4>기술</h4>
 											<button style="width: 65px;" class="btn btn-primary"
@@ -249,6 +265,7 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 												<!--                      기술 게시판 페이징 기능 end  -->
 											</div>
 										</div>
+										<!-- 내가 쓴 글 보기 (커리어)-->
 										<div class="card-header">
 											<h4>커리어</h4>
 											<button style="width: 65px;" class="btn btn-primary"
@@ -294,6 +311,7 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 												<!--                      기술 게시판 페이징 기능 end  -->
 											</div>
 										</div>
+										<!-- 내가 쓴 글 보기 (프로젝트)-->
 										<div class="card-header">
 											<h4>프로젝트</h4>
 											<button style="width: 65px;" class="btn btn-primary"
@@ -320,7 +338,7 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 														for (int i = 0; i < boardlist3.size(); i++) {
 														%>
 														<tr>
-															<td><%=boardlist2.get(i).getNum()%></td>
+															<td><%=boardlist3.get(i).getNum()%></td>
 															<td><a
 																href="offer_view.jsp?onum=<%=boardlist3.get(i).getNum()%>"><%=boardlist3.get(i).getTitle()%></a></td>
 															<%-- 														<td><%=boardlist.get(i).getId()%></td> --%>
@@ -339,6 +357,7 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 												<!--                      기술 게시판 페이징 기능 end  -->
 											</div>
 										</div>
+										<!-- 내가 쓴 글 보기 (문의사항)-->
 										<div class="card-header">
 											<h4>문의사항</h4>
 											<button style="width: 65px;" class="btn btn-primary"
@@ -350,7 +369,7 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 													<thead>
 														<tr>
 															<th>NO</th>
-															<!-- 														<th>작성자</th> -->
+
 															<th>제목</th>
 															<th>작성일</th>
 															<th>조회수</th>
@@ -368,12 +387,8 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 															<td><%=boardlist4.get(i).getQnum()%></td>
 															<td><a
 																href="question_view.jsp?qnum=<%=boardlist4.get(i).getQnum()%>"><%=boardlist4.get(i).getQtitle()%></a></td>
-															<%-- 														<td><%=boardlist.get(i).getId()%></td> --%>
 															<td><%=boardlist4.get(i).getQpostdate()%></td>
 															<td><%=boardlist4.get(i).getQvisitcount()%></td>
-
-															<%-- 												<td><%=slist.get(i).getPostdate()%></td> --%>
-															<%-- 												<td><%=slist.get(i).getVisitcount()%></td> --%>
 														</tr>
 														<%
 														}
@@ -387,8 +402,46 @@ ArrayList<htagDTO> list = mdao.selectMypageDTO2(UserId);
 
 
 									</div>
-									<div id="about-me" class="tab-pane fade"></div>
-									<div id="profile-settings" class="tab-pane fade"></div>
+									<!-- 내가 쓴 댓글 보기 -->
+									<div id="about-me" class="tab-pane fade">
+										<div class="table-responsive">
+											<form name="viewfrm">
+												<table class="table mb-0">
+													<thead>
+														<tr>
+															<th>게시글 번호</th>
+															<th>댓글 번호</th>
+															<th>내용</th>
+															<th>게시판 이름</th>
+														</tr>
+													</thead>
+													<tbody>
+														<%
+														HtagDAO mdao2 = new HtagDAO();
+														ArrayList<CommentDTO> clist = mdao2.selectMypagecomment(UserId);
+														for (int i = 0; i < clist.size(); i++) {
+														%>
+														<tr>
+															<td><%=clist.get(i).getPostNum()%></td>
+															<td><%=clist.get(i).getIdx()%></td>
+															<td><a
+																href="javascript:view(<%=clist.get(i).getCode()%>,<%=clist.get(i).getPostNum()%>)"><%=clist.get(i).getComment()%></a></td>
+															<td><%=clist.get(i).getBrdcode()%></td>
+														</tr>
+														<%
+														}
+														mdao.close();
+														%>
+													</tbody>
+												</table>
+											</form>
+											<!--                      기술 게시판 페이징 기능 start  -->
+											<!--                      기술 게시판 페이징 기능 end  -->
+										</div>
+
+									</div>
+
+
 								</div>
 							</div>
 						</div>

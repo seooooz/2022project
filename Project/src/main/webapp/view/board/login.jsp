@@ -20,19 +20,40 @@
 	<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg") %>
 </span>
 <%
+// 	if(session.getAttribute("UserId") == null || session.getAttribute("UserId").equals("g")){
 	if(session.getAttribute("UserId") == null){
 %>
 	<script>
-		function validateForm(form) {
-			if(!form.user_id.value){
-				alert("아이디를 입력하세요.");
-				return false;
-			}
-			if(form.user_pw.value == ""){
-				alert("패스워드를 입력하세요.");
-				return false;
-			}
+	
+	function validateForm(form){
+		
+		var regExpId = /^[a-z|A-Z|0-9]*$/;
+		var regExpName = /^[가-힣]*$/; //한글 범위에 있는지 체크
+		
+		var id = form.user_id.value;
+		var pw = form.user_pw.value;
+		
+		if(!id){
+			alert("아이디를 입력하세요!");
+			return false;
+		}else if(id.length<4 ||id.length>10){
+			alert("아이디는 4~10자 사이로 입력해주세요!");
+			return false;
+		}else if(!regExpId.test(id)){
+			alert("아이디는 문자와 숫자만 입력가능합니다!")
+			return false;
 		}
+		
+		if(pw == ""){
+			alert("패스워드를 입력하세요!");
+			return false;
+		}else if(pw.length<8 || pw.length>16){
+			alert("비밀번호는 8~16자 사이로 입력해주세요!")
+			return false;
+		}
+	}
+		
+		
 	</script>
 
     <div class="authincation h-100">
@@ -63,7 +84,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
+                                                <a href="passFind_view.jsp">Forgot Password?</a>
                                             </div>
                                         </div>
                                         <div class="text-center">
@@ -71,7 +92,7 @@
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Don't have an account? <a class="text-primary" href="../../resources/page-register.html">Sign up</a></p>
+                                        <p>Don't have an account? <a class="text-primary" href="register.jsp">Sign up</a></p>
                                     </div>
                                 </div>
                             </div>

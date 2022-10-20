@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import board2.careerBoardDTO;
+
 import common.DBConnPool;
 import utils.CommentDTO;
+import utils.ReportDTO;
 
 public class offerBoardDAO extends DBConnPool{
 
@@ -287,16 +288,16 @@ public class offerBoardDAO extends DBConnPool{
 		}
 		
 		// 지정한 게시물을 수정
-		public int updateEdit(offerBoardDTO dto) {
+		public int updateEdit(String title, String text, String num) {
 			int result = 0;
 			
 			try {
 				String sql = "update offerboard set otitle=?, ocontent=? where onum=?";
 				
 				psmt = con.prepareStatement(sql);
-				psmt.setString(1, dto.getTitle());
-				psmt.setString(2, dto.getContent());
-				psmt.setString(3, dto.getNum());
+				psmt.setString(1, title);
+				psmt.setString(2, text);
+				psmt.setString(3, num);
 				
 				result = psmt.executeUpdate();
 			}
@@ -328,6 +329,45 @@ public class offerBoardDAO extends DBConnPool{
 		}
 		
 		// 게시글 삭제 시 댓글 삭제
+		public int reportdelet(String num) {
+			int result = 0;
+			
+			try {
+				
+				String sql = "delete from REPORT where BOARD_CODE = 3 and postnum = ?";
+				
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, num);
+				
+				result = psmt.executeUpdate();
+			}
+			catch(Exception e) {
+				System.out.println("댓글 삭제 중 예외 발생");
+				e.printStackTrace();
+			}
+			
+			return result;
+		}// 신고당한 게시글 시) 게시글 삭제 시 report테이블 같이삭제
+		public int reportdelete(String num) {
+			int result = 0;
+			
+			try {
+				
+				String sql = "delete from REPORT where RBOARD_ID = 3 and TARGET_ID = ?";
+				
+				psmt = con.prepareStatement(sql);
+				psmt.setString(1, num);
+				
+				result = psmt.executeUpdate();
+			}
+			catch(Exception e) {
+				System.out.println("댓글 삭제 중 예외 발생");
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
+		// 신고 게시글 시) 게시글 삭제 시 신고 테이블도 삭제
 		public int posetdeleteCom(String num) {
 			int result = 0;
 			
@@ -347,7 +387,6 @@ public class offerBoardDAO extends DBConnPool{
 			
 			return result;
 		}
-		
 //		 댓글 목록을 반환(페이징)
 //					public List<CommentDTO> selectListCom(Map<String, Object> map, String num){
 //						List<CommentDTO> oboard = new Vector<CommentDTO>(); // 결과(게시물 목록)를 담을 변수
@@ -602,50 +641,19 @@ public class offerBoardDAO extends DBConnPool{
 						return result;
 					}
 					
-//					public CommentDTO comselectidx(String idx) {
-//						
-//						CommentDTO dto = new CommentDTO();
-//						try {
-//							
-//							String sql = "select * from BCOMMENT where = ?";
-//							psmt = con.prepareStatement(sql);
-//							psmt.setString(1, idx);
-//							rs = psmt.executeQuery();
-//							
-//							while(rs.next()) {
-//								dto.setIdx(rs.getString(1));
-//								dto.setId(rs.getString(2));
-//								dto.setCode(rs.getInt(3));
-//								dto.setPostNum(rs.getString(4));
-//								dto.setDate(rs.getDate(5));
-//								dto.setComment(rs.getString(6));
-//								dto.setComClass(rs.getInt(7));
-//								dto.setOrder(rs.getInt(8));
-//								dto.setGroupNum(rs.getString(9));
-//								
-//						}
-//					}
-//						catch (Exception e) {
-//							System.out.println("댓글 정보 오류");
-//						}
-//
-//						return dto;
-//					}
-					
 				// 게시물 신고하기
 				public int reportinsert(ReportDTO dto) {
 					
 					int result = 0;
 					try {
-						String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext, re_ip) "
-								+ "values (seq_reportboard_num.nextval,3,?,1,?,?,?,?)";
+						String sql = "insert into report (rnum, rboard_id, target_id, target_type, user_id, target_user_id, rtext) "
+								+ "values (seq_reportboard_num.nextval,3,?,1,?,?,?)";
 						
 						psmt = con.prepareStatement(sql);
 						psmt.setInt(1, dto.getTarget_id());
 						psmt.setString(2, dto.getId());
 						psmt.setString(3, dto.getTuid());
 						psmt.setString(4, dto.getText());
-						psmt.setString(5, dto.getIp());
 						result = psmt.executeUpdate();
 					}
 					catch (Exception e) {
@@ -674,13 +682,13 @@ public class offerBoardDAO extends DBConnPool{
 					
 				}	
 				catch (Exception e) {
-					System.out.println("신고 count 중 예외 발생");
+					System.out.println("offer 신고 count 중 예외 발생");
 					e.printStackTrace();
 				}
 				return count;
 			}
-			
-			// 지정한 게시물을 찾아 내용을 반환(mypage)
+
+			// mypage - offerboard 출력
 			public ArrayList<offerBoardDTO> selectofferView(String id) {
 
 				String sql = "select * from offerboard where oid = ? ORDER BY onum DESC ";
@@ -713,5 +721,7 @@ public class offerBoardDAO extends DBConnPool{
 					e.printStackTrace();
 				}
 				return list;
-			}
+			
+}
+
 }

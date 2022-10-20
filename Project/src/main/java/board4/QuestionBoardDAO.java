@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import board2.careerBoardDTO;
 import common.DBConnPool;
-import usermember.MemberDTO;
 import utils.CommentDTO;
 
 public class QuestionBoardDAO extends DBConnPool {
@@ -233,7 +231,7 @@ public class QuestionBoardDAO extends DBConnPool {
 		
 		return oboard;
 	}
-		
+	
 	
 	// list에서 댓글 개수 보여주기
 	public int countCom(int num) {
@@ -255,37 +253,56 @@ public class QuestionBoardDAO extends DBConnPool {
 		return comcount;
 	}
 	
-	// 지정한 게시물을 찾아 내용을 반환(mypage)
-			public ArrayList<QuestionBoardDTO> selectquestionView(String id) {
-
-				String sql = "select * from questionboard where qid = ? ORDER BY qnum DESC ";
-				ArrayList<QuestionBoardDTO> list = new ArrayList<QuestionBoardDTO>();
-
-				try {
-
-					psmt = con.prepareStatement(sql);
-					psmt.setString(1, id);
-					rs = psmt.executeQuery();
-
-					while (rs.next()) {
-						QuestionBoardDTO dto = new QuestionBoardDTO();
-						dto.setQnum(rs.getInt(1));
-						dto.setQid(rs.getString(2));
-						dto.setQtitle(rs.getString(3));
-						dto.setQcontent(rs.getString(4));
-						dto.setQpostdate(rs.getDate(5));
-						dto.setQvisitcount(rs.getInt(6));
-
-						list.add(dto);
-					}
-					rs.close();
-					psmt.close();
-				} 
-				catch (Exception e) {
-					System.out.println("게시물 상세보기 중 예외 발생");
-					e.printStackTrace();
-				}
-				return list;
-			}
+	// 댓글 삭제
+	public int deleteCom(String idx) {
+		int result = 0;
+		
+		try {
 			
+			String sql = "delete from BCOMMENT where com_index = ?";
+			
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, idx);
+			
+			result = psmt.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println("댓글 삭제 중 예외 발생");
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	// mypage - questionboard 출력
+	public ArrayList<QuestionBoardDTO> selectquestionView(String id) {
+
+		String sql = "select * from questionboard where qid = ? ORDER BY qnum DESC ";
+		ArrayList<QuestionBoardDTO> list = new ArrayList<QuestionBoardDTO>();
+
+		try {
+
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				QuestionBoardDTO dto = new QuestionBoardDTO();
+				dto.setQnum(rs.getInt(1));
+				dto.setQid(rs.getString(2));
+				dto.setQtitle(rs.getString(3));
+				dto.setQcontent(rs.getString(4));
+				dto.setQpostdate(rs.getDate(5));
+				dto.setQvisitcount(rs.getInt(6));
+
+				list.add(dto);
+			}
+			rs.close();
+			psmt.close();
+		} 
+		catch (Exception e) {
+			System.out.println("게시물 상세보기 중 예외 발생");
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

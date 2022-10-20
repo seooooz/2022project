@@ -29,10 +29,49 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
+ 
+ 
+ <!-- Required vendors -->
+ 	
     <script src="../../resources/vendor/global/global.min.js"></script>
     <script src="../../resources/js/quixnav-init.js"></script>
     <script src="../../resources/js/custom.min.js"></script>
+    
+<!-- <!--      Daterangepicker --> 
+<!-- <!--     momment js is must -->
+<!--     <script src="../../resources/vendor/moment/moment.min.js"></script> -->
+<!--     <script src="../../resources/vendor/bootstrap-daterangepicker/daterangepicker.js"></script> -->
+<!-- <!--     clockpicker --> 
+<!--     <script src="../../resources/vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script> -->
+<!-- <!--     asColorPicker -->
+<!--     <script src="../../resources/vendor/jquery-asColor/jquery-asColor.min.js"></script> -->
+<!--     <script src="../../resources/vendor/jquery-asGradient/jquery-asGradient.min.js"></script> -->
+<!--     <script src="../../resources/vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script> -->
+<!-- <!--     Material color picker --> 
+<!--     <script src="../../resources/vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script> -->
+
+<!-- <!--     Daterangepicker --> 
+<!--     <script src="../../resources/js/plugins-init/bs-daterange-picker-init.js"></script> -->
+<!-- <!--     Clockpicker init --> 
+<!--     <script src="../../resources/js/plugins-init/clock-picker-init.js"></script> -->
+<!-- <!--     asColorPicker init -->
+<!--     <script src="../../resources/js/plugins-init/jquery-asColorPicker.init.js"></script> -->
+<!-- <!--     Material color picker init --> 
+<!--     <script src="../../resources/js/plugins-init/material-date-picker-init.js"></script> -->
+   
+    
+
+    <!-- pickdate -->
+<!--     <script src="../../resources/vendor/pickadate/picker.js"></script> -->
+<!--     <script src="../../resources/vendor/pickadate/picker.time.js"></script> -->
+<!--     <script src="../../resources/vendor/pickadate/picker.date.js"></script> -->
+
+    <!-- Pickdate -->
+<!--     <script src="../../resources/js/plugins-init/pickadate-init.js"></script> -->
+
+
+
+    
 
 
     <!-- Vectormap -->
@@ -59,6 +98,10 @@
 
 
     <script src="../../resources/js/dashboard/dashboard-1.js"></script>
+    
+   
+
+    
 
 </body>
 

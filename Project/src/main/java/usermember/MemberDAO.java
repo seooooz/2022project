@@ -12,12 +12,13 @@ public class MemberDAO extends DBConnPool{
 	public int insertMemberDTO(MemberDTO dto) {
 		int result = 0;
 		try {
-			String query = "INSERT INTO usermember(name, id, pass) values(?, ?, ?)";
+			String query = "INSERT INTO usermember(name, id, pass, email) values(?, ?, ?, ?)";
 			psmt = con.prepareStatement(query);
 			
 			psmt.setString(1, dto.getName());
 			psmt.setString(2, dto.getId());
 			psmt.setString(3, dto.getPass());
+			psmt.setString(4, dto.getEmail());
 			
 			result = psmt.executeUpdate();
 			
@@ -53,4 +54,62 @@ public class MemberDAO extends DBConnPool{
 		}
 		return dto;
 	}
+	
+	// 비밀번호 찾기 회원정보 일치
+	public int findPassword(String name, String id, String email) {
+		int result = 0;
+		String query = "SELECT * FROM usermember WHERE name = ? and id = ?"
+				+ " and email = ? ";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, name);
+			psmt.setString(2, id);
+			psmt.setString(3, email);
+	
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("비밀번호 찾기 중 오류 발생!!");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	// 비밀번호 변경
+	public int updatePassword(String id, String pass) {
+		int result = 0;
+		String query = "UPDATE usermember SET pass = ? WHERE id = ? ";
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, pass);
+			psmt.setString(2, id);
+			
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("비밀번호 변경 중 오류 발생!!");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// 회원 탈퇴 
+	public int userDelete(String id, String pw) {
+		int result = 0;
+		String query = "DELETE FROM usermember WHERE id=? and pass=?";
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			
+			result = psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("회원탈퇴 중 오류 발생!!");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

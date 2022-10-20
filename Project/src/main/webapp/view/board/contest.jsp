@@ -25,9 +25,9 @@
 	font-style: normal;
 }
 
-/* p, strong, ul, li { */
-/* 	font-family: 'Pretendard-Regular'; */
-/* } */
+p, strong, ul, li {
+	font-family: 'Pretendard-Regular';
+}
 
 #contest {
 	font-size: 22px;
@@ -99,11 +99,11 @@
 	font-weight: 600;
 }
 
-/* p { */
-/* 	font-size: 14px; */
-/* 	color: black; */
-/* 	margin-bottom: -1px; */
-/* } */
+p {
+	font-size: 14px;
+	color: black;
+	margin-bottom: -1px;
+}
 
 .cropped1 {
 	width: 250px;
@@ -118,10 +118,10 @@
 	margin: 4px 2px;
 }
 
-/* a { */
-/* 	font-size: 17px; */
-/* 	color: black; */
-/* } */
+a {
+	font-size: 17px;
+	color: black;
+}
 </style>
 <!-- content body start -->
 <div class="content-body" align="center">
