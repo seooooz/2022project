@@ -1,6 +1,6 @@
 <%@page import="board3.offerBoardDTO"%>
 <%@page import="board3.offerBoardDAO"%>
-<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%-- <%@page import="com.oreilly.servlet.MultipㄴartRequest"%> --%>
 <%@page import="utils.JSFunction"%>
 <%@ page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

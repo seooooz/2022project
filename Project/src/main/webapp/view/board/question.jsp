@@ -12,82 +12,56 @@
 <%@include file="../includes/navbar.jsp"%>
 
 <%
-String User_Id = (String) session.getAttribute("UserId");
-System.out.println(User_Id);
-// DAO를 생성해 DB에 연결
-QuestionBoardDAO dao = new QuestionBoardDAO();
-
-// 사용자가 입력한 검색 조건을 Map에 저장
-Map<String, Object> param = new HashMap<String, Object>();
-String searchField = request.getParameter("searchField");
-String searchWord = request.getParameter("searchWord");
-
-if (searchWord != null) {
-	param.put("searchField", searchField);
-	param.put("searchWord", searchWord);
-
-}
-
-int totalCount = dao.selectCount(param); // 게시물 수 확인
-List<QuestionBoardDTO> questionList = dao.selectList(param); // 게시물 목록 받기
-dao.close();
+String User_Id = (String)session.getAttribute("UserId");
+	System.out.println(User_Id);
+	// DAO를 생성해 DB에 연결
+	QuestionBoardDAO dao = new QuestionBoardDAO();
+	
+	// 사용자가 입력한 검색 조건을 Map에 저장
+	Map<String, Object> param = new HashMap<String, Object>();
+	String searchField = request.getParameter("searchField");
+	String searchWord = request.getParameter("searchWord");
+	
+	if(searchWord != null){
+		param.put("searchField", searchField);
+		param.put("searchWord", searchWord);
+		
+	}
+	
+	int totalCount = dao.selectCount(param); // 게시물 수 확인
+	List<QuestionBoardDTO> questionList = dao.selectList(param); // 게시물 목록 받기
+	dao.close();
 %>
 <%-- <%@include file="../../Process/PageProcess.jsp"%> --%>
 <script>
+
+
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
 	}
-
+	
 	function validateForm2() {
 		alert("본인이 작성한 글이 아닙니다.");
 	}
-
-	function pwdCheckForm(args1, args2) {
+	
+	function pwdCheckForm(args1,args2) {
 		var qnum = args1;
 		var qid = args2;
 		alert(args1);
 		window.open("<c:url value='/view/board/questionPwdCheck.jsp?qnum="
-				+ qnum + "&qid=" + qid + "'/>", "PassWordCheck",
-				"width=500, height=500");
+				+ qnum + "&qid="+qid+"'/>", "PassWordCheck", "width=500, height=500");
 
 	}
 	function popup(idc) {
-		var qid2 = idc;
-		var url = "<c:url value='/view/board/qother.jsp?qid=" + qid2 + "'/>";
+		var qid = idc;
+		var url = "<c:url value='/view/board/qother.jsp?qid=" + qid + "'/>";
 		window.open(url, "test", "width=600,height=600");
 	}
 </script>
 
-<style>
-#top-content {
-	color: aqua;
-}
-
-#qtable {
-	color: black;
-}
-
-#qtable a {
-	color: inherit;
-}
-
-#teqh {
-	font-size: 22px;
-}
-
-.search_flex {
-	display: flex;
-	padding: 1.25rem 1.25rem 5px;
-}
-
-.search_item {
-	flex: 1;
-}
-</style>
-
 
 <!-- content body start -->
-<div class="content-body" align="center" style="color: black;">
+<div class="content-body" align="center" style="color:black;">
 	<div class="col-lg-8">
 		<!-- card start -->
 		<div class="card">
@@ -139,12 +113,12 @@ dao.close();
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr id="qtable" align="center">
-													<th width="10%">NO</th>
-													<th width="40%">제목</th>
-													<th width="15%">작성자</th>
-													<th width="20%">처리 상태</th>
-													<th width="15%">작성일</th>
+												<tr class="f" align="center">
+													<th class="f" width="10%">NO</th>
+													<th class="f" width="40%">제목</th>
+													<th class="f" width="15%">작성자</th>
+													<th class="f" width="20%">처리 상태</th>
+													<th class="f" width="15%">작성일</th>
 
 												</tr>
 											</thead>
@@ -152,67 +126,68 @@ dao.close();
 												<!-- 기술 게시판 목록 start  -->
 												<%
 												// 게시물이 없을떄
-												if (questionList.isEmpty()) {
+												if (questionList.isEmpty()){
 												%>
 												<tr>
-													<td colspan="5" align="center">등록된 게시물이 없습니다.^^*</td>
+													<td  colspan="5" align="center">등록된 게시물이 없습니다.^^*</td>
 												</tr>
 												<%
 												// 게시물이 있을때
 												} else {
 												int virtualNum = 0;
-												for (QuestionBoardDTO dto : questionList) {
-													virtualNum = totalCount--;
-													String qid = dto.getQid();
+												for (QuestionBoardDTO dto : questionList){
+												virtualNum= totalCount--;
+												String qid = dto.getQid();
 												%>
-												<tr id="qtable">
-													<td align="center"><%=virtualNum%></td>
-													<td>
+												<tr class="f">
+													<td class="f" align="center"><%= virtualNum %></td>
+													<td  class="f">
 														<%
-														if (User_Id == null || User_Id.equals("null")) {
-														%> <a class="tt" href="#"
-														onclick="return validateForm(this);"><%=dto.getQtitle()%></a>
-
+															if(User_Id == null || User_Id.equals("null")){
+														%> 
+															
+															<a class="f" href="#" onclick="return validateForm(this);" ><%=dto.getQtitle() %></a>
+														
 														<%
-														} else if (User_Id.equals("admin")) {
-														%> <a href="question_view.jsp?qnum=<%=dto.getQnum()%>"><%=dto.getQtitle()%></a>
+															}else if(User_Id.equals("admin")){
+														%>	
+															
+															<a href="question_view.jsp?qnum=<%=dto.getQnum()%>"><%=dto.getQtitle()%></a>
 														<%
-														} else if (!(User_Id.equals(qid))) {
-														%> <a href="#" onclick="return validateForm2();"><%=dto.getQtitle()%></a>
+															}else if(!(User_Id.equals(qid))){
+														%>
+															<a href="#" onclick="return validateForm2();"><%=dto.getQtitle() %></a>
 														<%
-														} else {
-														%> <a
-														href="javascript:pwdCheckForm(<%=dto.getQnum()%>,'<%=dto.getQid()%>')"><%=dto.getQtitle()%></a>
-
+															}else{
+														%> 
+															<a href="javascript:pwdCheckForm(<%=dto.getQnum()%>,'<%=dto.getQid()%>')"><%=dto.getQtitle() %></a>
+														
 														<%
 														}
 														%>
 													</td>
-													<td><a href="javascript:popup('<%=dto.getQid()%>')"><%=dto.getQid()%></a>
-														<%
-														QuestionBoardDAO dao1 = new QuestionBoardDAO();
-														int countcom = dao1.countCom(dto.getQnum());
-														dao1.close();
-														if (countcom > 0) {
-														%>
-													<td align="center" style="color: blue;">답변 완료</td>
+													<td class="f"><a class="f" href="javascript:popup('<%=dto.getQid()%>')"><%=dto.getQid()%></a></td>
 													<%
-													} else {
+													QuestionBoardDAO dao1 = new QuestionBoardDAO();
+													int countcom = dao1.countCom(dto.getQnum());
+													dao1.close();
+													if(countcom > 0){
 													%>
-													<td align="center" style="color: red;">등록</td>
-													<%
-													}
-													%>
-													<td align="center"><%=dto.getQpostdate()%></td>
+													<td  align="center" style="color:blue;">답변 완료</td>
+													<%}else { %>
+													<td  align="center" style="color:red;">등록</td>
+													<%} %>
+													<td  class="f" align="center"><%=dto.getQpostdate()%></td>
 												</tr>
 												<%
-												}
+													}
 												}
 												%>
 												<!-- 기술 게시판 목록 end  -->
 											</tbody>
 										</table>
-										<BR> <BR>
+										<BR>
+										<BR>
 									</div>
 
 								</div>

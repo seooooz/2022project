@@ -18,7 +18,7 @@ if (session.getAttribute("UserId") != null) {
 }
 String id = request.getParameter("sid");
 HtagDAO mdao = new HtagDAO();
-ArrayList<HtagDTO> list = mdao.selectMypageDTO2(UserId);
+ArrayList<HtagDTO> list = mdao.selectMypageDTO2(id);
 int result = 0;
 int cresult = 0;
 result = mdao.selectboardcount(id);

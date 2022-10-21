@@ -26,7 +26,8 @@ public class careerBoardDAO extends DBConnPool {
 
 		try {
 			String query = "INSERT INTO careerboard ("
-					+ "cnum, cid, ctitle, ccontent, ccate, cfilename, cfilesize, cvisitcount)" + "VALUES ("
+					+ "cnum, cid, ctitle, ccontent, ccate, cfilename, cfilesize, cvisitcount)" 
+					+ "VALUES ("
 					+ "seq_careerboard_num.nextval,?,?,?,?,?,?,0)";
 
 			psmt = con.prepareStatement(query);
@@ -54,7 +55,8 @@ public class careerBoardDAO extends DBConnPool {
 		String query = "select count(*) from careerboard";
 
 		if (map.get("searchWord") != null) {
-			query += " where " + map.get("searchField") + " " + " like '%" + map.get("searchWord") + "%'";
+			query += " where " + map.get("searchField") + " "
+			 + " like '%" + map.get("searchWord") + "%'";
 		}
 
 		try {
@@ -62,7 +64,8 @@ public class careerBoardDAO extends DBConnPool {
 			rs = stmt.executeQuery(query);
 			rs.next();
 			totalCount = rs.getInt(1); // 첫번째 컬럼 값 가져옴
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			System.out.println("게시물 수를 구하는 중 예외 발생");
 			e.printStackTrace();
 		}

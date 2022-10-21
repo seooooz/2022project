@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="utils.CommentDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="board1.skillBoardDTO"%>
@@ -48,6 +49,7 @@ function deleditPost(str){
 	 		form.method = "post";
 	 		form.action = "../../Process/career/ComDelProcess.jsp";
 	 		form.submit();
+}
 }
 
 function reportFrm(args1,args2) {
@@ -204,102 +206,6 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 
 })
 </script> 
-<style>
-
-.mt-5 {
-margin-top: 1.5rem !important;
-}
-.side{
-margin-left: 1.5rem !important;
-margin-right: 1.5rem !important;
-}
-.b {
-color:black;
-font-size: 16px
-}
-.btitle {
-font-size: 20px;
-}
-
-.bid {
-margin-top: 0.3rem;
-font-size: 15px;
-font-weight: 100;
-}
-
-.bpostdate{
-font-size: 12px;
-font-weight: 100;
-color: rgb(107 114 128);
-}
-.bcontent {
-margin-buttom: 5rem
-}
-.read_content textarea {
-  color: #828690;
-  border-color: rgba(0, 0, 0, 0.1);
-  padding: 0.625rem 1.25rem; }
-  
-.read-content textarea::placeholder {
-    color: #abafb3; }
-    
-.pf {
-	margin-right: 0.5rem;
-}    
-
-.comdate{
-font-size: 12px;
-color: rgb(107 114 128);
-}
-
-.comment{
-font-size:15px;
-margin-top: 0.75rem;
-}
-
-.tright{
-    float: right;
-}
-.comm{
-margin-left : 1rem;
-margin-right : 1rem;
-}
-.recomm{
-margin-left : 2rem;
-margin-right : 2rem;
-}
-
-.allcomm{
-margin: 5rem 0 0 0;
-}
-
-.float{
-float: left;
-}
-
-.clear{
-clear: both;
-}
-
-.line{
-   border-bottom: 1px solid #dee2e6;
-}
-.rounded {
- border-radius: 39px !important;
-}
-.cate{
- color : black !important;
- background-color: rgb(241 241 241);
- padding : 3px 8px;
-}
-.mart{
- margin-top : 4rem;
-}
-
-.top{
-    display: flex;
- }
-</style>
 
         <!--**********************************
             Content body start
@@ -310,7 +216,7 @@ clear: both;
                     <div class="p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="top tright">
                             <li class="breadcrumb-item"><a href="career.jsp">기술</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)"><%=sdto.getCate() %></a></li>
+                            <li class="breadcrumb-item active"><a class="a"><%=sdto.getCate() %></a></li>
                         </ol>
                 </div>
 			<a href="javascript:reportFrm(<%=sdto.getNum()%>,'<%=sdto.getId()%>')" class="title_a">신고하기</a>                
@@ -383,9 +289,9 @@ clear: both;
                                                         <p><%= sdto.getContent() %></p>
                                                     </div>
                                                     <div>
-                                                    	<img alt=""
-											               style="height: auto; width: 100%"
-											               src="../../Uploads/<%=sdto.getFilename()%>">
+                                                    	<%if(sdto.getFilesize() > 0){ %>
+                                                    	<a href="../../Process/DownloadProcess.jsp?fname=<%=URLEncoder.encode(sdto.getFilename(), "UTF-8")%>"><%=sdto.getFilename() %></a>
+                                                    	<%}else{ }%>
                                                     </div>
                                                     <div class="mart">
                                                     	<a class="cate rounded"><%=sdto.getCate()%></a>

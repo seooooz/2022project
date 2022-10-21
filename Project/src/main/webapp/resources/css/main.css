@@ -1,0 +1,194 @@
+
+.mt-5 {
+margin-top: 1.5rem !important;
+}
+.side{
+margin-left: 1.5rem !important;
+margin-right: 1.5rem !important;
+}
+.f{
+color : black !important;
+}
+.b {
+color:black;
+font-size: 16px
+}
+.btitle {
+font-size: 20px;
+font-weight: bolder;
+}
+
+.title {
+font-weight: bolder;
+}
+
+.f{
+color : #666666 !important;
+}
+
+.f a:hover {
+   color : #593bdb !important;
+   font-weight: bold;
+}
+
+.report{
+   color : #593bdb !important;
+}
+
+.a{
+color:#BDBDC7 !important;
+}
+
+.bid {
+margin-top: 0.3rem;
+font-size: 15px;
+font-weight: 100;
+}
+
+.bpostdate{
+font-size: 12px;
+font-weight: 100;
+color: rgb(107 114 128);
+}
+.bcontent {
+margin-bottom: 5rem
+}
+.read_content textarea {
+  color: #828690;
+  border-color: rgba(0, 0, 0, 0.1);
+  padding: 0.625rem 1.25rem; }
+  
+.read-content textarea::placeholder {
+    color: #abafb3; }
+    
+.pf {
+   margin-right: 0.5rem;
+}    
+
+.comdate{
+font-size: 12px;
+color: rgb(107 114 128);
+}
+
+.comment{
+font-size:15px;
+margin-top: 0.75rem;
+}
+
+.tright{
+    float: right;
+}
+.comm{
+margin-left : 1rem;
+margin-right : 1rem;
+}
+.recomm{
+margin-left : 2rem;
+margin-right : 2rem;
+}
+
+.allcomm{
+margin: 5rem 0 0 0;
+}
+
+.float{
+float: left;
+}
+
+.clear{
+clear: both;
+}
+
+.line{
+   border-bottom: 1px solid #dee2e6;
+}
+.rounded {
+ border-radius: 39px !important;
+}
+.cate{
+ color : black !important;
+ background-color: rgb(241 241 241);
+ padding : 3px 8px;
+}
+.mart{
+ margin-top : 4rem;
+}
+
+.top{
+    display: flex;
+ }
+ 
+ #teqh {
+   font-size: 22px;
+}
+
+.search_flex {
+   display: flex;
+   padding: 1.25rem 1.25rem 5px;
+}
+
+.search_item {
+   flex: 1;
+}
+
+.logi-title {
+    margin-left: 15px !important;
+    margin-top: 0.5rem !important;
+    max-width: 120px !important;   
+}
+
+.title_a {
+   color: black;
+    font-size: 17px;
+}
+
+#teqh {
+   font-size: 22px;
+}
+
+.search_flex {
+   display: flex;
+   padding: 1.25rem 1.25rem 5px;
+}
+
+.search_item {
+   flex: 1;
+}
+
+.my-2 {
+   margin-bottom: 2rem !important;
+   margin-top: 2rem !important;
+}
+
+.items-center {
+   align-items: center;
+}
+
+.flex-col { 
+   flex-direction: column; 
+ } 
+
+.flex {  
+      display: flex; 
+ }  
+ 
+.flex-1 {
+     flex: 1 1 0%; 
+} 
+
+.gap-x-3 {
+    -moz-column-gap: .75rem;
+    column-gap: 0.75rem;
+}
+.gap-x-4 {
+    column-gap: 0.5rem;
+}
+
+.paper_list li{
+    border-bottom: 1px solid #dee2e6;
+}
+
+.pp{
+	
+color:black;
+}

@@ -161,7 +161,7 @@ public class HtagDAO extends DBConnPool {
 	// 입력받은 id/pw 일치하는 회원정보 
 	public MemberDTO selectMember(String uid) {
 		MemberDTO dto = new MemberDTO();
-		String query = "select id,email from usermember where id = ? ";
+		String query = "select id, email from usermember where id = ? ";
 		
 		try {
 			psmt = con.prepareStatement(query);

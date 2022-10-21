@@ -15,113 +15,89 @@
 		}
 	}
 </script>
-<style>
-@font-face {
-	font-family: 'Pretendard-Regular';
-	src:
-		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-		format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
 
-p, strong, ul, li {
-	font-family: 'Pretendard-Regular';
-}
+<style>
 
 #contest {
-	font-size: 22px;
+	font-size: 22px !important;
 }
-
 #cimg {
-	vertical-align: top;
+	vertical-align: top !important;
 }
-
 .banner_img, .banner_bg {
-	display: inline-block;
-	position: relative;
+	display: inline-block !important;
+	position: relative !important;
 }
-
 .banner_img:hover:after, .banner_img:hover>.hover_text, .banner_bg:hover:after,
 	.banner_bg:hover>.hover_text {
-	display: block;
+	display: block !important;
 }
-
 .banner_img:after, .banner_bg:after, .hover_text {
-	display: none;
+	display: none !important;
 }
-
 .banner_img:after, .banner_bg:after {
 	content: '';
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.3);
-	z-index: 10;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	background: rgba(0, 0, 0, 0.3) !important;
+	z-index: 10 !important;
 }
-
 .banner_img {
-	overflow: hidden;
+	overflow: hidden !important;
 }
-
 .banner_img #cimg {
-	width: 280px;
-	height: 290px;
+	width: 280px !important;
+	height: 290px !important;
 }
-
 .banner_img:hover #cimg {
-	transform: scale(1.2);
-	transition: 1s;
+	transform: scale(1.2) !important;
+	transition: 1s !important;
 }
-
 .hover_text {
-	position: absolute;
-	top: 120px;
-	left: 100px;
-	color: #fff;
-	z-index: 20;
-	font-weight: 300;
-	font-size: 15px;
-	left: 100px;
+	position: absolute !important;
+	top: 120px !important;
+	left: 100px !important;
+	color: #fff !important;
+	z-index: 20 !important;
+	font-weight: 300 !important;
+	font-size: 15px !important;
+	left: 100px !important;
 }
-
 .fixed_img_col li {
-	float: left;
-	padding: 15px 5px 5px 30px;
-	margin-bottom: -1px;
+	float: left !important;
+	padding: 15px 5px 5px 30px !important;
+	margin-bottom: -1px !important;
 }
-
 .addImp {
-	font-size: 15px;
-	color: black;
-	font-weight: 600;
+	font-size: 15px !important;
+	color: black !important;
+	font-weight: 600 !important;
 }
-
-p {
-	font-size: 14px;
-	color: black;
-	margin-bottom: -1px;
+.cp {
+	font-size: 14px !important;
+	color: black !important;
+	margin-bottom: -1px !important;
 }
-
 .cropped1 {
-	width: 250px;
-	height: 350px;
-	overflow: hidden;
+	width: 250px !important;
+	height: 350px !important;
+	overflow: hidden !important;
 }
-
 .bsize {
-	width: 230px;
-	padding: 15px 32px;
-	text-align: center;
-	margin: 4px 2px;
+	width: 230px !important;
+	padding: 15px 32px !important;
+	text-align: center !important;
+	margin: 4px 2px !important;
 }
-
-a {
+.ca {
 	font-size: 17px;
 	color: black;
 }
+
+
 </style>
 <!-- content body start -->
 <div class="content-body" align="center">
@@ -143,11 +119,11 @@ a {
 									<button class="hover_text btn btn-primary">자세히</button>
 								</a>
 							</div>
-							<p id="pt">(주)더아이엠씨/(사)한국데이터사이언스학회</p>
-							<p>
+							<p class="cp">(주)더아이엠씨/(사)한국데이터사이언스학회</p>
+							<p class="cp">
 								<b>제5회 TEXTOM 빅데이터 분석 공모전</b>
 							</p>
-							<p>
+							<p class="cp">
 								<b>마감:2022년 12월 1일</b>
 							</p>
 						</li>
@@ -160,11 +136,11 @@ a {
 									<button class="hover_text btn btn-primary">자세히</button>
 								</a>
 							</div>
-							<p id="pt">(주)대한민국 국회</p>
-							<p>
+							<p class="cp">(주)대한민국 국회</p>
+							<p class="cp">
 								<b>2022 국회 데이터 활용 경진대회</b>
 							</p>
-							<p>
+							<p class="cp">
 								<b>마감:2022년 11월 11일</b>
 							</p>
 						</li>
@@ -177,11 +153,11 @@ a {
 									<button class="hover_text btn btn-primary">자세히</button>
 								</a>
 							</div>
-							<p id="pt">(주)서울시/서울시 빅데이터캠퍼스</p>
-							<p>
+							<p class="cp">(주)서울시/서울시 빅데이터캠퍼스</p>
+							<p class="cp">
 								<b>2022 서울특별시 빅데이터캠퍼스 공모전</b>
 							</p>
-							<p>
+							<p class="cp">
 								<b>마감:2022년 11월 3일</b>
 							</p>
 					</ul>
@@ -191,16 +167,16 @@ a {
 								<a
 									href="https://itsaeil.or.kr/Notice/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=12545245&t=board"
 									target="_blank" class="banner_img"> <img id="cimg"
-									src="/view/img/project-woman-p.jpg">
+									src="/view/img/project-woman.jpg">
 									<button class="hover_text btn btn-primary">자세히</button>
 								</a>
 							</div>
-							<p id="pt">(주)경기도일자리재단</p>
-							<p>
+							<p class="cp">(주)경기도일자리재단</p>
+							<p class="cp">
 								<b>2022년 IT분야 <br>여성 취·창업 포트폴리오 공모전
 								</b>
 							</p>
-							<p>
+							<p class="cp">
 								<b>마감:2022년 10월 31일</b>
 							</p>
 						</li>
@@ -213,12 +189,12 @@ a {
 									<button class="hover_text btn btn-primary">자세히</button>
 								</a>
 							</div>
-							<p id="pt">(주)부산대학교·전남대학교·경북대학교병원</p>
-							<p>
+							<p class="cp">(주)부산대학교·전남대학교·경북대학교병원</p>
+							<p class="cp">
 								<b>2022년 제1회 k-ium <br>의료 인공지능 경진대회
 								</b>
 							</p>
-							<p>
+							<p class="cp">
 								<b>마감:2022년 10월 30일</b>
 							</p>
 						</li>
@@ -232,12 +208,12 @@ a {
 								</a>
 
 							</div>
-							<p id="pt">(주)세종사이버대학교 전기전자공학과</p>
-							<p>
+							<p class="cp">(주)세종사이버대학교 전기전자공학과</p>
+							<p class="cp">
 								<b>2022 전기전자분야<br>에너지 절약 체험 및 방안 공모전
 								</b>
 							</p>
-							<p>
+							<p class="cp">
 								<b>마감: 2022년 11월 13일</b>
 							</p>
 						</li>
@@ -248,10 +224,10 @@ a {
 			<button style="width: 250px; margin: auto;" class="btn btn-primary"
 				onclick="javascript:doDisplay();">더 많은 공모전 정보</button>
 			<div id="cssTest" style="display: none;">
-				<p>
-					<br> <a href="https://allforyoung.com/" target="_blank">요즘것들</a>&nbsp;
-					&nbsp; <a href="https://linkareer.com/" target="_blank">링커리어</a>&nbsp;
-					&nbsp; <a href="https://thinkyou.co.kr/" target="_blank">씽유</a>
+				<p class="cp">
+					<br> <a class="ca" href="https://allforyoung.com/" target="_blank">요즘것들</a>&nbsp;
+					&nbsp; <a class="ca" href="https://linkareer.com/" target="_blank">링커리어</a>&nbsp;
+					&nbsp; <a class="ca" href="https://thinkyou.co.kr/" target="_blank">씽유</a>
 				</p>
 			</div>
 			<br>
