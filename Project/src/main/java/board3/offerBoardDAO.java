@@ -687,5 +687,41 @@ public class offerBoardDAO extends DBConnPool{
 				}
 				return count;
 			}
-		
+
+			// mypage - offerboard 출력
+			public ArrayList<offerBoardDTO> selectofferView(String id) {
+
+				String sql = "select * from offerboard where oid = ? ORDER BY onum DESC ";
+				ArrayList<offerBoardDTO> list = new ArrayList<offerBoardDTO>();
+
+				try {
+
+					psmt = con.prepareStatement(sql);
+					psmt.setString(1, id);
+					rs = psmt.executeQuery();
+
+					while (rs.next()) {
+						offerBoardDTO dto = new offerBoardDTO();
+						dto.setNum(rs.getString(1));
+						dto.setId(rs.getString(2));
+						dto.setTitle(rs.getString(3));
+						dto.setContent(rs.getString(4));
+						dto.setCate(rs.getString(5));
+						dto.setMemNum(rs.getInt(6));
+						dto.setDday(rs.getString(7));
+						dto.setPostdate(rs.getDate(8));
+						dto.setVisitcount(rs.getInt(9));
+						list.add(dto);
+					}
+					rs.close();
+					psmt.close();
+				} 
+				catch (Exception e) {
+					System.out.println("게시물 상세보기 중 예외 발생");
+					e.printStackTrace();
+				}
+				return list;
+			
+}
+
 }

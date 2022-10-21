@@ -30,6 +30,18 @@ public class JSFunction {
 			out.println(script);
 		}catch(Exception e) {}
 	}
+	
+	public static void alertBack2(String msg, JspWriter out) {
+		try {
+			String script = ""
+						+ "<script>"
+						+"	alert('" + msg +"');"
+						+"	history.back();"
+						+" window.close();"
+						+"</script>";
+			out.println(script);
+		}catch(Exception e) {}
+	}
 
 	// 메시지 알림창을 띄운 후 명시한 URL로 이동
 	public static void alertLocation(HttpServletResponse resp, String msg, String url) {

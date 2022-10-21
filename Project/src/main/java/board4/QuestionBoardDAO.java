@@ -1,9 +1,11 @@
 package board4;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
 import common.DBConnPool;
 import utils.CommentDTO;
 
@@ -270,5 +272,37 @@ public class QuestionBoardDAO extends DBConnPool {
 		}
 		
 		return result;
+	}
+	// mypage - questionboard 출력
+	public ArrayList<QuestionBoardDTO> selectquestionView(String id) {
+
+		String sql = "select * from questionboard where qid = ? ORDER BY qnum DESC ";
+		ArrayList<QuestionBoardDTO> list = new ArrayList<QuestionBoardDTO>();
+
+		try {
+
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				QuestionBoardDTO dto = new QuestionBoardDTO();
+				dto.setQnum(rs.getInt(1));
+				dto.setQid(rs.getString(2));
+				dto.setQtitle(rs.getString(3));
+				dto.setQcontent(rs.getString(4));
+				dto.setQpostdate(rs.getDate(5));
+				dto.setQvisitcount(rs.getInt(6));
+
+				list.add(dto);
+			}
+			rs.close();
+			psmt.close();
+		} 
+		catch (Exception e) {
+			System.out.println("게시물 상세보기 중 예외 발생");
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

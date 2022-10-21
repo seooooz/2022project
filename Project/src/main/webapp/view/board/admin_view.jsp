@@ -107,14 +107,6 @@ margin-top: 0.75rem;
         <div class="content-body">
 
             <div class="container-fluid col-lg-8">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Email</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Read</a></li>
-                        </ol>
-                    </div>
-                </div>
                 <!-- row -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -129,17 +121,17 @@ margin-top: 0.75rem;
                                           		 
                                                     <div class="media pt-3">
                                                         <div class="media-body">
-                                                        	<input name="pnum" value =<%= dto.getAnum() %>>
+                                                        	<input type="hidden" name="pnum" value =<%= dto.getAnum() %>>
                                                             <h3 class="btitle my-1"><%= dto.getTitle() %></h3>
                                                         </div>
                                                         
                                                         <div>
                                                         	<!-- 목록으로 돌아가기 -->
+                                                        <%
+														if(UserId != null && UserId.equals("admin")){
+														%>
                                                         <a href="admin.jsp" class="text-muted "><i
                                                                 class="fa fa-reply"></i> </a>
-                                                        <%
-														if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals("admin")){
-														%>
                                                         <div class="pull-right">
                                                         <!-- 수정하기 -->        
                                                         <a href="javascript:deleditPost('수정')" class="text-muted ml-3"><i
@@ -149,8 +141,16 @@ margin-top: 0.75rem;
                                                                 class="fa fa-trash"></i></a>
                                                         </div>
                                                         <%
-														}
+														}else {
+															if(dto.getBrd_code() == 1){
 														%>
+                                                        	<a href="skill.jsp" class="text-muted "><i class="fa fa-reply"></i> </a>
+                                                        <%}else if(dto.getBrd_code()==2){ %>
+                                                        	<a href="career" class="text-muted "><i class="fa fa-reply"></i> </a>
+                                                        <%}else{ %>
+                                                        	<a href="offer.jsp" class="text-muted "><i class="fa fa-reply"></i> </a>
+														<%}
+														} %>
                                                         </div>
                                                     </div>
                                                     

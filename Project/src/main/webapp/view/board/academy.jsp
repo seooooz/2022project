@@ -12,6 +12,18 @@
 #teqh {
 	font-size: 22px;
 }
+
+#dt {
+	text-indent: -500px;
+	height: 25px;
+	width: 200px;
+}
+
+#dt2 {
+	text-indent: -500px;
+	height: 25px;
+	width: 200px;
+}
 </style>
 <script>
 	$(document).ready(
@@ -35,6 +47,39 @@
 						});
 
 			});
+</script>
+
+<script>
+	function mydate() {
+		document.getElementById("dt").hidden = false;
+		document.getElementById("srchTraStDt").hidden = true;
+	}
+	function mydate3() {
+		document.getElementById("dt2").hidden = false;
+		document.getElementById("srchTraEndDt").hidden = true;
+	}
+	function mydate1() {
+		var today = new Date(document.getElementById("dt").value);
+		var year = today.getFullYear();
+		var month = today.getMonth() + 1;
+		var day = today.getDate();
+		var format = year + "" + (("00" + month.toString()).slice(-2)) + ""
+				+ (("00" + day.toString()).slice(-2));
+		document.getElementById("srchTraStDt").value = format;
+		document.getElementById("srchTraStDt").hidden = false;
+		document.getElementById("dt").hidden = true;
+	}
+	function mydate2() {
+		var today = new Date(document.getElementById("dt2").value);
+		var year = today.getFullYear();
+		var month = today.getMonth() + 1;
+		var day = today.getDate();
+		var format = year + "" + (("00" + month.toString()).slice(-2)) + ""
+				+ (("00" + day.toString()).slice(-2));
+		document.getElementById("srchTraEndDt").value = format;
+		document.getElementById("srchTraEndDt").hidden = false;
+		document.getElementById("dt2").hidden = true;
+	}
 </script>
 <script type="text/javascript">
 	function srch2(){
@@ -135,15 +180,11 @@
 				
 			}
 
-		};
+		}
+		;
 	}
 </script>
-<script type="text/javascript" language="JavaScript">
-	function hideDiv() {
-		document.getElementById("l01").style.display = "none";
-	}
-	self.setTimeout("hideDiv()", 1400); // 초 지정
-</script>
+
 
 
 <!-- content body start -->
@@ -158,35 +199,36 @@
 				<div class="table-responsive">
 					<!-- 테이블 시작-->
 					<div id="s1Test">
-					과정 이름: <input type="text" id="srchTraProcessNm"><br>
-					훈련 일정: <input type="text" id="srchTraStDt"> ~ <input
-						type="text" id="srchTraEndDt">
-						
-					<button onclick="srch()" class="btn btn-primary">검색</button>
+						과정 이름: <input type="text" id="srchTraProcessNm"><br>
+						훈련 일정: <input type="date" id="dt" onchange="mydate1();" /> <input
+							type="text" id="srchTraStDt" onclick="mydate();" hidden /> ~ <input
+							type="date" id="dt2" onchange="mydate2();" /> <input type="text"
+							id="srchTraEndDt" onclick="mydate3();" hidden />
+
+						<button onclick="srch()" class="btn btn-primary">검색</button>
 					</div>
 					<div id="s2Test" style="display: none;" align="left">
 						<br> <input id="search" type="text" placeholder="여기에 검색어 입력">
-						
-						<button style="float: right" onclick="srch2()" class="btn btn-primary">검색</button>
-						
+
+						<button style="float: right" onclick="srch2()"
+							class="btn btn-primary">검색</button>
+
 						<br> <br>
-						<div id="l01" style="width: 300px; height: 300px;">
-							<img src="/view/img/Spinner.gif" />
-						</div>
+
 						<table class="table mb-0">
 							<thead>
-								<th>주소</th>
-								<th>학원명</th>
-								<th>과정명</th>
-								<th>시작 날짜</th>
-								<th>종료 날짜</th>
-								<th>수강비</th>
-								<th>실제 훈련비</th>
-								
-
+								<tr>
+									<th>주소</th>
+									<th>학원명</th>
+									<th>과정명</th>
+									<th>시작 날짜</th>
+									<th>종료 날짜</th>
+									<th>수강비</th>
+									<th>실제 훈련비</th>
+								<tr>
 							</thead>
 							<tbody id="srchtable">
-								
+
 							</tbody>
 						</table>
 					</div>
@@ -194,7 +236,10 @@
 				</div>
 				<br>
 				<p>
-				정확한 정보는 반드시 <a href="https://www.hrd.go.kr/hrdp/ti/ptiao/PTIAO0100L.do" target="_blank">HRD-Net</a>사이트에서	확인하시기 바랍니다</p>
+					정확한 정보는 반드시 <a
+						href="https://www.hrd.go.kr/hrdp/ti/ptiao/PTIAO0100L.do"
+						target="_blank">HRD-Net</a>사이트에서 확인하시기 바랍니다
+				</p>
 			</div>
 			<!-- card end -->
 		</div>

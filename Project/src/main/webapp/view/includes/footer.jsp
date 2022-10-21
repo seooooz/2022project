@@ -34,7 +34,6 @@
         Scripts
     ***********************************-->
  
- 
  <!-- Required vendors -->
  	
     <script src="../../resources/vendor/global/global.min.js"></script>

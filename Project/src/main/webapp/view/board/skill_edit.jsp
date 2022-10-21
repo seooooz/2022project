@@ -11,7 +11,7 @@ String pnum = request.getParameter("pnum");
 
 skillBoardDAO dao = new skillBoardDAO();
 skillBoardDTO dto = dao.selectView(pnum);
-// String sessionId = session.getAttribute("UserId").toString();
+dao.close();
 %>
 <script type="text/javascript">
 function validateForm(form){				//폼 내용 검증
@@ -78,12 +78,6 @@ function validateForm(form){				//폼 내용 검증
 								<textarea name="content" class="form-control input-default" rows="15" cols="70" name="content"><%=dto.getContent()%></textarea>
 							</td>
 						</tr>
-<!-- 						<tr> -->
-<!-- <!-- 					        <th>첨부파일</th> --> -->
-<!-- 					        <td colspan="3" height="100"><img alt="" -->
-<!-- 					         style="height: auto; width: 100%" -->
-<%-- 					         src="../../Uploads/<%=dto.getFilename()%>"> <a></a></td> --%>
-<!-- 					   </tr> -->
 					</table>
 <br>
 						<button type="submit" class="btn btn-primary">작성 완료</button>

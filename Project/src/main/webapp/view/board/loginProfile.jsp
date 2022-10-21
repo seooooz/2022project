@@ -1,367 +1,453 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@page import="usermember.MemberDTO"%>
+<%@page import="board1.skillBoardDTO"%>
+<%@page import="board1.skillBoardDAO"%>
+<%@page import="board2.careerBoardDTO"%>
+<%@page import="board2.careerBoardDAO"%>
+<%@page import="board3.offerBoardDTO"%>
+<%@page import="board3.offerBoardDAO"%>
+<%@page import="board4.QuestionBoardDTO"%>
+<%@page import="board4.QuestionBoardDAO"%>
+<%@ page import="board5.HtagDAO"%>
+<%@ page import="board5.HtagDTO"%>
+<%@ page import="utils.CommentDTO"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
+<%@ page import="java.util.*"%>
+<%@ page import="utils.Paging"%>
 
-        <!--**********************************
+<%
+HtagDAO mdao = new HtagDAO();
+ArrayList<HtagDTO> list = mdao.selectMypageDTO2(UserId);
+int result = 0;
+int cresult = 0;
+result = mdao.selectboardcount(UserId);
+cresult = mdao.selectcommentount(UserId);
+HtagDAO mdao3 = new HtagDAO();
+MemberDTO dto = mdao3.selectMember(UserId);
+mdao3.close();
+%>
+
+<script type="text/javascript">
+	var bDisplay = true;
+	document.getElementById("cssTest").style.display = 'none';
+	function doDisplay() {
+		var pj1 = document.getElementById("cssTest");
+		if (pj1.style.display == "none") {
+			pj1.style.display = "block";
+		} else {
+			pj1.style.display = "none";
+		}
+	}
+</script>
+<script type="text/javascript">
+	var bDisplay = true;
+	document.getElementById("cssTest2").style.display = 'none';
+	function doDisplay2() {
+		var pj2 = document.getElementById("cssTest2");
+		if (pj2.style.display == "none") {
+			pj2.style.display = "block";
+		} else {
+			pj2.style.display = "none";
+		}
+	}
+</script>
+<script type="text/javascript">
+	var bDisplay = true;
+	document.getElementById("cssTest3").style.display = 'none';
+	function doDisplay3() {
+		var pj2 = document.getElementById("cssTest3");
+		if (pj2.style.display == "none") {
+			pj2.style.display = "block";
+		} else {
+			pj2.style.display = "none";
+		}
+	}
+</script>
+<script type="text/javascript">
+	var bDisplay = true;
+	document.getElementById("cssTest4").style.display = 'none';
+	function doDisplay4() {
+		var pj2 = document.getElementById("cssTest4");
+		if (pj2.style.display == "none") {
+			pj2.style.display = "block";
+		} else {
+			pj2.style.display = "none";
+		}
+	}
+
+	function deleditPost(str) {
+		var confirmed = confirm("삭제하겠습니까?");
+		if (str == '삭제') {
+			if (confirmed) {
+				var writeFrm = document.writeFrm;
+				writeFrm.method = "post";
+				writeFrm.action = "../../Process/Mypage/MypageDeleteProcess.jsp";
+				writeFrm.submit();
+			}
+		}
+		
+	}
+	
+	
+	function view(args1, args2) {
+		var brdcode = args1;
+		var brdnum = args2;
+		var form = document.viewfrm;
+
+		form.method = "post";
+		form.action = "../../Process/Mypage/MviewProcess.jsp?brdcode="
+				+ brdcode + "&brdnum=" + brdnum;
+		form.submit();
+	}
+	
+	function popup(idc) {
+		var id = idc;
+		var url = "<c:url value='/view/board/loginProfileWrite.jsp?id=" + id
+				+ "'/>";
+		window.open(url, "test", "width=600,height=600");
+	}
+	
+	   function userdelete(){
+		      
+		      if(confirm("회원 탈퇴 하시겠습니까?") == true ){
+		         location.href="/view/board/userDelete.jsp";
+		      }else{
+		         
+		         return false ;
+		      }
+		      
+		   }
+</script>
+<!--**********************************
             Content body start
-        ***********************************-->    
-  <div class="content-body">
-            <div class="container-fluid">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-<%= session.getAttribute("UserName")%>
-	회원님, 로그인하셨습니다.
-	<br>
-                            <p class="mb-0">Your business dashboard template</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- row -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="profile">
-                            <div class="profile-head">
-                                <div class="photo-content">
-                                    <div class="cover-photo"></div>
-                                    <div class="profile-photo">
-                                        <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
-                                    </div>
-                                </div>
-                                <div class="profile-info">
-                                    <div class="row justify-content-center">
-                                        <div class="col-xl-8">
-                                            <div class="row">
-                                                <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
-                                                    <div class="profile-name">
-                                                        <h4 class="text-primary">Mitchell C. Shay</h4>
-                                                        <p>UX / UI Designer</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
-                                                    <div class="profile-email">
-                                                        <h4 class="text-muted">hello@email.com</h4>
-                                                        <p>Email</p>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="col-xl-4 col-sm-4 prf-col">
-                                                    <div class="profile-call">
-                                                        <h4 class="text-muted">(+1) 321-837-1030</h4>
-                                                        <p>Phone No.</p>
-                                                    </div>
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="profile-statistics">
-                                    <div class="text-center mt-4 border-bottom-1 pb-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                <h3 class="m-b-0">150</h3><span>Follower</span>
-                                            </div>
-                                            <div class="col">
-                                                <h3 class="m-b-0">140</h3><span>Place Stay</span>
-                                            </div>
-                                            <div class="col">
-                                                <h3 class="m-b-0">45</h3><span>Reviews</span>
-                                            </div>
-                                        </div>
-                                        <div class="mt-4"><a href="javascript:void()" class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Follow</a> <a href="javascript:void()" class="btn btn-dark pl-5 pr-5 mb-4">Send
-                                                Message</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="profile-blog pt-3 border-bottom-1 pb-1">
-                                    <h5 class="text-primary d-inline">Today Highlights</h5><a href="javascript:void()" class="pull-right f-s-16">More</a>
-                                    <img src="images/profile/1.jpg" alt="" class="img-fluid mt-4 mb-4 w-100">
-                                    <h4>Darwin Creative Agency Theme</h4>
-                                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                </div>
-                                <div class="profile-interest mt-4 pb-2 border-bottom-1">
-                                    <h5 class="text-primary d-inline">Interest</h5>
-                                    <div class="row mt-4">
-                                        <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                            <a href="javascript:void()" class="interest-cat">
-                                                <img src="images/profile/2.jpg" alt="" class="img-fluid">
-                                                <p>Shopping Mall</p>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                            <a href="javascript:void()" class="interest-cat">
-                                                <img src="images/profile/3.jpg" alt="" class="img-fluid">
-                                                <p>Photography</p>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                            <a href="javascript:void()" class="interest-cat">
-                                                <img src="images/profile/4.jpg" alt="" class="img-fluid">
-                                                <p>Art &amp; Gallery</p>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                            <a href="javascript:void()" class="interest-cat">
-                                                <img src="images/profile/2.jpg" alt="" class="img-fluid">
-                                                <p>Visiting Place</p>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                            <a href="javascript:void()" class="interest-cat">
-                                                <img src="images/profile/3.jpg" alt="" class="img-fluid">
-                                                <p>Shopping</p>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                            <a href="javascript:void()" class="interest-cat">
-                                                <img src="images/profile/4.jpg" alt="" class="img-fluid">
-                                                <p>Biking</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="profile-news mt-4 pb-3">
-                                    <h5 class="text-primary d-inline">Our Latest News</h5>
-                                    <div class="media pt-3 pb-3">
-                                        <img src="images/profile/5.jpg" alt="image" class="mr-3">
-                                        <div class="media-body">
-                                            <h5 class="m-b-5">John Tomas</h5>
-                                            <p>I shared this on my fb wall a few months back, and I thought I'd share it here again because it's such a great read</p>
-                                        </div>
-                                    </div>
-                                    <div class="media pt-3 pb-3">
-                                        <img src="images/profile/6.jpg" alt="image" class="mr-3">
-                                        <div class="media-body">
-                                            <h5 class="m-b-5">John Tomas</h5>
-                                            <p>I shared this on my fb wall a few months back, and I thought I'd share it here again because it's such a great read</p>
-                                        </div>
-                                    </div>
-                                    <div class="media pt-3 pb-3">
-                                        <img src="images/profile/7.jpg" alt="image" class="mr-3">
-                                        <div class="media-body">
-                                            <h5 class="m-b-5">John Tomas</h5>
-                                            <p>I shared this on my fb wall a few months back, and I thought I'd share it here again because it's such a great read</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="profile-tab">
-                                    <div class="custom-tab-1">
-                                        <ul class="nav nav-tabs">
-                                            <li class="nav-item"><a href="#my-posts" data-toggle="tab" class="nav-link active show">Posts</a>
-                                            </li>
-                                            <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
-                                            </li>
-                                            <li class="nav-item"><a href="#profile-settings" data-toggle="tab" class="nav-link">Setting</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div id="my-posts" class="tab-pane fade active show">
-                                                <div class="my-post-content pt-3">
-                                                    <div class="post-input">
-                                                        <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea> <a href="javascript:void()"><i class="ti-clip"></i> </a>
-                                                        <a
-                                                            href="javascript:void()"><i class="ti-camera"></i> </a><a href="javascript:void()" class="btn btn-primary">Post</a>
-                                                    </div>
-                                                    <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                                        <img src="images/profile/8.jpg" alt="" class="img-fluid">
-                                                        <a class="post-title" href="javascript:void()">
-                                                            <h4>Collection of textile samples lay spread</h4>
-                                                        </a>
-                                                        <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                            of spare which enjoy whole heart.</p>
-                                                        <button class="btn btn-primary mr-3"><span class="mr-3"><i
-                                                                    class="fa fa-heart"></i></span>Like</button>
-                                                        <button class="btn btn-secondary"><span class="mr-3"><i
-                                                                    class="fa fa-reply"></i></span>Reply</button>
-                                                    </div>
-                                                    <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                                        <img src="images/profile/9.jpg" alt="" class="img-fluid">
-                                                        <a class="post-title" href="javascript:void()">
-                                                            <h4>Collection of textile samples lay spread</h4>
-                                                        </a>
-                                                        <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                            of spare which enjoy whole heart.</p>
-                                                        <button class="btn btn-primary mr-3"><span class="mr-3"><i
-                                                                    class="fa fa-heart"></i></span>Like</button>
-                                                        <button class="btn btn-secondary"><span class="mr-3"><i
-                                                                    class="fa fa-reply"></i></span>Reply</button>
-                                                    </div>
-                                                    <div class="profile-uoloaded-post pb-5">
-                                                        <img src="images/profile/8.jpg" alt="" class="img-fluid">
-                                                        <a class="post-title" href="javascript:void()">
-                                                            <h4>Collection of textile samples lay spread</h4>
-                                                        </a>
-                                                        <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                            of spare which enjoy whole heart.</p>
-                                                        <button class="btn btn-primary mr-3"><span class="mr-3"><i
-                                                                    class="fa fa-heart"></i></span>Like</button>
-                                                        <button class="btn btn-secondary"><span class="mr-3"><i
-                                                                    class="fa fa-reply"></i></span>Reply</button>
-                                                    </div>
-                                                    <div class="text-center mb-2"><a href="javascript:void()" class="btn btn-primary">Load More</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="about-me" class="tab-pane fade">
-                                                <div class="profile-about-me">
-                                                    <div class="pt-4 border-bottom-1 pb-4">
-                                                        <h4 class="text-primary">About Me</h4>
-                                                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence was created for the
-                                                            bliss of souls like mine.I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
-                                                        <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed
-                                                            in a nice, gilded frame.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-skills pt-2 border-bottom-1 pb-2">
-                                                    <h4 class="text-primary mb-4">Skills</h4>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Admin</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Dashboard</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Photoshop</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Bootstrap</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Responsive</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Crypto</a>
-                                                </div>
-                                                <div class="profile-lang pt-5 border-bottom-1 pb-5">
-                                                    <h4 class="text-primary mb-4">Language</h4><a href="javascript:void()" class="text-muted pr-3 f-s-16"><i
-                                                            class="flag-icon flag-icon-us"></i> English</a> <a href="javascript:void()" class="text-muted pr-3 f-s-16"><i
-                                                            class="flag-icon flag-icon-fr"></i> French</a>
-                                                    <a href="javascript:void()" class="text-muted pr-3 f-s-16"><i
-                                                            class="flag-icon flag-icon-bd"></i> Bangla</a>
-                                                </div>
-                                                <div class="profile-personal-info">
-                                                    <h4 class="text-primary mb-4">Personal Information</h4>
-                                                    <div class="row mb-4">
-                                                        <div class="col-3">
-                                                            <h5 class="f-w-500">Name <span class="pull-right">:</span>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-9"><span>Mitchell C.Shay</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-3">
-                                                            <h5 class="f-w-500">Email <span class="pull-right">:</span>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-9"><span>example@examplel.com</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-3">
-                                                            <h5 class="f-w-500">Availability <span class="pull-right">:</span></h5>
-                                                        </div>
-                                                        <div class="col-9"><span>Full Time (Free Lancer)</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-3">
-                                                            <h5 class="f-w-500">Age <span class="pull-right">:</span>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-9"><span>27</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-3">
-                                                            <h5 class="f-w-500">Location <span class="pull-right">:</span></h5>
-                                                        </div>
-                                                        <div class="col-9"><span>Rosemont Avenue Melbourne,
-                                                                Florida</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-3">
-                                                            <h5 class="f-w-500">Year Experience <span class="pull-right">:</span></h5>
-                                                        </div>
-                                                        <div class="col-9"><span>07 Year Experiences</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="profile-settings" class="tab-pane fade">
-                                                <div class="pt-3">
-                                                    <div class="settings-form">
-                                                        <h4 class="text-primary">Account Setting</h4>
-                                                        <form>
-                                                            <div class="form-row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label>Email</label>
-                                                                    <input type="email" placeholder="Email" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label>Password</label>
-                                                                    <input type="password" placeholder="Password" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Address</label>
-                                                                <input type="text" placeholder="1234 Main St" class="form-control">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Address 2</label>
-                                                                <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
-                                                            </div>
-                                                            <div class="form-row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label>City</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label>State</label>
-                                                                    <select class="form-control" id="inputState">
-                                                                        <option selected="">Choose...</option>
-                                                                        <option>Option 1</option>
-                                                                        <option>Option 2</option>
-                                                                        <option>Option 3</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Zip</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="form-check">
-                                                                    <input type="checkbox" class="form-check-input" id="gridCheck">
-                                                                    <label for="gridCheck" class="form-check-label">Check me out</label>
-                                                                </div>
-                                                            </div>
-                                                            <button class="btn btn-primary" type="submit">Sign
-                                                                in</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--**********************************
+        ***********************************-->
+<div class="content-body">
+	<div class="container-fluid">
+		<div class="row page-titles mx-0">
+			<div class="col-sm-6 p-md-0">
+				<div class="welcome-text">
+					<%=(session.getAttribute("UserName"))%>
+					회원님, 로그인하셨습니다.
+				</div>
+			</div>
+			<div
+				class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/view/board/index.jsp">Home</a></li>
+					<li class="breadcrumb-item active"><a
+						href="javascript:void(0)">Profile</a></li>
+				</ol>
+			</div>
+		</div>
+		<!-- row -->
+		<div class="row">
+			<div class="col-lg-12 ">
+				<div class="profile">
+					<div class="profile-head">
+						<div class="photo-content">
+							<div class="cover-photo"></div>
+						</div>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ">
+				<div class="card">
+					<div class="card-body ">
+						<a href="javascript:popup('<%=dto.getId()%>')"
+							class="btn btn-primary pl-5 pr-5 mr-3 mb-4" style="float: right;">수정</a>
+						<br> <br>
+						<div class="row">
+							<div class="col">
+								<h3 class="text-primary"><%=dto.getId()%></h3>
+							</div>
+							<div class="col">
+								<h3 class="text-muted"><%=dto.getEmail()%></h3>
+							</div>
+						</div>
+
+						<!--해시태그 -->
+						<%
+						if (list.isEmpty()) {
+						%>
+						<div class="row">
+							<%
+							} else {
+							%>
+							<div class="profile-skills pt-2 border-bottom-1 pb-2 text-center">
+								<h4 class="text-primary mb-4">Skills</h4>
+								<%
+								for (HtagDTO hdto : list) {
+								%>
+								<form name="writeFrm">
+									<input type="text" class="btn btn-outline-dark btn-rounded "
+										name="htag" value="<%=hdto.getHtag()%>"><a
+										href="javascript:deleditPost('삭제');"><i class="bi bi-x"></i></a>
+								</form>
+								<%
+								}
+								}
+								%>
+								<%
+								mdao.close();
+								%>
+							</div>
+							<!--해시태그 -->
+							<div class="profile-statistics">
+								<div class="text-center mt-4 border-bottom-1 pb-3">
+									<div class="row">
+										<!--사용자가 쓴 글 갯수 -->
+										<div class="col">
+											<h3 class="m-b-0"><%=result%></h3>
+											<span>Post</span>
+										</div>
+										<!--사용자가 쓴 댓글 갯수 -->
+										<div class="col">
+											<h3 class="m-b-0"><%=cresult%></h3>
+											<span>Comment</span>
+										</div>
+										<div class="mt-4">
+										<br><br><br>
+											<a href="#" class="dropdown-item" style="float:center;"onclick="userdelete()">
+												<i class="icon-key"></i> <span class="ml-2">회원탈퇴</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-7">
+					<div class="card">
+						<div class="card-body">
+							<div class="profile-tab">
+								<div class="custom-tab-1">
+									<ul class="nav nav-tabs">
+										<li class="nav-item"><a href="#my-posts"
+											data-toggle="tab" class="nav-link active show">게시글</a></li>
+										<li class="nav-item"><a href="#about-me"
+											data-toggle="tab" class="nav-link">댓글</a></li>
+									</ul>
+									<div class="tab-content">
+										<div id="my-posts" class="tab-pane fade active show">
+											<!-- 내가 쓴 글 보기 (기술)-->
+											<div class="card-header">
+												<h4>기술</h4>
+												<button style="width: 65px;" class="btn btn-primary"
+													onclick="javascript:doDisplay();">보기</button>
+											</div>
+											<div id="cssTest" style="display: none;">
+												<div class="table-responsive">
+													<table class="table mb-0">
+														<thead>
+															<tr>
+																<th>NO</th>
+																<th>제목</th>
+																<th>작성일</th>
+																<th>조회수</th>
+																<th>파일</th>
+															</tr>
+														</thead>
+														<tbody>
+															<%
+															skillBoardDAO sdao = new skillBoardDAO();
+															ArrayList<skillBoardDTO> boardlist = sdao.selectskillView(UserId);
+															sdao.close();
+															for (int i = 0; i < boardlist.size(); i++) {
+															%>
+															<tr>
+																<td><%=boardlist.get(i).getNum()%></td>
+																<td>
+																<a href="skill_view.jsp?num=<%=boardlist.get(i).getNum()%>"><%=boardlist.get(i).getTitle()%></a>
+																</td>
+																<td><%=boardlist.get(i).getPostdate()%></td>
+																<td><%=boardlist.get(i).getVisitcount()%></td>
+																<td><%=boardlist.get(i).getFilename()%></td>
+															</tr>
+															<%
+															}
+															%>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<!-- 내가 쓴 글 보기 (커리어)-->
+											<div class="card-header">
+												<h4>커리어</h4>
+												<button style="width: 65px;" class="btn btn-primary"
+													onclick="javascript:doDisplay2();">보기</button>
+											</div>
+											<div id="cssTest2" style="display: none;">
+												<div class="table-responsive">
+													<table class="table mb-0">
+														<thead>
+															<tr>
+																<th>NO</th>
+																<th>제목</th>
+																<th>작성일</th>
+																<th>조회수</th>
+																<th>파일</th>
+															</tr>
+														</thead>
+														<tbody>
+															<%
+															careerBoardDAO cdao = new careerBoardDAO();
+															ArrayList<careerBoardDTO> boardlist2 = cdao.selectcareerView(UserId);
+															cdao.close();
+															for (int i = 0; i < boardlist2.size(); i++) {
+															%>
+															<tr>
+																<td><%=boardlist2.get(i).getNum()%></td>
+																<td><a
+																	href="career_view.jsp?num=<%=boardlist2.get(i).getNum()%>"><%=boardlist2.get(i).getTitle()%></a></td>
+																<td><%=boardlist2.get(i).getPostdate()%></td>
+																<td><%=boardlist2.get(i).getVisitcount()%></td>
+																<td><%=boardlist2.get(i).getFilename()%></td>
+															</tr>
+															<%
+															}
+															%>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<!-- 내가 쓴 글 보기 (프로젝트)-->
+											<div class="card-header">
+												<h4>프로젝트</h4>
+												<button style="width: 65px;" class="btn btn-primary"
+													onclick="javascript:doDisplay3();">보기</button>
+											</div>
+											<div id="cssTest3" style="display: none;">
+												<div class="table-responsive">
+													<table class="table mb-0">
+														<thead>
+															<tr>
+																<th>NO</th>
+																<th>제목</th>
+																<th>작성일</th>
+																<th>조회수</th>
+																<th></th>
+
+															</tr>
+														</thead>
+														<tbody>
+															<%
+															offerBoardDAO odao = new offerBoardDAO();
+															ArrayList<offerBoardDTO> boardlist3 = odao.selectofferView(UserId);
+															odao.close();
+															for (int i = 0; i < boardlist3.size(); i++) {
+															%>
+															<tr>
+																<td><%=boardlist3.get(i).getNum()%></td>
+																<td><a
+																	href="offer_view.jsp?onum=<%=boardlist3.get(i).getNum()%>"><%=boardlist3.get(i).getTitle()%></a></td>
+																<td><%=boardlist3.get(i).getPostdate()%></td>
+																<td><%=boardlist3.get(i).getVisitcount()%></td>
+															</tr>
+															<%
+															}
+															%>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<!-- 내가 쓴 글 보기 (문의사항)-->
+											<div class="card-header">
+												<h4>문의사항</h4>
+												<button style="width: 65px;" class="btn btn-primary"
+													onclick="javascript:doDisplay4();">보기</button>
+											</div>
+											<div id="cssTest4" style="display: none;">
+												<div class="table-responsive">
+													<table class="table mb-0">
+														<thead>
+															<tr>
+																<th>NO</th>
+																<th>제목</th>
+																<th>작성일</th>
+																<th>조회수</th>
+
+															</tr>
+														</thead>
+														<tbody>
+															<%
+															QuestionBoardDAO qdao = new QuestionBoardDAO();
+															ArrayList<QuestionBoardDTO> boardlist4 = qdao.selectquestionView(UserId);
+															qdao.close();
+															for (int i = 0; i < boardlist4.size(); i++) {
+															%>
+															<tr>
+																<td><%=boardlist4.get(i).getQnum()%></td>
+																<td><a
+																	href="question_view.jsp?qnum=<%=boardlist4.get(i).getQnum()%>"><%=boardlist4.get(i).getQtitle()%></a></td>
+																<td><%=boardlist4.get(i).getQpostdate()%></td>
+																<td><%=boardlist4.get(i).getQvisitcount()%></td>
+															</tr>
+															<%
+															}
+															%>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+
+										</div>
+										<!-- 내가 쓴 댓글 보기 -->
+										<div id="about-me" class="tab-pane fade">
+											<div class="table-responsive">
+												<form name="viewfrm">
+													<table class="table mb-0">
+														<thead>
+															<tr>
+																<th>게시글 번호</th>
+																<th>댓글 번호</th>
+																<th>내용</th>
+																<th>게시판 이름</th>
+															</tr>
+														</thead>
+														<tbody>
+															<%
+															HtagDAO mdao2 = new HtagDAO();
+															ArrayList<CommentDTO> clist = mdao2.selectMypagecomment(UserId);
+															mdao.close();
+															for (int i = 0; i < clist.size(); i++) {
+															%>
+															<tr>
+																<td><%=clist.get(i).getPostNum()%></td>
+																<td><%=clist.get(i).getIdx()%></td>
+																<td><a
+																	href="javascript:view(<%=clist.get(i).getCode()%>,<%=clist.get(i).getPostNum()%>)"><%=clist.get(i).getComment()%></a></td>
+																<td><%=clist.get(i).getBrdcode()%></td>
+															</tr>
+															<%
+															}
+															%>
+														</tbody>
+													</table>
+												</form>
+												<!--                      기술 게시판 페이징 기능 start  -->
+												<!--                      기술 게시판 페이징 기능 end  -->
+											</div>
+
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--**********************************
             Content body end
         ***********************************-->
 <%@include file="../includes/footer.jsp"%>        

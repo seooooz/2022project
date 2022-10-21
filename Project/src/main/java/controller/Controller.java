@@ -84,30 +84,30 @@ public class Controller extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-//		else if(command.equals("/Project/Comment.do")) {
-//			try {
-//				action = new Comment();
-//				action.execute(request, response);
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		else if(command.equals("/Project/CommentList.do")) {
-//			try {
-//				action = new CommentList();
-//				action.execute(request, response);
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		else if(command.equals("/Project/CommentmyList.do")) {
-//			try {
-//				action = new CommentMyList();
-//				action.execute(request, response);
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
+		else if(command.equals("/Project/Comment.do")) {
+			try {
+				action = new Comment();
+				action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/Project/CommentList2.do")) {
+			try {
+				action = new CommentList();
+				action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/Project/CommentmyList.do")) {
+			try {
+				action = new CommentMyList();
+				action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

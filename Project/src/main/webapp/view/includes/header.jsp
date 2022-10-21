@@ -61,9 +61,9 @@ if(session.getAttribute("UserId") != null){
         <div class="nav-header">
             <a href="../../view/board/index.jsp" class="brand-logo">
                 <img class="logo-abbr" src="../../resources/images/logo.png" alt="">
-<!--                 <img class="logo-compact" src="../../resources/images/logo-text.png" alt=""> -->
-<!--                 <img class="brand-title" src="../../resources/images/logo-text.png" alt=""> -->
-                <img class="brand-title" src="../../resources/images/4Dlogo.png" alt="">
+<!--                 <img class="logo-compact" src="../../resources/images/4Dlogo.png" alt=""> -->
+                <img style="width:100px;" class="brand-title" src="../../resources/images/4Dlogo.png" alt="">
+<!--                 <img class="logi-title" src="../../resources/images/4Dlogo.png" alt=""> -->
             </a>
 
             <div class="nav-control">

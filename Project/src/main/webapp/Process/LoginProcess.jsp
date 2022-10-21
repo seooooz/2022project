@@ -21,7 +21,6 @@ if(dto.getId() != null){
 	session.setAttribute("UserId", dto.getId()); 		// 세션 생성
 	session.setAttribute("UserName", dto.getName());
 	JSFunction.alertLocation(response, dto.getName()+"님 로그인 하셨습니다.", "../view/board/index.jsp");
-// 	response.sendRedirect("../view/board/index.jsp");
 }
 else{
 	// 로그인 실패

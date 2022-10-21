@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 function validateForm(form){				//폼 내용 검증
 	if(form.title.value == ""){
@@ -49,7 +48,8 @@ function validateForm(form){				//폼 내용 검증
 						<table>
 							<tr>
 								<th>작성자</th>
-								<td><input type="text" class="form-control input-default"
+								<td>
+								<input type="text" class="form-control input-default"
 									name="id" value=<%=session.getAttribute("UserId")%> disabled></td>
 							</tr>
 
@@ -70,7 +70,12 @@ function validateForm(form){				//폼 내용 검증
 							<tr>
 								<th>인원수</th>
 								<td>
-									<input type="text" class="form-control input-default" size="70" name="memNum">
+									 <select name="memNum" class="form-control">
+									    <option value="2">2명</option>
+									    <option value="3">3명</option>
+									    <option value="4">4명</option>
+									    <option value="5">5명</option>
+									  </select>
 								</td>
 							</tr>
 							<tr>
@@ -101,5 +106,6 @@ function validateForm(form){				//폼 내용 검증
 	</div>
 </div>
 <!-- content body end -->
-
+<script src="../../resources/js/jquery.min.js"></script>
+<script src="../../resources/js/bootstrap-slider.js"></script>
 <%@include file="../includes/footer.jsp"%>

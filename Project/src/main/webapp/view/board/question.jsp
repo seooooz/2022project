@@ -32,7 +32,6 @@ String User_Id = (String)session.getAttribute("UserId");
 	List<QuestionBoardDTO> questionList = dao.selectList(param); // 게시물 목록 받기
 	dao.close();
 %>
-<%-- <%@include file="../../Process/PageProcess.jsp"%> --%>
 <script>
 
 
@@ -52,39 +51,12 @@ String User_Id = (String)session.getAttribute("UserId");
 				+ qnum + "&qid="+qid+"'/>", "PassWordCheck", "width=500, height=500");
 
 	}
+	function popup(idc) {
+		var qid = idc;
+		var url = "<c:url value='/view/board/qother.jsp?qid=" + qid + "'/>";
+		window.open(url, "test", "width=600,height=600");
+	}
 </script>
-
-<style>
-
-#top-content{
-	color:aqua;
-	
-}
-
-#qtable {
-	color:black;
-	
-}
-
-#qtable a{
-	
-	color: inherit;
-}
-#teqh {
-	font-size: 22px;
-}
-
-.search_flex {
-	display: flex;
-	padding: 1.25rem 1.25rem 5px;
-}
-
-.search_item {
-	flex: 1;
-}
-
-
-</style>
 
 
 <!-- content body start -->
@@ -140,12 +112,12 @@ String User_Id = (String)session.getAttribute("UserId");
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead>
-												<tr id="qtable" align="center">
-													<th width="10%">NO</th>
-													<th width="40%">제목</th>
-													<th width="15%">작성자</th>
-													<th width="20%">처리 상태</th>
-													<th width="15%">작성일</th>
+												<tr class="f" align="center">
+													<th class="f" width="10%">NO</th>
+													<th class="f" width="40%">제목</th>
+													<th class="f" width="15%">작성자</th>
+													<th class="f" width="20%">처리 상태</th>
+													<th class="f" width="15%">작성일</th>
 
 												</tr>
 											</thead>
@@ -166,14 +138,14 @@ String User_Id = (String)session.getAttribute("UserId");
 												virtualNum= totalCount--;
 												String qid = dto.getQid();
 												%>
-												<tr id="qtable">
-													<td align="center"><%= virtualNum %></td>
-													<td >
+												<tr class="f">
+													<td class="f" align="center"><%= virtualNum %></td>
+													<td  class="f">
 														<%
 															if(User_Id == null || User_Id.equals("null")){
 														%> 
 															
-															<a class="tt" href="#" onclick="return validateForm(this);" ><%=dto.getQtitle() %></a>
+															<a class="f" href="#" onclick="return validateForm(this);" ><%=dto.getQtitle() %></a>
 														
 														<%
 															}else if(User_Id.equals("admin")){
@@ -183,7 +155,7 @@ String User_Id = (String)session.getAttribute("UserId");
 														<%
 															}else if(!(User_Id.equals(qid))){
 														%>
-															<a href="#" onclick="return validateForm2();"><%=dto.getQtitle() %></a>
+															<a class="f" href="#" onclick="return validateForm2();"><%=dto.getQtitle() %></a>
 														<%
 															}else{
 														%> 
@@ -193,7 +165,7 @@ String User_Id = (String)session.getAttribute("UserId");
 														}
 														%>
 													</td>
-													<td align="center"><%=dto.getQid()%></td>
+													<td class="f"><a class="f" href="javascript:popup('<%=dto.getQid()%>')"><%=dto.getQid()%></a></td>
 													<%
 													QuestionBoardDAO dao1 = new QuestionBoardDAO();
 													int countcom = dao1.countCom(dto.getQnum());
@@ -204,7 +176,7 @@ String User_Id = (String)session.getAttribute("UserId");
 													<%}else { %>
 													<td align="center" style="color:red;">등록</td>
 													<%} %>
-													<td align="center"><%=dto.getQpostdate()%></td>
+													<td class="f" align="center"><%=dto.getQpostdate()%></td>
 												</tr>
 												<%
 													}

@@ -51,12 +51,6 @@ function validateForm(form){				//폼 내용 검증
 					<form name="offerwriteFrm" method="post" action="../../Process/admin/writeProcess.jsp"			
 						 onsubmit="return validateForm(this)">			
 						<table>
-<!-- 							<tr> -->
-<!-- 								<th>작성자</th> -->
-<!-- 								<td><input type="text" class="form-control input-default" -->
-<%-- 									name="id" value=<%=session.getAttribute("UserId")%> disabled></td> --%>
-<!-- 							</tr> -->
-
 							<tr>
 								<th>제목</th>
 								<td>

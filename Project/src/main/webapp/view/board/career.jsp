@@ -6,15 +6,18 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="utils.Paging"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
 <%@include file="./career/paging.jsp" %>
 <script>
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
-	}
+			}
+   function popup(idc) {
+	      var cid = idc;
+	      var url = "<c:url value='/view/board/cother.jsp?cid=" + cid + "'/>";
+	      window.open(url, "test", "width=600,height=600");
+	   }
 </script>
 
 <!-- content body start -->
@@ -91,14 +94,14 @@
 												<%
 												for(adminBoardDTO admdto : adminLists){
 												%>
-													<tr>
-														<td align="center"><i class="bi bi-megaphone-fill"></i></td>
+													<tr style="background-color: #f5f5ff;">
+														<td align="center"><i class="bi bi-megaphone-fill report"></i></td>
 														<td>
-														<a href="admin_view.jsp?anum=<%=admdto.getAnum()%>"><%=admdto.getTitle()%></a>
+														<a class="report" href="admin_view.jsp?anum=<%=admdto.getAnum() %>"><%=admdto.getTitle()%></a>
 														</td>
-														<td align="center">관리자</td>
-														<td align="center"><%=admdto.getPostdate() %></td>
-														<td align="center"><%=admdto.getVisitcount() %></td>
+														<td class="report" align="center">관리자</td>
+														<td class="report" align="center"><%=admdto.getPostdate() %></td>
+														<td class="report" align="center"><%=admdto.getVisitcount() %></td>
 													</tr>
 														<%
 														}
@@ -134,7 +137,7 @@
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>													
 													</td>
-													<td align="center"><%=dto.getId()%></td>
+                                         								<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 													<td align="center"><%=dto.getPostdate()%></td>
 													<td align="center"><%=dto.getVisitcount()%></td>
 												</tr>
@@ -202,7 +205,7 @@
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
-														<td align="center"><%=dto.getId()%></td>
+                                          									<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
 														<%if(dto.getFilesize()>0){ %>
@@ -267,7 +270,7 @@
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
-														<td align="center"><%=dto.getId()%></td>
+                                          									<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
 														<%if(dto.getFilesize()>0){ %>
@@ -291,12 +294,13 @@
 									<div class="table-responsive">
 										<table class="table mb-0">
 											<thead class="f">
-												<tr>
-													<th>NO</th>
-													<th>제목</th>
-													<th>작성자</th>
+												<tr align="center">
+													<th width="10%">NO</th>
+													<th width="40%">제목</th>
+													<th width="15%">작성자</th>
 													<th>작성일</th>
 													<th>조회수</th>
+													<th>파일</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -326,13 +330,18 @@
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 																dao1.close();
 															%>
-															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%><%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
-														<td align="center"><%=dto.getId()%></td>
+                                           									<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
+														<%if(dto.getFilesize()>0){ %>
+														<td align="center"><i class="bi bi-folder-fill"></i></td>
+														<%}else{ %>
+														<td style="opacity: 0;">첨부파일 없음</td>
+														<%} %>
 													</tr>
 													<%
 													}

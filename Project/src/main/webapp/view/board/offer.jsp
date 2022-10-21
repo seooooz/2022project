@@ -57,62 +57,13 @@
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
 	}
-	
+	function popup(idc) {
+		var oid = idc;
+		var url = "<c:url value='/view/board/oother.jsp?oid=" + oid + "'/>";
+		window.open(url, "test", "width=600,height=600");
+	}
+   
 </script>
-
-<style>
-
-.title_a {
-	color: black;
-    font-size: 17px;
-}
-
-#teqh {
-	font-size: 22px;
-}
-
-.search_flex {
-	display: flex;
-	padding: 1.25rem 1.25rem 5px;
-}
-
-.search_item {
-	flex: 1;
-}
-
-.my-2 {
-	margin-bottom: 2rem !important;
-	margin-top: 2rem !important;
-}
-
-.items-center {
-	align-items: center;
-}
-
-.flex-col { 
-	flex-direction: column; 
- } 
-
-.flex {  
-      display: flex; 
- }  
- 
-.flex-1 {
-     flex: 1 1 0%; 
-} 
-
-.gap-x-3 {
-    -moz-column-gap: .75rem;
-    column-gap: 0.75rem;
-}
-.gap-x-4 {
-    column-gap: 0.5rem;
-}
-
-.paper_list li{
-    border-bottom: 1px solid #dee2e6;
-}
-</style>
 
 <!-- content body start -->
 <div class="content-body" align="center">
@@ -169,23 +120,23 @@
 									<div class="table-responsive">
 										<ul class="table mb-0">
 					<!-- OFFER 게시판 목록 start  -->
-					<table>
 					<%
 					for(adminBoardDTO admdto : adminLists){
 							%>
-								<tr>
-									<td align="center"><i class="bi bi-megaphone-fill"></i></td>
-									<td>
-									<a href="admin_view.jsp?anum=<%=admdto.getAnum()%>"><%=admdto.getTitle()%></a>
-									</td>
-									<td align="center">관리자</td>
-									<td align="center"><%=admdto.getPostdate() %></td>
-									<td align="center"><%=admdto.getVisitcount() %></td>
-								</tr>
+							<div style="background-color: #f5f5ff;">
+								<div class="flex flex-1 report">
+									<div class="items-center gap-x-3">관리자</div>
+									<div  class="items-center gap-x-3">
+									<i class="bi bi-megaphone-fill"></i>
+									<a class="report" href="admin_view.jsp?anum=<%=admdto.getAnum()%>"><%=admdto.getTitle()%></a>
+									</div>
+									<div class="items-center gap-x-3"><%=admdto.getPostdate() %></div>
+								</div>
+							</div>
+							<br>	
 									<%
 									}
 									%>
-						</table>	
 							<!-- 게시물이 없을 때 -->
 						<div>
 							<%
@@ -209,9 +160,10 @@
 						<ul class="paper_list f">
 							<li class="py-4">
 							<div class="flex flex-col ">
-								<div class="flex items-center gap-x-3">
-									<div class="flex flex-1 items-center gap-x-3"> <!-- id -->
-										<%=dto.getId() %>
+								<div class="flex flex-1 items-center gap-x-3">
+									<div class="flex items-center gap-x-3"> <!-- id -->
+										<i class="bi bi-person-fill"></i>
+                              							<a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a>
 									</div>
 									<div class="flex items-center gap-x-4">
 										<div><i class="bi bi-eye pull-right"></i></div>
@@ -219,7 +171,7 @@
 									</div>
 								</div>	
 								<div class="my-2 flex" align="left"> <!-- 제목(링크) -->
-									<div class="flex flex-1 items-center gap-x-3">
+									<div class="flex items-center gap-x-3 mt-5">
 									
 									<%
 									offerBoardDAO dao1 = new offerBoardDAO();
@@ -231,8 +183,8 @@
 									<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 									</div>
 								</div>
-								<div class="flex flex-1">
-									<div class="flex flex-1 items-center gap-x-3">
+								<div class="flex flex-1 mt-5">
+									<div class="flex items-center gap-x-3">
 										<div class="flex items-center gap-x-3"><%= dto.getCate() %></div>
 										<div class="flex items-center gap-x-3">총 <%= dto.getMemNum() %>명</div>
 									</div>	

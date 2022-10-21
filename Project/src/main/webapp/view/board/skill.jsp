@@ -12,6 +12,12 @@
 	function validateForm(form) {
 		alert("로그인 후 이용할 수 있습니다.");
 	}
+   function popup(idc) {
+	      var sid = idc;
+	      var url = "<c:url value='/view/board/sother.jsp?sid=" + sid + "'/>";
+	      window.open(url, "test", "width=600,height=600");
+	   }
+
 </script>
 
 <!-- content body start -->
@@ -86,15 +92,14 @@
 												<%
 												for(adminBoardDTO admdto : adminLists){
 												%>
-													<tr>
-														<td align="center"><i class="bi bi-megaphone-fill"></i></td>
-														<!-- 게시물 클릭시 이동할 페이지 --> 
+													<tr style="background-color: #f5f5ff;">
+														<td align="center"><i class="bi bi-megaphone-fill report"></i></td>
 														<td>
-														<a href="admin_view.jsp?anum=<%=admdto.getAnum() %>"><%=admdto.getTitle()%></a>
+														<a class="report" href="admin_view.jsp?anum=<%=admdto.getAnum() %>"><%=admdto.getTitle()%></a>
 														</td>
-														<td align="center">관리자</td>
-														<td align="center"><%=admdto.getPostdate() %></td>
-														<td align="center"><%=admdto.getVisitcount() %></td>
+														<td class="report" align="center">관리자</td>
+														<td class="report" align="center"><%=admdto.getPostdate() %></td>
+														<td class="report" align="center"><%=admdto.getVisitcount() %></td>
 													</tr>
 														<%
 														}
@@ -131,7 +136,7 @@
 														&nbsp;&nbsp;&nbsp;&nbsp;
 														<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 													</td>
-													<td align="center"><%=dto.getId()%></td>
+                                       									<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 													<td align="center"><%=dto.getPostdate()%></td>
 													<td align="center"><%=dto.getVisitcount()%></td>
 												</tr>
@@ -189,7 +194,7 @@
 														for (skillBoardDTO dto : cdLists) {
 														virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
-												<tr>
+                                   								<tr class="f">
 													<td align="center"><%=virtualNum%></td>
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
@@ -202,7 +207,7 @@
 														&nbsp;&nbsp;&nbsp;&nbsp;
 														<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 													</td>
-													<td align="center"><%=dto.getId()%></td>
+                                       									<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 													<td align="center"><%=dto.getPostdate()%></td>
 													<td align="center"><%=dto.getVisitcount()%></td>
 													<%if(dto.getFilesize()>0){ %>
@@ -259,7 +264,7 @@
 														for (skillBoardDTO dto : etcLists) {
 														virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 												%>
-												<tr>
+                                    									<tr class="f">
 													<td align="center"><%=virtualNum%></td>
 													<td>
 														<!-- 게시물 클릭시 이동할 페이지 --> 
@@ -272,7 +277,7 @@
 														&nbsp;&nbsp;&nbsp;&nbsp;
 														<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 													</td>
-													<td align="center"><%=dto.getId()%></td>
+                                       									<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 													<td align="center"><%=dto.getPostdate()%></td>
 													<td align="center"><%=dto.getVisitcount()%></td>
 													<%if(dto.getFilesize()>0){ %>

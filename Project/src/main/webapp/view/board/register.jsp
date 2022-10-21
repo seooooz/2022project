@@ -127,7 +127,7 @@
    <!-- id입력  -->                           <label><strong>ID</strong></label>
                                             <input type="text" name="user_id" id="id" class="form-control" value="" placeholder="4~10자 사이로 입력해주세요">
                                             <input type="hidden" name="checkid" value="idUncheck"/>
-                                            <input type="button" value="중복확인" onClick="checkID()"/>
+                                            <input type="button" class="btn btn-primary btn-block" value="중복확인" onClick="checkID()"/>
                                         </div>
                                         <div class="form-group">
    <!-- pw입력  -->                          <label><strong>Password</strong></label>

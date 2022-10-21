@@ -34,11 +34,11 @@
 				alt="Second slide">
 		</div>
 		<div class="carousel-item">
-			<img id="simg" class="d-block w-100" src="/view/img/contest.jpg"
+			<img id="simg" onclick="location='contest.jsp'" class="d-block w-100" src="/view/img/contest.jpg"
 				alt="Third slide">
 		</div>
 		<div class="carousel-item">
-			<img id="simg" class="d-block w-100" src="/view/img/project.jpg"
+			<img id="simg" onclick="location='offer.jsp'"  class="d-block w-100" src="/view/img/project.jpg"
 				alt="Forth slide">
 		</div>
 
