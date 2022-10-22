@@ -50,7 +50,7 @@ function redeletePost(str){
 	if(str == '대댓삭제'){
 	 		var form = document.redelFrm;
 	 		form.method = "post";
-	 		form.action = "../../Process/career/ComDelProcess.jsp";
+	 		form.action = "../../Process/skill/ComDelProcess.jsp";
 	 		form.submit();
 }
 }
@@ -327,7 +327,7 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
                                                 <div>
 													<%
 													if(comLists.isEmpty()){   // 댓글이 없을 때 
-													%>
+													%>	
 														<li>
 															<div align="center">
 																등록된 댓글이 없습니다^^*
@@ -339,10 +339,8 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 														int countNum = 0;
 														
 														for (CommentDTO cdto : comLists) {
-// 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 															skillBoardDAO dao1 = new skillBoardDAO();
 															List<CommentDTO> reLists = dao1.reselectView(snum, cdto.getGroupNum());
-															dao1.close();
 													%>
 												<div> <!-- 댓글이 있을 때 -->
 												<hr>
@@ -355,9 +353,9 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 															</div>
 															<div>
 																<form name="redelFrm" method="post" action="../../Process/skill/ComDelProcess.jsp">
-																<input type="hidden"  name = "comidx" value=<%= cdto.getIdx()%>>
-																<input type="hidden"  name = "pnum" value=<%= cdto.getPostNum()%>>
-																<input type="hidden"  name = "id" value=<%= cdto.getId()%>>
+																<input type="hidden"  name = "ccomidx" value=<%= cdto.getIdx()%>>
+																<input type="hidden"  name = "cnum" value=<%= cdto.getPostNum()%>>
+																<input type="hidden"  name = "cid" value=<%= cdto.getId()%>>
 																<button class="pull-right btn btn-default text-muted">댓글 삭제</button>
 																</form>
 															</div>
@@ -391,7 +389,7 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 													
 													<%	
 														for (CommentDTO redto : reLists) {
-													%>
+														%>
 													<div class="accordion-collapse collapse" id="collapseTwo<%=cdto.getIdx()%>" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 													<div  class="recom"> <!-- 대댓글이 있을 때 -->
 														<div class="paper_list recomm">
@@ -401,11 +399,11 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 																		<div style="font-size:16px;" class="b comment"><%= redto.getComment() %></div>
 															</div>
 															<div>
-																<form method="post" onclick="../../Process/career/ComDelProcess.jsp">
-																<input type="hidden" name = "comidx" value=<%= redto.getIdx()%>>
+																<form name="redelFrm" method="post" action="../../Process/skill/ReDelProcess.jsp">
+																<input type="hidden"  name = "comidx" value=<%= redto.getIdx()%>>
 																<input type="hidden"  name = "pnum" value=<%= redto.getPostNum()%>>
 																<input type="hidden"  name = "id" value=<%= redto.getId()%>>
-																<button type="submit">댓글 삭제</button>
+																<button class="btn btn-default text-muted">댓글 삭제</button>
 																</form>
 															</div>
 														</div>
@@ -413,9 +411,11 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 												</div>
 												</div>
 											</div>	
-												<%		}
+																									
+													<%
+														}	
 													}
-														}
+													}
 													}
 												%>
                                                 </div>

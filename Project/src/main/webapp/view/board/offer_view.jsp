@@ -42,13 +42,6 @@ function deleditPost(str){
 	 		form.submit();
 	 	}
 	}
-	else if(str == '대댓삭제'){
-	 		var form = document.redelFrm;
-	 		form.method = "post";
-	 		form.action = "../../Process/offer/ComDelProcess.jsp";
-	 		form.submit();
-// 	 	}
-}
 }
 
 function reportFrm(args1,args2) {
@@ -388,11 +381,11 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 																		<div style="font-size:16px;" class="b comment"><%= redto.getComment() %></div>
 															</div>
 															<div>
-																<form name="redelFrm">
-																<input type="hidden" name = "comidx" value=<%= redto.getIdx()%>>
+																<form name="redelFrm" method="post" action="../../Process/offer/ReDelProcess.jsp">
+																<input type="hidden"  name = "comidx" value=<%= redto.getIdx()%>>
 																<input type="hidden"  name = "pnum" value=<%= redto.getPostNum()%>>
 																<input type="hidden"  name = "id" value=<%= redto.getId()%>>
-																<a href="javascript:deleditPost('대댓삭제');">댓글 삭제</a>
+																<button class="btn btn-default text-muted">댓글 삭제</button>
 																</form>
 															</div>
 														</div>

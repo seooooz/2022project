@@ -35,12 +35,13 @@
 			delResult = dao.deleteCom(idx);
 			dao.close();
 			
-			if(delResult == 1){
-				//성공 ) 목록 페이지로 이동
-				JSFunction.alertLocation("삭제되었습니다", "../../view/board/offer.jsp", out);
-			}// 실패 ) 이전 페이지로 이동
-			else{
+			if(delResult == 0){
+				// 실패 ) 이전 페이지로 이동
 				JSFunction.alertBack("삭제에 실패하였습니다.", out);
+			}
+			else{
+				//성공 ) 목록 페이지로 이동
+				JSFunction.alertLocation("삭제되었습니다", "../../view/board/offer_view.jsp?onum=" + pnum, out);
 			}
 		}
 		else{

@@ -626,6 +626,27 @@ public class offerBoardDAO extends DBConnPool{
 						
 						try {
 							
+							String sql = "delete from BCOMMENT where GROUPNUM = ?";
+							
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, idx);
+							
+							result = psmt.executeUpdate();
+						}
+						catch(Exception e) {
+							System.out.println("댓글 삭제 중 예외 발생");
+							e.printStackTrace();
+						}
+						
+						return result;
+					}
+					
+					// 대댓글 삭제
+					public int deleteRe(String idx) {
+						int result = 0;
+						
+						try {
+							
 							String sql = "delete from BCOMMENT where com_index = ?";
 							
 							psmt = con.prepareStatement(sql);

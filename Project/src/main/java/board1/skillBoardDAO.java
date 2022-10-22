@@ -476,6 +476,26 @@ public class skillBoardDAO extends DBConnPool{
 					return result;
 				}
 				
+				//대댓글 개수
+				public int replycount(String groupnum) {
+					int recount = 0;
+					
+					try {
+						String sql = "SELECT count(GROUPNUM) as recount FROM BCOMMENT b WHERE GROUPNUM = ? AND CLASS = 0";
+						
+						psmt = con.prepareStatement(sql);
+						psmt.setString(1, groupnum);
+						rs = psmt.executeQuery();
+						
+						if(rs.next())
+							recount = rs.getInt("recount");
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+					return recount;
+				}
+				
 				
 				// 부모 댓글 데이터를 받아 DB에 추가
 				public int skillinsertCom(CommentDTO dto) {
@@ -596,6 +616,28 @@ public class skillBoardDAO extends DBConnPool{
 					
 					// 댓글 삭제
 					public int deleteCom(String idx) {
+						int result = 0;
+						
+						try {
+							
+							String sql = "delete from BCOMMENT where GROUPNUM = ?";
+							
+							psmt = con.prepareStatement(sql);
+							psmt.setString(1, idx);
+							
+							result = psmt.executeUpdate();
+							System.out.println(result);
+						}
+						catch(Exception e) {
+							System.out.println("댓글 삭제 중 예외 발생");
+							e.printStackTrace();
+						}
+						
+						return result;
+					}
+					
+					// 대댓글 삭제
+					public int deleteRe(String idx) {
 						int result = 0;
 						
 						try {

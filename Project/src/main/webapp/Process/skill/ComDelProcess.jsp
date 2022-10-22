@@ -10,9 +10,9 @@
 		String sessionId = (String)session.getAttribute("UserId");
 		
 		// 매개변수 저장
-		String pnum = request.getParameter("pnum");
-		String idx = request.getParameter("comidx");
-		String id = request.getParameter("id");
+		String pnum = request.getParameter("cnum");
+		String idx = request.getParameter("ccomidx");
+		String id = request.getParameter("cid");
 		
 		
 		System.out.println(pnum);
@@ -34,12 +34,13 @@
 			delResult = dao.deleteCom(idx);
 			dao.close();
 			
-			if(delResult == 1){
-				//성공 ) 목록 페이지로 이동
-				JSFunction.alertLocation("삭제되었습니다", "../../view/board/skill_view.jsp?num=" + pnum, out);
-			}// 실패 ) 이전 페이지로 이동
-			else{
+			if(delResult == 0){
+			// 실패 ) 이전 페이지로 이동
 				JSFunction.alertBack("삭제에 실패하였습니다.", out);
+			}
+				//성공 ) 목록 페이지로 이동
+			else{
+				JSFunction.alertLocation("삭제되었습니다", "../../view/board/skill_view.jsp?num=" + pnum, out);
 			}
 		}
 		else{

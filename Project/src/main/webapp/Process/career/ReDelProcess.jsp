@@ -31,16 +31,15 @@
 			// 작성자 본인
 		if(sessionId.equals(id)){
 			
-			delResult = dao.deleteCom(idx);
+			delResult = dao.deleteRe(idx);
 			dao.close();
 			
-			if(delResult == 0){
-				// 실패 ) 이전 페이지로 이동
-				JSFunction.alertBack("삭제에 실패하였습니다.", out);
-			}
+			if(delResult == 1){
 				//성공 ) 목록 페이지로 이동
-			else{
 				JSFunction.alertLocation("삭제되었습니다", "../../view/board/career_view.jsp?num=" + pnum, out);
+			}// 실패 ) 이전 페이지로 이동
+			else{
+				JSFunction.alertBack("삭제에 실패하였습니다.", out);
 			}
 		}
 		else{
