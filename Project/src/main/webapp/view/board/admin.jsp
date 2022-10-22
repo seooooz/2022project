@@ -13,7 +13,8 @@
 <%@page import="board1.skillBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../includes/admin_header.jsp"%>
+<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/navbar.jsp"%>
    <!-- Datatable -->
 <link href="../../resources/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <style>
@@ -39,8 +40,11 @@ function view(args1,args2){
 <!--**********************************
             Content body start
         ***********************************-->
+<div class="content-body" align="center">
+<div class="col-lg-8">
+	<input type="button" class="btn btn-primary" value="셋팅 게시물 관리"
+	onclick="location.href='/view/board/setNotice_list.jsp'">
 <div class="main_body">
-	<!-- row -->
 	<div class="container-fluid">
 		<div class="card">
 			<div class="card-header">
@@ -51,7 +55,7 @@ function view(args1,args2){
 				<div class ="dataTables_scroll">
 						<table class="table mb-0">
 							<thead>
-								<tr>
+								<tr class="f">
 									<th>Num</th>
 									<th>게시판 고유번호</th>
 									<th>신고당한 게시물번호</th>
@@ -67,11 +71,11 @@ function view(args1,args2){
 								dao.close();
 								for (int i = 0; i < list.size(); i++) {
 								%>
-								<tr>
+								<tr class="f">
 									<td><%=list.get(i).getNum()%></td>
 									<td><%=list.get(i).getBrd_code1()%></td>
 									<td>
-									<a href="javascript:view(<%=list.get(i).getBrd_code()%>,<%=list.get(i).getTarget_id()%>)"><%=list.get(i).getTarget_id()%></a>
+									<a class="f" href="javascript:view(<%=list.get(i).getBrd_code()%>,<%=list.get(i).getTarget_id()%>)"><%=list.get(i).getTarget_id()%></a>
 									</td>
 									<td><%=list.get(i).getTuid()%></td>
 									<td><%=list.get(i).getId()%></td>
@@ -90,7 +94,8 @@ function view(args1,args2){
 			</div>
 		</div>
 		<!-- 공지 확인 -->
-		<div>
+		<div class="main_body">
+			<div class="container-fluid">
 			<div class="card">
 				<div class="card-header">
 					<h4 class="card-title">공지</h4>
@@ -102,10 +107,11 @@ function view(args1,args2){
 					<div class="table-responsive">
 						<table class="table mb-0">
 							<thead>
-								<tr>
+								<tr class="f">
 									<th>NO</th>
 									<th>카테고리</th>
 									<th>제목</th>
+									<th>조회수</th>
 									<!--	<th>작성일</th>
 												<th>조회수</th>	-->
 								</tr>
@@ -117,14 +123,15 @@ function view(args1,args2){
 								adao.close();
 								for (int i = 0; i < slist.size(); i++) {
 								%>
-								<tr>
+								<tr class="f">
 									<td><%=slist.get(i).getAnum()%></td>
 									<td><%=slist.get(i).getBrd_name()%></td>
 									<td>
-									<a href="admin_view.jsp?anum=<%=slist.get(i).getAnum()%>">
+									<a class="f" href="admin_view.jsp?anum=<%=slist.get(i).getAnum()%>">
 									<%=slist.get(i).getTitle()%>
 									</a>
 									</td>
+									<td><%=slist.get(i).getVisitcount() %></td>
 								</tr>
 								<%
 											}
@@ -137,6 +144,9 @@ function view(args1,args2){
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+</div>	
 <!--**********************************
             Content body end
         ***********************************-->

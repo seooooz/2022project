@@ -33,16 +33,12 @@ mdao.close();
 			<div class="row justify-content-center h-100 align-items-center">
 				<div class="col-md-6">
 					<div class="authincation-content">
-						<div class="row no-gutters">
-							<div class="col-xl-12">
 								<div class="auth-form">
 									<h4 class="text-center mb-4"><%=id%>
 										프로필
 									</h4>
 
 								</div>
-							</div>
-						</div>
 						<%
 						HtagDAO mdao3 = new HtagDAO();
 						MemberDTO dto = mdao3.selectMember(id);
@@ -52,9 +48,6 @@ mdao.close();
 								<div class="row">
 									<div class="col">
 										<h4 class="text-primary"><%=dto.getId()%></h4>
-
-									</div>
-									<div class="col">
 										<h4 class="text-muted"><%=dto.getEmail()%></h4>
 									</div>
 								</div>
@@ -99,6 +92,7 @@ mdao.close();
 										<span>Comment</span>
 									</div>
 								</div>
+								<br>
 								<%
 								if (UserId.equals(id)) {
 								%>

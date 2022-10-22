@@ -5,14 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="../../resources/css/main.css">
+<link href="../../resources/css/style.css" rel="stylesheet">
+<title>Report</title>
 </head>
 <body>
-<script>
-// function getqnum(){
-// 	document.getElementById("onum").value=opener.document.getElementById("onum").value;
-// 	}
-</script>
 <%
 careerBoardDAO odao = new careerBoardDAO();
 int count = odao.selectReport(Integer.valueOf(request.getParameter("num")), (String)session.getAttribute("UserId"));
@@ -35,22 +32,24 @@ window.close();
 						<div class="row no-gutters">
 							<div class="col-xl-12">
 								<div class="auth-form">
-									<h4 class="text-center mb-4">신고 하기</h4>
+									<h3 class="text-center mb-4">게시물을 신고하는 이유를<br> 알려주세요!</h3>
+									<p class="f" style="font-size: 14px;">타당한 그거 없이 신고된 내용은 관리자 확인 후 반영되지 않을 수 있습니다.</p>
+									<br>
 									<form method="post" action="../../Process/career/ReportProcess.jsp">
-										<div class="form-group">
-										</div>
-										<div class="form-group">
-											<input type="hidden" name="num" id="num" value="<%=request.getParameter("num")%>" />
-											<input type="hidden" name="tuid" id="tuid" value="<%=request.getParameter("tuid")%>" />
-										</div>
-										<div class="form-group">
+										<input type="hidden" name="num" id="num" value="<%=request.getParameter("num")%>" />
+										<input type="hidden" name="tuid" id="tuid" value="<%=request.getParameter("tuid")%>" />
+										<div class="form-group f">
 											<input type="radio" name="chk_info" value=0>광고/스팸
+											<br><br>
 											<input type="radio" name="chk_info" value=1>과도한 욕설
+											<br><br>
 											<input type="radio" name="chk_info" value=2>음란물
-											<input type="radio" name="chk_info" value=3>성격상이
+											<br><br>
+											<input type="radio" name="chk_info" value=3>관련없는 내용
 										</div>
+										<br>
 										<div class="text-center mt-4">
-											<button type="submit" class="btn btn-primary btn-block" onclick="close()">확인</button>
+											<button type="submit" class="btn btn-primary" onclick="close()">확인</button>
 										</div>
 									</form>
 

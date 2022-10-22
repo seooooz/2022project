@@ -11,8 +11,8 @@
     <title>Focus - Bootstrap Admin Dashboard </title>
     
     <link rel="stylesheet" href="../../resources/css/main.css">
-    <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.css">
-    <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.date.css">
+<!--     <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.css"> -->
+<!--     <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.date.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicon.png">

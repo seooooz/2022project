@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="../includes/admin_header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 <style>
 .main_body{
 margin-top: 7rem;

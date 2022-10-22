@@ -15,7 +15,7 @@ public class adminBoardDAO extends DBConnPool {
 	}
 		// 공지 테이블 출력
 			public ArrayList<adminBoardDTO> selectBoards() {
-				String sql = "SELECT anum, ATITLE,"
+				String sql = "SELECT anum, ATITLE, AVISITCOUNT,"
 						+ "CASE WHEN ABOARD_CODE = 1 THEN '기술' "
 						+ "WHEN ABOARD_CODE = 2 THEN '커리어' "
 						+ "WHEN ABOARD_CODE = 3 THEN '오퍼' "
@@ -34,7 +34,8 @@ public class adminBoardDAO extends DBConnPool {
 						adminBoardDTO dto = new adminBoardDTO();
 						dto.setAnum(rs.getString(1));
 						dto.setTitle(rs.getString(2));
-						dto.setBrd_name(rs.getString(3));
+						dto.setVisitcount(rs.getString(3));
+						dto.setBrd_name(rs.getString(4));
 						list.add(dto);
 					}
 					rs.close();
