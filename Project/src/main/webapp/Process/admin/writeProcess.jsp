@@ -7,9 +7,12 @@
 //폼값을 DTO에 저장
 		adminBoardDTO dto = new adminBoardDTO();
 		
+		String content = request.getParameter("content");
+		content = content.replace("\r\n","<br>");
+		
 		dto.setTitle(request.getParameter("title"));
 		dto.setBrd_code(Integer.valueOf(request.getParameter("cate")));
-		dto.setContent(request.getParameter("content"));
+		dto.setContent(content);
 		
 		adminBoardDAO dao = new adminBoardDAO();
 		int result = dao.insertWrite(dto);

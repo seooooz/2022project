@@ -341,6 +341,7 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 														for (CommentDTO cdto : comLists) {
 															skillBoardDAO dao1 = new skillBoardDAO();
 															List<CommentDTO> reLists = dao1.reselectView(snum, cdto.getGroupNum());
+															dao1.close();
 													%>
 												<div> <!-- 댓글이 있을 때 -->
 												<hr>

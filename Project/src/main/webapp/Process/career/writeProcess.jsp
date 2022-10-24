@@ -17,6 +17,7 @@ try {
 	String id = mr.getParameter("UserId"); // 업로드시에만 사용
 	String title = mr.getParameter("title");
 	String content = mr.getParameter("content");
+	content = content.replace("\r\n","<br>");
 	String[] cateArray = mr.getParameterValues("cate");
 	StringBuffer cateBuf = new StringBuffer();
 	for(String s :cateArray){

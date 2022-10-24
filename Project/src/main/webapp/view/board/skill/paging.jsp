@@ -49,4 +49,5 @@ List<skillBoardDTO> cdLists = dao1.selectListCD(param);
 List<skillBoardDTO> etcLists = dao1.selectListETC(param);
 List<adminBoardDTO> adminLists = adao.selectListPage(param);
 dao1.close();
+adao.close();
 %>

@@ -6,10 +6,14 @@
 
 //폼값을 DTO에 저장
 		offerBoardDTO dto = new offerBoardDTO();
+
+		String content = request.getParameter("content");
+		content = content.replace("\r\n","<br>");		
+
 		System.out.print(request.getParameter("datepicker"));
 		dto.setId((String)session.getAttribute("UserId"));
 		dto.setTitle(request.getParameter("title"));
-		dto.setContent(request.getParameter("content"));
+		dto.setContent(content);
 		dto.setCate(request.getParameter("cate"));
 		dto.setMemNum(Integer.valueOf(request.getParameter("memNum")));
 		dto.setDday(request.getParameter("datepicker"));

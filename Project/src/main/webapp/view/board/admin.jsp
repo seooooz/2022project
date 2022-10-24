@@ -15,15 +15,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
-   <!-- Datatable -->
 <link href="../../resources/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-<style>
-.main_body {
-	margin-top: 7rem;
-	margin-left: 1.5rem;
-	margin-right: 1.5rem;
-}
-</style>
 <script>
 function view(args1,args2){
 	var brdcode = args1;
@@ -42,7 +34,7 @@ function view(args1,args2){
         ***********************************-->
 <div class="content-body" align="center">
 <div class="col-lg-8">
-	<input type="button" class="btn btn-primary" value="셋팅 게시물 관리"
+	<input type="button" class="bcontent btn btn-primary" value="셋팅 게시물 관리"
 	onclick="location.href='/view/board/setNotice_list.jsp'">
 <div class="main_body">
 	<div class="container-fluid">

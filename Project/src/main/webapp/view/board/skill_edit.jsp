@@ -65,13 +65,10 @@ function validateForm(form){				//폼 내용 검증
 							<th>첨부파일</th>
 							<td>
 								<div class="custom-file">
-<!-- 										<label class="custom-file-label"></label> -->
 										<input type="file" name="attachedFile" >
 								</div>
 								</td>
 						</tr>
-
-
 						<tr>
 							<th>내용</th>
 							<td>

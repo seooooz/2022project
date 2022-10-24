@@ -46,60 +46,6 @@ function reportFrm(args1,args2) {
 				+ onum + "&tuid="+tuid+"'/>", "Reporttext", "width=500, height=500");
 }
 </script>  
-<style>
-.mt-5 {
-margin-top: 1.5rem !important;
-}
-.b {
-color:black;
-font-size: 16px
-}
-.btitle {
-font-size: 20px;
-}
-
-.bid {
-margin-top: 0.3rem;
-font-size: 15px;
-font-weight: 100;
-}
-
-.bpostdate{
-font-size: 12px;
-font-weight: 100;
-}
-.bcontent {
-margin-buttom: 5rem
-}
-.read_content textarea {
-  color: #828690;
-  border-color: rgba(0, 0, 0, 0.1);
-  padding: 0.625rem 1.25rem; }
-  .read-content textarea::placeholder {
-    color: #abafb3; }
-    
-.pf {
-	margin-right: 0.5rem;
-}    
-
-.com{
-color:black;
-}
-
-.comdate{
-font-size: 12px;
-color: rgb(107 114 128);
-}
-
-.comment{
-font-size:15px;
-margin-top: 0.75rem;
-}
-
-.tright{
-    float: right;
-}
-</style>
 <!-- <form name="writeFrm"> -->
         <!--**********************************
             Content body start

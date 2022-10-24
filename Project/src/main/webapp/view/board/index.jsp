@@ -108,31 +108,6 @@
 					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
 						<div class="card">
 							<div class="card-header">
-								<h4>시험 일정</h4>
-							</div>
-							<div class="card-body">
-								<!-- QnA table start -->
-								<div class="table-responsive">
-									<table class="table mb-0">
-										<tbody>
-											<tr class="f">
-												<td><a class="f" href="../board/writingtest.jsp">필기 시험</a></td>
-											</tr>
-											<tr>
-												<td><a class="f" href="../board/practicaltest.jsp">실기 시험</a></td>
-											</tr>
-										</tbody>
-										
-
-									</table>
-								</div>
-								<!-- table end -->
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
-						<div class="card">
-							<div class="card-header">
 								<h4 class="card-title">오퍼</h4>
 							</div>
 							<div class="card-body">
@@ -172,6 +147,48 @@
 								</div>
 								<!-- table end -->
 							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
+						<div class="card">
+							<div class="card-header">
+								<h4>시험 일정</h4>
+							</div>
+							<div class="card-body">
+								<!-- QnA table start -->
+								<div class="table-responsive">
+									<table class="table mb-0">
+										<tbody>
+											<tr class="f">
+												<td><a class="f" href="../board/writingtest.jsp">필기 시험</a></td>
+											</tr>
+											<tr class="f">
+												<td><a class="f" href="../board/practicaltest.jsp">실기 시험</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card-header">
+								<h4>NOTICE</h4>
+							</div>
+							<div class="card-body">
+								<!-- QnA table start -->
+								<div class="table-responsive">
+									<table class="table mb-0">
+										<tbody>
+											<tr class="f">
+												<td><a class="f" href="../board/setNotice.jsp">셋팅 방법</a></td>
+											</tr>
+											<tr class="f">
+												<td><a class="f" href="../board/useNotice.jsp">이용 방법</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							
+							
 						</div>
 					</div>
 				</div>

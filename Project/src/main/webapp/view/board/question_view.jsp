@@ -9,16 +9,6 @@
 <%@include file="/Process/IsLoggedIn.jsp" %>
 
 <%
-//	if(session.getAttribute("UserId").equals("admin")){
-//		
-//		String qnum = request.getParameter("qnum");
-//		QuestionDAO dao = new QuestionDAO(application);
-//		dao.updateVisitCount(qnum);
-//		QuestionDTO dto = dao.selectView(qnum);
-//		dao.close();
-//	
-//	}
-//		
 		System.out.println("============");
 		System.out.println(request.getAttribute("qnum"));
 		System.out.println(request.getParameter("qnum")); 
@@ -29,10 +19,11 @@
 		dao.updateVisitCount(qnum);
 		QuestionBoardDTO dto = dao.selectView(qnum);
 		List<CommentDTO> comLists = dao.comselectView(qnum);
-// 		dao.close();
 	
 		Date date = dto.getQpostdate();
 		System.out.println(date);
+		
+		dao.close();
 %>
 <script>
 	function pwdCheckForm(num) {

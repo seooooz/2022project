@@ -218,7 +218,7 @@ public class skillBoardDAO extends DBConnPool{
 			String sql = "select * from "
 					+ " ( "
 					+ "	SELECT * FROM skillboard "
-					+ "	ORDER  BY num DESC ) "
+					+ "	ORDER  BY visitcount DESC ) "
 					+ " where rownum <= 5";
 
 			ArrayList<skillBoardDTO> list = new ArrayList<skillBoardDTO>();

@@ -119,7 +119,7 @@ public class offerBoardDAO extends DBConnPool{
 					String sql = "select * from "
 							+ " ( "
 							+ "	SELECT * FROM offerboard "
-							+ "	ORDER  BY onum DESC ) "
+							+ "	ORDER  BY ovisitcount DESC ) "
 							+ " where rownum <= 5";
 
 					ArrayList<offerBoardDTO> list = new ArrayList<offerBoardDTO>();

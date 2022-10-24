@@ -326,7 +326,6 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 														int countNum = 0;
 														
 														for (CommentDTO cdto : ccomLists) {
-// 															virtualNum = totalCount - (((pageNum - 1) * pageSize) + countNum++);
 															careerBoardDAO dao1 = new careerBoardDAO();
 															List<CommentDTO> reLists = dao1.reselectView(cnum, cdto.getGroupNum());
 															dao1.close();

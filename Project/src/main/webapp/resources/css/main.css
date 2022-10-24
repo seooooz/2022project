@@ -52,6 +52,7 @@ color: rgb(107 114 128);
 .bcontent {
 margin-bottom: 5rem
 }
+
 .read_content textarea {
   color: #828690;
   border-color: rgba(0, 0, 0, 0.1);
@@ -186,4 +187,9 @@ clear: both;
 
 .paper_list li{
     border-bottom: 1px solid #dee2e6;
+}
+.main_body {
+	margin-top: 7rem;
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
 }

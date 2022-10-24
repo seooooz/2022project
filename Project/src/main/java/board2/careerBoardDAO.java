@@ -261,7 +261,7 @@ public class careerBoardDAO extends DBConnPool{
 			String sql = "select * from "
 					+ " ( "
 					+ "	SELECT * FROM careerboard "
-					+ "	ORDER  BY cnum DESC ) "
+					+ "	ORDER  BY cvisitcount DESC ) "
 					+ " where rownum <= 5";
 
 			ArrayList<careerBoardDTO> list = new ArrayList<careerBoardDTO>();

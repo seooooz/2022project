@@ -27,8 +27,6 @@
 	color:black;
 	
 }
-
-
 </style>
 
 <!-- content body start -->

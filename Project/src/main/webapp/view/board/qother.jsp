@@ -46,6 +46,7 @@ mdao.close();
 						<%
 						HtagDAO mdao3 = new HtagDAO();
 						MemberDTO dto = mdao3.selectMember(id);
+						mdao3.close();
 						%>
 						<div class="profile-statistics">
 							<div class="text-center mt-4 border-bottom-1 pb-3">
@@ -58,9 +59,6 @@ mdao.close();
 										<h4 class="text-muted"><%=dto.getEmail()%></h4>
 									</div>
 								</div>
-										<%
-										mdao3.close();
-										%>
 								<br> <br>
 								<div class="row">
 									<div class="col">
@@ -82,9 +80,6 @@ mdao.close();
 											<%
 											}
 											}
-											%>
-											<%
-											mdao.close();
 											%>
 										</div>
 									</div>

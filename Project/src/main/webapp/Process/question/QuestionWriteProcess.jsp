@@ -8,6 +8,7 @@
 //폼 값 받기
 	String q_title = request.getParameter("q_title");
 	String q_content = request.getParameter("q_content");
+	q_content = q_content.replace("\r\n","<br>");
 	System.out.println(q_title);
 	System.out.println(q_content);
 	System.out.println(session.getAttribute("UserId").toString());
