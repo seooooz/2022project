@@ -64,7 +64,14 @@
 	}
    
 </script>
-
+<style>
+.form-control{
+	background: #fff;
+    border: 1px solid #eaeaea;
+    color: #454545;
+	width: 100px !important;
+}
+</style>
 <!-- content body start -->
 <div class="content-body" align="center">
 	<div class="col-lg-8">
@@ -91,7 +98,7 @@
 			<!-- 검색창 시작 -->
 			<form method="get">
 				<div class="search_flex search_bar search_icon  navbar-collapse ">
-					<select name="searchField">
+					<select name="searchField" class="form-control">
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 					</select>
