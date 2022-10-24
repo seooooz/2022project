@@ -109,7 +109,7 @@
 											
 												<%
 													if (boardLists.isEmpty()) {
-																																		// 게시물이 하나도 없을때 -->
+												// 게시물이 하나도 없을때 -->
 												%>
 												<tr>
 													<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
@@ -133,11 +133,11 @@
 														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 														dao1.close();
 														%>
-														<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+														<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>">[<%=dto.getCate()%>]&nbsp;&nbsp;<%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>													
 													</td>
-                                         								<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
+                                         			<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 													<td align="center"><%=dto.getPostdate()%></td>
 													<td align="center"><%=dto.getVisitcount()%></td>
 												</tr>
@@ -270,7 +270,7 @@
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
-                                          									<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
+                                          				<td align="center"><a class="f" href="javascript:popup('<%=dto.getId()%>')"><%=dto.getId()%></a></td>
 														<td align="center"><%=dto.getPostdate()%></td>
 														<td align="center"><%=dto.getVisitcount()%></td>
 														<%if(dto.getFilesize()>0){ %>
@@ -330,7 +330,7 @@
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 																dao1.close();
 															%>
-															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%><%=dto.getTitle()%></a>
+															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>

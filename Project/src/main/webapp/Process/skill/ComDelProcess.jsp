@@ -44,12 +44,14 @@
 			}
 		}
 		else{
+			dao.close();
 			//작성자 본인이 아니면 이전 페이지
 			JSFunction.alertBack("본인만 삭제할 수 있습니다.", out);
 			return;
 			}
 		}
 		else{
+			dao.close();
 			//작성자 본인이 아니면 이전 페이지
 			JSFunction.alertBack("로그인 후 이용해주세요.", out);
 			return;

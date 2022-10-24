@@ -36,21 +36,25 @@
 			dao.close();
 			
 			if(delResult == 0){
+				dao.close();
 				// 실패 ) 이전 페이지로 이동
 				JSFunction.alertBack("삭제에 실패하였습니다.", out);
 			}
 			else{
+				dao.close();
 				//성공 ) 목록 페이지로 이동
 				JSFunction.alertLocation("삭제되었습니다", "../../view/board/offer_view.jsp?onum=" + pnum, out);
 			}
 		}
 		else{
+			dao.close();
 			//작성자 본인이 아니면 이전 페이지
 			JSFunction.alertBack("본인만 삭제할 수 있습니다.", out);
 			return;
 			}
 		}
 		else{
+			dao.close();
 			//작성자 본인이 아니면 이전 페이지
 			JSFunction.alertBack("로그인 후 이용해주세요.", out);
 			return;

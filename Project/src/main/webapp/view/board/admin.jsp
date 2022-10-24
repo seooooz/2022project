@@ -1,3 +1,6 @@
+<%@page import="board4.QuestionBoardDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="board4.QuestionBoardDAO"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="admin.AreportDTO"%>
 <%@page import="utils.ReportDTO"%>
@@ -36,7 +39,9 @@ function view(args1,args2){
 <div class="col-lg-8">
 	<input type="button" class="bcontent btn btn-primary" value="셋팅 게시물 관리"
 	onclick="location.href='/view/board/setNotice_list.jsp'">
-<div class="main_body">
+<!-- 	<input type="button" class="bcontent btn btn-primary" value="문의 사항 관리" -->
+<!-- 	onclick="location.href='/view/board/question.jsp'"> -->
+<div class="main_body2">
 	<div class="container-fluid">
 		<div class="card">
 			<div class="card-header">
@@ -85,8 +90,57 @@ function view(args1,args2){
 				</div>
 			</div>
 		</div>
+		<div class="main_body2">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">문의사항</h4>
+			</div>
+			<div class="card-body">
+			<form name="viewfrm">
+				<div class ="dataTables_scroll">
+						<table class="table mb-0">
+							<thead>
+								<tr class="f">
+									<th>ID</th>
+									<th>제목</th>
+									<th>작성날짜</th>
+								</tr>
+							</thead>
+							<tbody class="dataTables_scrollBody">
+								<%
+								QuestionBoardDAO qdao = new QuestionBoardDAO();
+								List<QuestionBoardDTO> qlist = qdao.selectboard();
+								for (int i = 0; i < qlist.size(); i++) {
+								int countcom = qdao.countCom(qlist.get(i).getQnum());
+								qdao.close();
+								if(countcom > 0){
+								%>
+								<%
+								}else{
+								%>
+								<tr class="f">
+									<td><%=qlist.get(i).getQid()%></td>
+									<td>
+									<a class="f" href="question_view.jsp?qnum=<%=qlist.get(i).getQnum() %>"><%=qlist.get(i).getQtitle() %></a>
+									</td>
+									<td><%=qlist.get(i).getQpostdate()%></td>
+								</tr>
+								<%	
+								}
+								}
+								%>
+
+							</tbody>
+						</table>
+					</div>
+					</form>	
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- 공지 확인 -->
-		<div class="main_body">
+		<div class="main_body2">
 			<div class="container-fluid">
 			<div class="card">
 				<div class="card-header">
@@ -137,6 +191,7 @@ function view(args1,args2){
 			</div>
 		</div>
 	</div>
+	
 </div>
 </div>	
 <!--**********************************

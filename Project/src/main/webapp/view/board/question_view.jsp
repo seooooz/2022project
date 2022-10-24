@@ -184,11 +184,6 @@ margin-top: 0.75rem;
 													<%
 													if(comLists.isEmpty()){   // 댓글이 없을 때 
 													%>
-														<li>
-															<div align="center">
-																등록된 댓글이 없습니다^^*
-															</div>
-														</li>
 													<%
 													} else {
 														for (CommentDTO ccdto : comLists) {
@@ -235,6 +230,8 @@ margin-top: 0.75rem;
             </div>
         </div>
        </div> 
+       </div>
+       </div>
         <!--**********************************
             Content body end
         ***********************************-->

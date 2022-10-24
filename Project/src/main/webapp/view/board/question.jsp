@@ -46,7 +46,6 @@ String User_Id = (String)session.getAttribute("UserId");
 	function pwdCheckForm(args1,args2) {
 		var qnum = args1;
 		var qid = args2;
-		alert(args1);
 		window.open("<c:url value='/view/board/questionPwdCheck.jsp?qnum="
 				+ qnum + "&qid="+qid+"'/>", "PassWordCheck", "width=500, height=500");
 

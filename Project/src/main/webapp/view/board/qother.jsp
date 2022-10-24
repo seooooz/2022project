@@ -94,18 +94,6 @@ mdao.close();
 										<span>Comment</span>
 									</div>
 								</div>
-								<%
-								if(UserId.equals(id)){
-								%>
-								<div class="mt-4">
-									<a href="../../view/board/loginProfile.jsp" target="_blank"
-										class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Profile</a>
-								</div>
-								<%
-								}else{
-									
-								}
-								%>
 							</div>
 						</div>
 

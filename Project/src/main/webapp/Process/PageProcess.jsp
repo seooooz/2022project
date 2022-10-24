@@ -6,10 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
       
-
 <%
-
-
 // 사용자가 입력한 검색 조건 Map에 저장
 Map<String, Object> param = new HashMap<String, Object>();
 
@@ -20,9 +17,6 @@ if(searchWord != null){
 	param.put("searchField", searchField);
 	param.put("searchWord", searchWord);
 }
-
-
-
 
 
 %>

@@ -69,6 +69,34 @@ public class QuestionBoardDAO extends DBConnPool {
 		return list;
 	}
 	
+	public ArrayList<QuestionBoardDTO> selectboard(){
+		ArrayList<QuestionBoardDTO> list = new ArrayList<QuestionBoardDTO>();
+		String sql = "select * from QuestionBoard";
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				QuestionBoardDTO dto = new QuestionBoardDTO();
+				
+				dto.setQnum(rs.getInt("qnum"));
+				dto.setQid(rs.getString("qid"));
+				dto.setQtitle(rs.getString("qtitle"));
+				dto.setQcontent(rs.getString("qcontent"));
+				dto.setQpostdate(rs.getDate("qpostdate"));
+				dto.setQvisitcount(rs.getInt("qvisitcount"));
+				
+				list.add(dto);
+				
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	// 문의사항 글 작성 
 	public int insertWrite(QuestionBoardDTO dto) {
 		int result = 0;

@@ -31,7 +31,6 @@
 									<table class="table mb-0">
 										<thead class="f">
 											<tr>
-												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
 											</tr>
@@ -44,7 +43,6 @@
 											for (int i = 0; i < slist.size(); i++) {
 											%>
 											<tr class="f">
-												<td><%=slist.get(i).getNum()%></td>
 												<td>
 												<a class="f" href="skill_view.jsp?num=<%=slist.get(i).getNum()%>"><%=slist.get(i).getTitle()%>
 												</a>
@@ -73,7 +71,6 @@
 									<table class="table mb-0">
 										<thead class="f">
 											<tr>
-												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
 											</tr>
@@ -86,7 +83,6 @@
 											for (int i = 0; i < clist.size(); i++) {
 											%>
 											<tr>
-												<td><%=clist.get(i).getNum()%></td>
 												<td>
 												<a class="f" href="career_view.jsp?num=<%=clist.get(i).getNum()%>">
 												<%=clist.get(i).getTitle()%>
@@ -116,7 +112,6 @@
 									<table class="table mb-0">
 										<thead class="f">
 											<tr>
-												<th>NO</th>
 												<th>제목</th>
 												<th>작성자</th>
 											</tr>
@@ -129,7 +124,6 @@
 											for (int i = 0; i < olist.size(); i++) {
 											%>
 											<tr class="f">
-												<td><%=olist.get(i).getNum()%></td>
 												<td>
 												<a class="f" href = "offer_view.jsp?onum=<%=olist.get(i).getNum()%>">
 												<%=olist.get(i).getTitle()%>

@@ -50,7 +50,7 @@ function deleditPost(str){
 	 	if(confirmed){
 	 		var form = document.writeFrm;
 	 		form.method = "post";
-	 		form.action = "../../Process/ReportDeleteProcess.jsp";
+	 		form.action = "../../Process/skill/ReportDeleteProcess.jsp";
 	 		form.submit();
 	 	}
 	}

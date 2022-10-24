@@ -49,9 +49,9 @@ id="WebApp_ID" version="4.0">
   <param-value>green1234</param-value>
   </context-param>
   
-  <session-config>
-  	<session-timeout>20</session-timeout>
-  </session-config>
+<!--   <session-config> -->
+<!--   	<session-timeout>60</session-timeout> -->
+<!--   </session-config> -->
   
  <!-- 한글 인코딩 문제 해결 -->
   <filter>

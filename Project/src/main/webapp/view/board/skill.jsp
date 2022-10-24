@@ -132,7 +132,7 @@
 														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 														dao.close();
 														%>
-														<a class="f" href="skill_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
+														<a class="f" href="skill_view.jsp?num=<%=dto.getNum()%>">[<%=dto.getCate()%>]&nbsp;&nbsp;<%=dto.getTitle()%></a>
 														&nbsp;&nbsp;&nbsp;&nbsp;
 														<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 													</td>
