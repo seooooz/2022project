@@ -62,9 +62,9 @@ function validateForm(form){				//폼 내용 검증
 							<tr>
 								<th>카데고리</th>
 					
-<!-- 1-개인, 2-공모전  -->				<td>&nbsp; <input type="checkbox" name="cate" value="개인"
-									checked /> 개인 
-									<input type="checkbox" name="cate" value="공모전" /> 공모전
+<!-- 1-개인, 2-공모전  -->				<td>&nbsp; 
+									<input type="radio" name="cate" value="개인" checked /> 개인 
+									<input type="radio" name="cate" value="공모전" /> 공모전
 								</td>
 							</tr>
 							<tr>

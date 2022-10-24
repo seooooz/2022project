@@ -35,9 +35,9 @@
 							<tr>
 								<th>카데고리</th>
 
-								<td>&nbsp; <input type="checkbox" name="cate" value="코드"
-									checked /> 코드 <input type="checkbox" name="cate" value="기타" />
-									기타
+								<td>&nbsp; 
+								<input type="radio" name="cate" value="코드" checked /> 코드 
+								<input type="radio" name="cate" value="기타" /> 기타
 								</td>
 							</tr>
 						<tr>
