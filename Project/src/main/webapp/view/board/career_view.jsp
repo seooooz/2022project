@@ -237,7 +237,6 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
                                             <div class="right-box-padding">
                                                 <div class="read_content">
                                                    <form name="writeFrm">
-                                          		 
                                                     <div class="media pt-3">
                                                         <div class="media-body">
                                                         	<input type="hidden" name="pnum" value =<%= dto.getNum() %>>

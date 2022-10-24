@@ -111,17 +111,11 @@ margin-top: 0.75rem;
         <div class="content-body">
 
             <div class="container-fluid col-lg-8">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                        	<li class="breadcrumb-item"><a href="/view/board/question.jsp" >
-                        	<h4>문의사항</h4></a>
-                        	</li>
-                    
-                       
+           			 <div class="p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="top tright">
+                            <li class="breadcrumb-item"><a href="question.jsp">문의사항</a></li>
                         </ol>
-                    </div>
-                </div>
+                      </div>
                 <!-- row -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -135,7 +129,6 @@ margin-top: 0.75rem;
                                                 <div class="table-responsive">
                                                     <div class="media pt-3">
                                                         <div class="media-body">
-<%--                                                             <h5 class="text-primary" ><%=dto.getQid() %></h5> --%>
                                                             <h3 class="btitle my-1"><%=dto.getQtitle() %></h3>
                                                         </div>
                                                         <!-- 목록으로 돌아가기 -->
@@ -157,7 +150,7 @@ margin-top: 0.75rem;
                                                             <p class="bpostdate"><%= dto.getQpostdate() %></p>
                                                         </div>
                                                     </div>
-                                                    <div class="b bcontent bread-content-body">
+                                                    <div class="b bcontent bread-content-body mart">
                                                         <p><%= dto.getQcontent() %></p>
                                                     </div>
                                                     
@@ -165,7 +158,7 @@ margin-top: 0.75rem;
                                                     if(session.getAttribute("UserId").equals("admin")){
                                                     %>
                                                     <form name="offercomFrm" method="post" action="../../Process/question/ComWriteProcess.jsp">
-                                                    	<input name="qnum" value =<%= dto.getQnum()%>>
+                                                    	<input type="hidden" name="qnum" value =<%= dto.getQnum()%>>
                                                         <hr>
                                                         <h5 class="pt-3">COMMENT</h5>
 	                                                    <div class="form-group pt-3">
@@ -179,7 +172,7 @@ margin-top: 0.75rem;
                                                 	<%} %>
                                                 	<br>
                                                 	<br>
-                                                	
+                                                	<hr>
 													<div>
 													<%
 													if(comLists.isEmpty()){   // 댓글이 없을 때 
@@ -189,14 +182,11 @@ margin-top: 0.75rem;
 														for (CommentDTO ccdto : comLists) {
 													%>
 													<div> <!-- 댓글이 있을 때 -->
-													<hr>
 														<div class="paper_list">
-															<div class="py-4">
-																	<div class="flex flex-1 items-center gap-x-3"> id
-																		<div><%= ccdto.getId()  %></div>
-																		<div><%= ccdto.getComment() %></div>
-																		<div><%= ccdto.getDate() %></div>
-																	</div>
+															<div class="py-4 comm">
+																<div class="b bid">관리자</div>
+																<div class="bpostdate"><%= ccdto.getDate() %></div>
+																<div style="font-size:16px;" class="b comment"><%= ccdto.getComment() %></div>
 															</div>
 															 <%
 		                                                    if(session.getAttribute("UserId").equals("admin")){
@@ -206,7 +196,7 @@ margin-top: 0.75rem;
 																<input type="hidden"  name = "comidx" value=<%= ccdto.getIdx()%>>
 																<input type="hidden"  name = "qnum" value=<%= ccdto.getPostNum()%>>
 																<input type="hidden"  name = "id" value=<%= ccdto.getId()%>>
-																<button class="flex">댓글 삭제</button>
+																<button class="pull-right btn btn-default text-muted">댓글 삭제</button>
 																</form>
 															</div>
 															<%
