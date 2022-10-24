@@ -17,9 +17,6 @@
  * jQuery
  * ajax
  * HTML/CSS/JavaScript
-<img src="https://img.shields.io/badge/Language-JAVA-007396?style=flat"/><img src="https://img.shields.io/badge/DB-ORACLE-F80000?style=flat"/>
-![Java](https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white)
-![Eclipse IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)
 ### 1-3. 개발 환경
 * Windows 10
 * Eclipse
@@ -42,11 +39,5 @@
 스크린 샷과 코드 예제를 통해 사용 방법을 자세히 설명합니다.
 
 _더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
-
-## 4.테스트 내역
-### 회원가입
-* 테스트통과 : 통과
-* 테스트날짜 :
-* 테스트수행인 :
 
 ## credit
