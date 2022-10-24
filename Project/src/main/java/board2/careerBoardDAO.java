@@ -177,7 +177,7 @@ public class careerBoardDAO extends DBConnPool{
 			+ " like '%" + map.get("searchWord") + "%' ";
 		}
 		
-		sql += " order by cnum desc ) Tb ) where rnum between ? and ? and  ccate = '인터뷰'";
+		sql += " order by cnum desc ) Tb ) where rnum between ? and ? and  ccate = '면접'";
 		
 		System.out.println(sql);
 		try { 

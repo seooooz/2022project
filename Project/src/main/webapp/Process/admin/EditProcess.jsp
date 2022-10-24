@@ -6,7 +6,7 @@
 	String anum = request.getParameter("anum");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
-	
+	content = content.replace("\r\n","<br>");
 	adminBoardDAO dao = new adminBoardDAO();
 	
 		

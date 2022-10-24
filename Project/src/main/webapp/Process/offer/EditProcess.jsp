@@ -8,6 +8,7 @@
 String num = request.getParameter("num");
 String title = request.getParameter("title");
 String content = request.getParameter("content");
+content = content.replace("\r\n","<br>");
 
 System.out.print(num);
 System.out.print(title);

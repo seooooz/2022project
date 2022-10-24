@@ -15,6 +15,7 @@ try {
 	String num = mr.getParameter("num");
 	String title = mr.getParameter("title");
 	String content = mr.getParameter("content");
+	content = content.replace("\r\n","<br>");
 	
 	skillBoardDAO dao = new skillBoardDAO();
 	skillBoardDTO dto = dao.selectView(num);
