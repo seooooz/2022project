@@ -8,14 +8,14 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Focus - Bootstrap Admin Dashboard </title>
+    <title>For Developer</title>
     
     <link rel="stylesheet" href="../../resources/css/main.css">
     <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="../../resources/vendor/pickadate/themes/default.date.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/titlelogo.png">
     <link rel="stylesheet" href="../../resources/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../../resources/vendor/owl-carousel/css/owl.theme.default.min.css">
     <link href="../../resources/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
