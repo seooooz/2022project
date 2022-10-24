@@ -9,19 +9,19 @@
 ### 1-1. 형상&배포 관리
  * 🔨 GitHub
 ### 1-2. 기술 스택
- * JDK 15
+ * JDK
  * JDBC
  * Tomcat 9.0
- * Servlet 4.0 / JSP 2.3
+ * JSP
  * Oracle
  * jQuery
  * ajax
  * HTML/CSS/JavaScript
 ### 1-3. 개발 환경
 * Windows 10
-* Eclipse
+* Eclipse 
 ### 1-4. 기간
- * 2022.09.08 - 2022.10.26
+ ⏰ 2022.09.08 - 2022.10.26
 
 ## 2.주요기능
 ✔ 회원관리(회원가입·탈퇴, 로그인, 로그아웃, 비밀번호 찾기)<br>
@@ -42,10 +42,7 @@
 
 ✔ 관리자페이지(신고 게시물, 공지 게시물, 셋팅 게시물),관리자는 타인의 글 삭제 가능<br>
 
-## 3.실행 방법
-
-스크린 샷과 코드 예제를 통해 사용 방법을 자세히 설명합니다.
-
-_더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
-
-## credit
+## 3.맴버 구성
+  * [김서주 (조장)](https://github.com/seooooz)
+  * [이호룡](https://github.com/horyong1)
+  * [최예진](https://github.com/choye07)
