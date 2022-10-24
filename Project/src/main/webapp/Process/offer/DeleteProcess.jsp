@@ -30,7 +30,7 @@ int likeResult = 0;
 	dao.close();
 	ldao.close();
 	
-	if(delResult == 1 && likeResult > 0){
+	if(delResult == 1 && likeResult >= 0){
 		JSFunction.alertLocation("삭제되었습니다", "../../view/board/offer.jsp", out);
 	}// 실패 ) 이전 페이지로 이동
 	else{

@@ -26,7 +26,7 @@ int likeResult = 0;
 	dao.close();
 	ldao.close();
 	
-	if(delResult == 1 && likeResult > 0){
+	if(delResult == 1 && likeResult >= 0){
 		//성공 ) 목록 페이지로 이동
 		String FileName = dto.getFilename();
 		dao.deleteFile(request, "/Uploads", FileName);
