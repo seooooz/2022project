@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
+<%@include file="../includes/navbar.jsp"%>
 <style>
 .main_body{
 margin-top: 7rem;
@@ -35,7 +36,7 @@ function validateForm(form){				//폼 내용 검증
 }
 </script>
 
-
+<div class="content-body" align="center">
 <div class="main_body" align="center">
 	<div class="col-lg-8">
 		<!-- card start -->
@@ -75,7 +76,7 @@ function validateForm(form){				//폼 내용 검증
 						<br>
 						<button type="reset" class="btn btn-primary">다시 입력</button>
 						<button type="button" class="btn btn-primary"
-							onclick="location.href='offer.jsp'">목록 보기</button>
+							onclick="location.href='admin.jsp'">목록 보기</button>
 						<button type="submit" class="btn btn-primary">작성 완료</button>
 					</form>
 				</div>
@@ -85,6 +86,7 @@ function validateForm(form){				//폼 내용 검증
 		</div>
 		<!-- card end -->
 	</div>
+</div>
 </div>
 <!-- content body end -->
 <%@include file="../includes/footer.jsp"%>

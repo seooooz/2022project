@@ -33,7 +33,7 @@ window.close();
 							<div class="col-xl-12">
 								<div class="auth-form">
 									<h3 class="text-center mb-4">게시물을 신고하는 이유를<br> 알려주세요!</h3>
-									<p class="f" style="font-size: 14px;">타당한 그거 없이 신고된 내용은 관리자 확인 후 반영되지 않을 수 있습니다.</p>
+									<p class="f" style="font-size: 14px;">타당한 근거 없이 신고된 내용은 관리자 확인 후 반영되지 않을 수 있습니다.</p>
 									<br>
 									<form method="post" action="../../Process/career/ReportProcess.jsp">
 										<input type="hidden" name="num" id="num" value="<%=request.getParameter("num")%>" />

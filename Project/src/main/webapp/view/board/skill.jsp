@@ -110,7 +110,7 @@
 																					// 게시물이 하나도 없을때 -->
 												%>
 												<tr>
-													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+													<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 												</tr>
 
 												<%
@@ -181,7 +181,7 @@
 																					// 게시물이 하나도 없을때 -->
 												%>
 												<tr>
-													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+													<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 												</tr>
 
 												<%
@@ -251,7 +251,7 @@
 																					// 게시물이 하나도 없을때 -->
 												%>
 												<tr>
-													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+													<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 												</tr>
 
 												<%

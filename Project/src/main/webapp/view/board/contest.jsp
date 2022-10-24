@@ -171,7 +171,7 @@
 								<a
 									href="https://itsaeil.or.kr/Notice/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=12545245&t=board"
 									target="_blank" class="banner_img"> <img id="cimg"
-									src="/view/img/project-woman.jpg">
+									src="/view/img/project-woman-p.jpg">
 									<button class="hover_text btn btn-primary">자세히</button>
 								</a>
 							</div>

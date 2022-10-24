@@ -28,6 +28,8 @@ public class MyLike implements Action{
 		
 		int mylike = dao.melikecount(id, no, code);
 		
+		dao.close();
+		
 		if(mylike > 0) {
 			out.println(mylike);
 			out.close();

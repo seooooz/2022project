@@ -5,8 +5,6 @@
 String brdcode = request.getParameter("brdcode");
 String bnum = request.getParameter("brdnum");
 
-ReportDAO dao = new ReportDAO();
-
 
 if(brdcode.equals("1")){
 	response.sendRedirect("../../view/board/skill_view.jsp?num=" + bnum);

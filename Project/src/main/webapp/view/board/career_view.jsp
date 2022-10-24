@@ -43,6 +43,16 @@ function deleditPost(str){
 	 	}
 	 	
 	}
+	else if(str == '반려'){
+		var confirmed = confirm("게시물을 반려하겠습니까?");
+		
+	 	if(confirmed){
+	 		var form = document.writeFrm;
+	 		form.method = "post";
+	 		form.action = "../../Process/career/ReportDeleteProcess.jsp";
+	 		form.submit();
+	 	}
+	}
 }
 
 function reportFrm(args1,args2) {
@@ -250,6 +260,16 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
                                                                 class="fa fa-trash"></i></a>
                                                         </div>
                                                         <%
+														}else if((UserId != null) && UserId.equals("admin")){
+														%>
+														 <!-- 삭제하기 -->        
+                                                        <a href="javascript:deleditPost('삭제');" class="text-muted ml-3"><i
+                                                                class="fa fa-trash"></i></a>
+                                                        <!-- 반려 -->        
+                                                        <a href="javascript:deleditPost('반려');" class="text-muted ml-3">
+                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                        </a>
+														<%	
 														}
 														%>
                                                         </div>
@@ -314,13 +334,6 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
                                                 <div>
 													<%
 													if(ccomLists.isEmpty()){   // 댓글이 없을 때 
-													%>
-														<li>
-															<div align="center">
-																등록된 댓글이 없습니다^^*
-															</div>
-														</li>
-													<%
 													} else {
 														int virtualNum = 0;
 														int countNum = 0;

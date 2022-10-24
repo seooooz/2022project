@@ -140,7 +140,7 @@ String User_Id = (String)session.getAttribute("UserId");
 												%>
 												<tr class="f">
 													<td class="f" align="center"><%= virtualNum %></td>
-													<td  class="f">
+													<td  class="f" >
 														<%
 															if(User_Id == null || User_Id.equals("null")){
 														%> 
@@ -151,7 +151,7 @@ String User_Id = (String)session.getAttribute("UserId");
 															}else if(User_Id.equals("admin")){
 														%>	
 															
-															<a href="question_view.jsp?qnum=<%=dto.getQnum()%>"><%=dto.getQtitle()%></a>
+															<a class="f" href="question_view.jsp?qnum=<%=dto.getQnum()%>"><%=dto.getQtitle()%></a>
 														<%
 															}else if(!(User_Id.equals(qid))){
 														%>
@@ -159,13 +159,13 @@ String User_Id = (String)session.getAttribute("UserId");
 														<%
 															}else{
 														%> 
-															<a href="javascript:pwdCheckForm(<%=dto.getQnum()%>,'<%=dto.getQid()%>')"><%=dto.getQtitle() %></a>
+															<a class="f" href="javascript:pwdCheckForm(<%=dto.getQnum()%>,'<%=dto.getQid()%>')"><%=dto.getQtitle() %></a>
 														
 														<%
 														}
 														%>
 													</td>
-													<td class="f"><a class="f" href="javascript:popup('<%=dto.getQid()%>')"><%=dto.getQid()%></a></td>
+													<td class="f" align="center"><a class="f" href="javascript:popup('<%=dto.getQid()%>')"><%=dto.getQid()%></a></td>
 													<%
 													QuestionBoardDAO dao1 = new QuestionBoardDAO();
 													int countcom = dao1.countCom(dto.getQnum());

@@ -27,6 +27,7 @@ public class MyHate implements Action{
 		
 		
 		int myhate = dao.myhatecount(id, no, code);
+		dao.close();
 		
 		if(myhate > 0) {
 			out.println(myhate);

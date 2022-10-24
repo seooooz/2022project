@@ -97,7 +97,7 @@
 													<tr style="background-color: #f5f5ff;">
 														<td align="center"><i class="bi bi-megaphone-fill report"></i></td>
 														<td>
-														<a class="report" href="admin_view.jsp?anum=<%=admdto.getAnum() %>"><%=admdto.getTitle()%></a>
+														<a class="report" href="admin_view.jsp?anum=<%=admdto.getAnum()%>"><%=admdto.getTitle()%></a>
 														</td>
 														<td class="report" align="center">관리자</td>
 														<td class="report" align="center"><%=admdto.getPostdate() %></td>
@@ -112,7 +112,7 @@
 																																		// 게시물이 하나도 없을때 -->
 												%>
 												<tr>
-													<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+													<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 												</tr>
 
 												<%
@@ -133,7 +133,7 @@
 														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 														dao1.close();
 														%>
-														<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+														<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>													
 													</td>
@@ -180,7 +180,7 @@
 													// 게시물이 하나도 없을때 -->
 													%>
 													<tr>
-														<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+														<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 													</tr>
 							
 													<%
@@ -201,7 +201,7 @@
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 																dao.close();
 															%> 
-															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
@@ -245,7 +245,7 @@
 													// 게시물이 하나도 없을때 -->
 													%>
 													<tr>
-														<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+														<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 													</tr>
 							
 													<%
@@ -266,7 +266,7 @@
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
 																dao1.close();
 															%>
-															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getCate()%>)<%=dto.getTitle()%></a>
+															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
 															<span class="bi bi-chat-left-dots">&nbsp;<%=comcount%></span>
 														</td>
@@ -289,7 +289,7 @@
 								</div>
 							</div>
 							<!-- 기타 -->
-							<div id="career-ect" class="tab-pane fade">
+							<div id="career-etc" class="tab-pane fade">
 								<div class="my-post-content pt-3">
 									<div class="table-responsive">
 										<table class="table mb-0">
@@ -309,7 +309,7 @@
 													// 게시물이 하나도 없을때 -->
 													%>
 													<tr>
-														<td colspan="5" align="center">등록된 게시물이 없습니다^^*</td>
+														<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 													</tr>
 							
 													<%
