@@ -71,7 +71,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">비밀번호 찾기</h4>
+                                    <h4 class="text-center mb-4"><strong>비밀번호 찾기</strong></h4>
                                     <form method="post" action="../../Process/PassFindProcess.jsp" onsubmit="return validateForm(this)">
                                         <div class="form-group">
                                             <label><strong>Name</strong></label>

@@ -118,7 +118,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">회원 가입</h4>
+                                    <h4 class="text-center mb-4"><strong>회원 가입</strong></h4>
                                     <form name="regForm" method="post" action="../../Process/RegisterProcess.jsp" onsubmit="return validateForm(this)">
                                         <div class="form-group">
                                             <label><strong>Name</strong></label>
