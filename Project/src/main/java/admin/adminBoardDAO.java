@@ -105,49 +105,7 @@ public class adminBoardDAO extends DBConnPool {
 		return oboard;
 	}
 	
-	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
-		public List<adminBoardDTO> skillselectListPage(Map<String, Object> map){
-			List<adminBoardDTO> bbs = new Vector<adminBoardDTO>(); // 결과(게시물 목록)를 담을 변수
-			
-			String sql = " select * from ( select Tb.*, rownum rNum from ( select * from adminboard ";
-			
-			// 검색 조건 추가
-			if(map.get("searchWord") != null) {
-				sql += " where " + map.get("searchField")
-						+ " like '%" + map.get("searchWord") + "%' ";
-			}
-			
-			sql += " order by anum desc ) Tb ) where rNum between ? and ? and aboard_code = 1 ORDER BY apostdate desc ";
-			
-			System.out.println(sql);
-			try { 
-				psmt = con.prepareStatement(sql);
-				psmt.setString(1, map.get("start").toString());
-				psmt.setString(2, map.get("end").toString());
-				
-				rs = psmt.executeQuery();
-				
-				while(rs.next()) {
-					adminBoardDTO dto = new adminBoardDTO();
-					dto.setAnum(rs.getString(1));
-					dto.setBrd_code(rs.getInt(2));
-					dto.setTitle(rs.getString(3));
-					dto.setContent(rs.getString(4));
-					dto.setPostdate(rs.getDate(5));
-					dto.setVisitcount(rs.getString(6));
-					
-					// 반환할 경과 목록에 게시물 추가
-					bbs.add(dto);
-				}
-			}
-			catch(Exception e) {
-				System.out.println("게시물 조회 중 예외 발생");
-				e.printStackTrace();
-			}
-			return bbs;
-			
-		}
-	
+
 	// 지정한 게시물을 찾아 내용을 반환
 			public adminBoardDTO selectView(String num) {
 				adminBoardDTO dto = new adminBoardDTO();

@@ -25,7 +25,7 @@
 											<Strong>아이디 : </Strong>
 											<input type="text" name="id" maxlength="10" autofocus value="<%=request.getParameter("id")%>"> 
 											<br>
-											<button type="submit" class="btn btn-primary" style="width:100px; height: 20px;">중복확인</button>
+											<button type="submit" class="btn btn-primary" style="height:30px; margin-top: 1rem;">중복확인</button>
 										</form>
 									</div>
 								</div>
