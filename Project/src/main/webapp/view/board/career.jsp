@@ -54,11 +54,10 @@
 			<form method="get">
 				<div class="search_flex search_bar search_icon  navbar-collapse ">
 					<select name="searchField" class="form-control">
-						<option value="title">제목</option>
-						<option value="content">내용</option>
+						<option value="ctitle">제목</option>
+						<option value="ccontent">내용</option>
 					</select>
-					<input class="search_item form-control" name="searchWord" type="text"
-							placeholder="Search">
+					<input class="search_item form-control" name="searchWord" type="text" placeholder="Search">
 					&nbsp;
 					<button type="submit" class="mdi mdi-magnify btn btn-primary"></button>
 				</div>

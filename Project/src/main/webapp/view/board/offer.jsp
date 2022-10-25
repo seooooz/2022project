@@ -99,8 +99,8 @@
 			<form method="get">
 				<div class="search_flex search_bar search_icon  navbar-collapse ">
 					<select name="searchField" class="form-control">
-						<option value="title">제목</option>
-						<option value="content">내용</option>
+						<option value="otitle">제목</option>
+						<option value="ocontent">내용</option>
 					</select>
 					<input class="search_item form-control" name="searchWord" type="text"
 							placeholder="Search">

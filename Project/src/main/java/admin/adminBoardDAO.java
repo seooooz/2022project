@@ -106,7 +106,7 @@ public class adminBoardDAO extends DBConnPool {
 	}
 	
 	// 검색 조건에 맞는 게시물 목록을 반환(페이징)
-		public List<adminBoardDTO> selectListPage(Map<String, Object> map){
+		public List<adminBoardDTO> skillselectListPage(Map<String, Object> map){
 			List<adminBoardDTO> bbs = new Vector<adminBoardDTO>(); // 결과(게시물 목록)를 담을 변수
 			
 			String sql = " select * from ( select Tb.*, rownum rNum from ( select * from adminboard ";
