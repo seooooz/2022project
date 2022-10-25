@@ -19,6 +19,7 @@
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
 <link href="../../resources/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
 <script>
 function view(args1,args2){
 	var brdcode = args1;
@@ -48,7 +49,7 @@ function view(args1,args2){
 				<h4 class="card-title">신고</h4>
 			</div>
 			<div class="card-body">
-			<form name="viewfrm">
+			<form name="viewfrm" id="viewfrm">
 				<div class ="dataTables_scroll">
 						<table class="table mb-0">
 							<thead>
@@ -97,7 +98,6 @@ function view(args1,args2){
 				<h4 class="card-title">문의사항</h4>
 			</div>
 			<div class="card-body">
-			<form name="viewfrm">
 				<div class ="dataTables_scroll">
 						<table class="table mb-0">
 							<thead>
@@ -134,7 +134,6 @@ function view(args1,args2){
 							</tbody>
 						</table>
 					</div>
-					</form>	
 					</div>
 				</div>
 			</div>

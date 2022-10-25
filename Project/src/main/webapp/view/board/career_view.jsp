@@ -18,7 +18,6 @@ List<CommentDTO> ccomLists = dao.comselectView(cnum);
 dao.close();
 %>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
 <script>
 function deleditPost(str){
 	
@@ -211,7 +210,6 @@ recCount();
 recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
 })
 </script>  
-
 <!-- <form name="writeFrm"> -->
         <!--**********************************
             Content body start
@@ -225,7 +223,10 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
                             <li class="breadcrumb-item active"><a class="a"><%=dto.getCate() %></a></li>
                         </ol>
                 </div>
-			<a href="javascript:reportFrm(<%=dto.getNum()%>,'<%=dto.getId()%>')" class="title_a">신고하기</a>                
+			<a href="javascript:reportFrm(<%=dto.getNum()%>,'<%=dto.getId()%>')" class="regray">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAABFElEQVQ4jZWTsW7CMBRF7zPphoQtJBbWDqgZUL+gUjcUMyBE24WxA4i/AfUnyshaCT4AsSDERzA4Yislr1OsOBAT3mbn+OReyQY8Y6RmIzX7GGFhFY2O1V7DBwPAoa6bsdITRxCr7hhMX+fg9OOTHOq6GZyxZMbU1PSnFYhTMAewBRAmD7+v6QFpFiTNgtJ18EcdAI8A1gDPHfux2mvEKvq4VSGW3aGpRSpdUx7gdj9kIbbXDhMQ0uZ7l90TeSipVAZFf0+I3vJ7FwJiLhQQ87tXwO1+COCpSACgxc8D57sj8MW3TK6GI/DFzzBODSsoET8dp4YVlIlv2UwNKygTP8PaGgQAs9Xe++KKZvLSoot7cO/8A38uU3NBh/JVAAAAAElFTkSuQmCC">
+			신고하기
+			</a>                
                 <!-- row -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -248,7 +249,7 @@ recCount2();// 처음 시작했을 때 실행되도록 해당 함수 호출
                                                         <a href="career.jsp" class="text-muted "><i
                                                                 class="fa fa-reply"></i> </a>
                                                         <%
-														if(session.getAttribute("UserId") != null && session.getAttribute("UserId").toString().equals(dto.getId())){
+														if(UserId != null && UserId.equals(dto.getId())){
 														%>
                                                         <div class="pull-right">
                                                         <!-- 수정하기 -->        

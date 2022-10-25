@@ -134,12 +134,18 @@ margin-top: 0.75rem;
                                                         <!-- 목록으로 돌아가기 -->
                                                         <a href="/view/board/question.jsp" class="text-muted "><i
                                                                 class="fa fa-reply"></i> </a>
+                                                        <%
+														if(UserId != null && UserId.equals(dto.getQid())){
+														%>        
                                                         <!-- 수정하기 -->        
                                                         <a href="javascript:void()" class="text-muted ml-3"><i
                                                                 class="bi bi-pencil-fill"></i> </a>
                                                         <!-- 삭제하기 -->        
                                                         <a href="javascript:pwdCheckForm(<%=dto.getQnum()%>)" class="text-muted ml-3"><i
                                                                 class="fa fa-trash"></i></a>
+                                                        <%
+														}
+                                                        %>
                                                     </div>
                                                      <div class="media mb-4 mt-5">
                                                         <div class="media-body"> 
@@ -159,7 +165,6 @@ margin-top: 0.75rem;
                                                     %>
                                                     <form name="offercomFrm" method="post" action="../../Process/question/ComWriteProcess.jsp">
                                                     	<input type="hidden" name="qnum" value =<%= dto.getQnum()%>>
-                                                        <hr>
                                                         <h5 class="pt-3">COMMENT</h5>
 	                                                    <div class="form-group pt-3">
 	                                                        <textarea class="btextarea w-100" name="comment" cols="30" rows="5"  placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>

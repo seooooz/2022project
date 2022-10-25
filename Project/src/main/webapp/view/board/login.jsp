@@ -8,9 +8,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Focus - Bootstrap Admin Dashboard </title>
+    <title>For Developer</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/titlelogo.png">
     <link href="../../resources/css/style.css" rel="stylesheet">
 
 </head>
@@ -64,7 +64,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Sign in your account</h4>
+                                    <h4 class="text-center mb-4"><strong>로그인</strong></h4>
 										<form action="../../Process/LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return validateForm(this)" class="authincation h-100">
                                         <div class="form-group">
                    <!-- id입력  -->

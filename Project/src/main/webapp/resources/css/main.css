@@ -34,6 +34,15 @@ color : #666666 !important;
 	color : #593bdb !important;
 }
 
+.regray{
+color:#BDBDC7 !important;
+font-size: 14px;
+}
+
+.regray a:hover {
+color : #593bdb !important;	
+}
+
 .a{
 color:#BDBDC7 !important;
 }

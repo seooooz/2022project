@@ -21,6 +21,7 @@
     <link href="../../resources/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="../../resources/css/style.css" rel="stylesheet">
     
+	   
 
 
 
