@@ -6,9 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Focus - Bootstrap Admin Dashboard </title>
+    <title>For Developer</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/titlelogo.png">
+	<link rel="stylesheet" href="../../resources/css/main.css">    
     <link href="../../resources/css/style.css" rel="stylesheet">
 
 </head>
@@ -124,10 +125,10 @@
    <!-- name입력  -->	                        <input type="text" name="user_name" class="form-control" value="" placeholder="2~10자 사이로 입력해주세요">
                                         </div>
                                         <div class="form-group">
-   <!-- id입력  -->                           <label><strong>ID</strong></label>
+   <!-- id입력  -->                          <label style="margin-top: 15px"><strong>ID</strong></label>
+   <!-- id 중복확인  -->                      <input type="button" class="pull-right btn btn-default text-primary" value="중복확인" onClick="checkID()"/>
                                             <input type="text" name="user_id" id="id" class="form-control" value="" placeholder="4~10자 사이로 입력해주세요">
                                             <input type="hidden" name="checkid" value="idUncheck"/>
-                                            <input type="button" class="btn btn-primary btn-block" value="중복확인" onClick="checkID()"/>
                                         </div>
                                         <div class="form-group">
    <!-- pw입력  -->                          <label><strong>Password</strong></label>
