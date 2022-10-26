@@ -137,7 +137,7 @@
 														<%
 														careerBoardDAO dao = new careerBoardDAO();
 														int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
-														dao1.close();
+														dao.close();
 														%>
 														<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>">[<%=dto.getCate()%>]&nbsp;&nbsp;<%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
@@ -270,7 +270,7 @@
 															<%
 																careerBoardDAO dao = new careerBoardDAO();
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
-																dao1.close();
+																dao.close();
 															%>
 															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;
@@ -334,7 +334,7 @@
 															<%
 																careerBoardDAO dao = new careerBoardDAO();
 																int comcount = dao.countCom(Integer.valueOf(dto.getNum()));
-																dao1.close();
+																dao.close();
 															%>
 															<a class="f" href="career_view.jsp?num=<%=dto.getNum()%>"><%=dto.getTitle()%></a>
 															&nbsp;&nbsp;&nbsp;&nbsp;

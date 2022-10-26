@@ -19,7 +19,9 @@
 	
 	QuestionBoardDAO dao = new QuestionBoardDAO();
 	int num1 = Integer.parseInt(qnum);
+	dao.posetdeleteCom(num);
 	int result = dao.deleteList(num1);
+	
 	
 	System.out.println("resutl : " + result);
 	

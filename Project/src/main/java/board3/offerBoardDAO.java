@@ -367,7 +367,7 @@ public class offerBoardDAO extends DBConnPool{
 			
 			return result;
 		}
-		// 신고 게시글 시) 게시글 삭제 시 댓글 테이블도 삭제
+		// 게시글 삭제 시 댓글 테이블도 삭제
 		public int posetdeleteCom(String num) {
 			int result = 0;
 			

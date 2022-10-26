@@ -333,4 +333,25 @@ public class QuestionBoardDAO extends DBConnPool {
 		}
 		return list;
 	}
+	
+	// 게시글 삭제 시 댓글 테이블도 삭제
+			public int posetdeleteCom(String num) {
+				int result = 0;
+				
+				try {
+					
+					String sql = "delete from BCOMMENT where BOARD_CODE = 4 and postnum = ?";
+					
+					psmt = con.prepareStatement(sql);
+					psmt.setString(1, num);
+					
+					result = psmt.executeUpdate();
+				}
+				catch(Exception e) {
+					System.out.println("댓글 삭제 중 예외 발생");
+					e.printStackTrace();
+				}
+				
+				return result;
+			}
 }
