@@ -3,6 +3,8 @@
 <%@page import="board4.QuestionBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.*" %>
 <%@include file="../includes/header.jsp"%>
 <%@include file="../includes/navbar.jsp"%>
@@ -27,11 +29,11 @@
 %>
 <script>
 	function pwdCheckForm(num) {
-		
+		var qnum = num;
 		if(confirm("삭제하시겠습니까?") == true){
 			
-			window.open("<c:url value='/view/board/questionPwdCheck.jsp?qnum="
-				+ qnum + "&qid="+qid+"'/>", "PassWordCheck", "width=500, height=500");
+			location.href = "/Process/question/QuestionPwdCheckDelete.jsp?qnum="+num;
+	
 		}else{
 			return false;
 		}
@@ -141,7 +143,7 @@ margin-top: 0.75rem;
                                                         <a href="javascript:void()" class="text-muted ml-3"><i
                                                                 class="bi bi-pencil-fill"></i> </a>
                                                         <!-- 삭제하기 -->        
-                                                        <a href="javascript:pwdCheckForm(<%=dto.getQnum()%>)" class="text-muted ml-3"><i
+                                                        <a href="javascript:pwdCheckForm('<%=dto.getQnum()%>')" class="text-muted ml-3"><i
                                                                 class="fa fa-trash"></i></a>
                                                         <%
 														}
