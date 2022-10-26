@@ -718,7 +718,7 @@ public class careerBoardDAO extends DBConnPool{
 			public List<CommentDTO> reselectView(String onum, String gnum) {
 				List<CommentDTO> oboard = new Vector<CommentDTO>();
 				
-				String sql = "select * from BCOMMENT WHERE BOARD_CODE = 2 and POSTNUM = ? and class = 1 AND GROUPNUM = ? ORDER BY COM_INDEX";
+				String sql = "select * from BCOMMENT WHERE BOARD_CODE = 2 and POSTNUM = ? and class = 1 AND GROUPNUM = ? ORDER BY COM_ORDER";
 				
 				try {
 					psmt = con.prepareStatement(sql);

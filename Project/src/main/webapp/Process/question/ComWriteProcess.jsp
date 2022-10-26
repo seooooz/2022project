@@ -15,7 +15,7 @@
 		QuestionBoardDAO dao = new QuestionBoardDAO();
 		int result = dao.offerinsertCom(dto);
 		dao.comgroupUpdate();
-		int countcom = dao.countCom(Integer.valueOf(request.getParameter("qnum")));
+		int countcom = dao.countCom(request.getParameter("qnum"));
 		System.out.println(countcom);
 		dao.close();
 		

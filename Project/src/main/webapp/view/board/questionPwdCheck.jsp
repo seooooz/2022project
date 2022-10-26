@@ -34,7 +34,7 @@
 		}
 		
 		function getqnum(){
-			document.getElementById("Qnum").value=opener.document.getElementById("qnum").value;
+			document.getElementById("qnum").value=opener.document.getElementById("qnum").value;
 		}
 		
 	</script>

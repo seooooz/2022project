@@ -22,11 +22,6 @@ dao.close();
 
 
 %>
-<style>
-#content{
-	color: black;
-}
-</style>
     <body>
     <div class="content-body">
         <main class="flex-shrink-0">
@@ -52,7 +47,7 @@ dao.close();
                         <% for (SetBoardDTO dto : list1) {
                             	
                         %>
-                            <div class="accordion mb-5" id="accordionExample">
+                            <div class="f accordion mb-5" id="accordionExample">
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="headingOne"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<%=dto.getSet_num()%>" aria-expanded="true" aria-controls="collapseOne<%=dto.getSet_num()%>"><%=dto.getSet_title() %></button></h3>
                                     <div class="accordion-collapse collapse" id="collapseOne<%=dto.getSet_num()%>" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -70,7 +65,7 @@ dao.close();
                              <% for (SetBoardDTO dto2 : list2) {
                             	
                             %>
-                            <div class="accordion mb-5 mb-xl-0" id="accordionExample2">
+                            <div class="f accordion mb-5 mb-xl-0" id="accordionExample2">
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="headingOne"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<%=dto2.getSet_num() %>" aria-expanded="true" aria-controls="collapseOne<%=dto2.getSet_num() %>"><%=dto2.getSet_title() %></button></h3>
                                     <div class="accordion-collapse collapse" id="collapseOne<%=dto2.getSet_num() %>" aria-labelledby="headingOne" data-bs-parent="#accordionExample2">

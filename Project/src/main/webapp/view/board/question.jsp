@@ -150,7 +150,7 @@ String User_Id = (String)session.getAttribute("UserId");
 															}else if(User_Id.equals("admin")){
 														%>	
 															
-															<a class="f" href="question_view.jsp?qnum=<%=dto.getQnum()%>"><%=dto.getQtitle()%></a>
+															<a class="f" href="question_view.jsp?qnum=<%=dto.getNum()%>"><%=dto.getQtitle()%></a>
 														<%
 															}else if(!(User_Id.equals(qid))){
 														%>
@@ -158,7 +158,7 @@ String User_Id = (String)session.getAttribute("UserId");
 														<%
 															}else{
 														%> 
-															<a class="f" href="javascript:pwdCheckForm(<%=dto.getQnum()%>,'<%=dto.getQid()%>')"><%=dto.getQtitle() %></a>
+															<a class="f" href="javascript:pwdCheckForm(<%=dto.getNum()%>,'<%=dto.getQid()%>')"><%=dto.getQtitle() %></a>
 														
 														<%
 														}
@@ -167,7 +167,7 @@ String User_Id = (String)session.getAttribute("UserId");
 													<td class="f" align="center"><a class="f" href="javascript:popup('<%=dto.getQid()%>')"><%=dto.getQid()%></a></td>
 													<%
 													QuestionBoardDAO dao1 = new QuestionBoardDAO();
-													int countcom = dao1.countCom(dto.getQnum());
+													int countcom = dao1.countCom(dto.getNum());
 													dao1.close();
 													if(countcom > 0){
 													%>

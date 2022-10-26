@@ -367,7 +367,7 @@ public class offerBoardDAO extends DBConnPool{
 			
 			return result;
 		}
-		// 신고 게시글 시) 게시글 삭제 시 신고 테이블도 삭제
+		// 신고 게시글 시) 게시글 삭제 시 댓글 테이블도 삭제
 		public int posetdeleteCom(String num) {
 			int result = 0;
 			
@@ -565,7 +565,7 @@ public class offerBoardDAO extends DBConnPool{
 					public List<CommentDTO> reselectView(String onum, String gnum) {
 						List<CommentDTO> oboard = new Vector<CommentDTO>();
 						
-						String sql = "select * from BCOMMENT WHERE BOARD_CODE = 3 and POSTNUM = ? and class = 1 AND GROUPNUM = ? ORDER BY COM_INDEX";
+						String sql = "select * from BCOMMENT WHERE BOARD_CODE = 3 and POSTNUM = ? and class = 1 AND GROUPNUM = ? ORDER BY COM_ORDER";
 						
 						try {
 							psmt = con.prepareStatement(sql);
